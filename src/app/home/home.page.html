@@ -6,23 +6,44 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-button class="button button-large" color="dark" [routerLink]="['/search']">
-    <ion-icon name="search"></ion-icon>
-  </ion-button>
-  <ion-button class="button button-large" color="dark" [routerLink]="['/new_recipe']">
-    <ion-icon name="add"></ion-icon>
-  </ion-button>
-  <ion-button class="button button-large" color="dark" [routerLink]="['/settings']">
-    <ion-icon name="settings"></ion-icon>
-  </ion-button>
-  <ion-button class="button button-large" color="dark" [routerLink]="['/shopping_list']">
-    <ion-icon name="list-box"></ion-icon>
-  </ion-button>
-  <ion-button class="button button-large" color="dark" [routerLink]="['/barcode']">
-    <ion-icon name="?"></ion-icon>
-  </ion-button>
-  <ion-button class="button button-large" color="dark" [routerLink]="['/fridge']">
-    <ion-icon name="?"></ion-icon>
-  </ion-button>
-</ion-content>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-button class="button button-large search-button" [routerLink]="['/search']">
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <ion-col>
+      <ion-button class="button button-large add-button" [routerLink]="['/new_recipe']">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-button class="button button-large settings-button" [routerLink]="['/settings']">
+        <ion-icon name="settings"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button class="button button-large shopping-list-button" [routerLink]="['/shopping_list']">
+        <ion-icon name="list-box"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-button class="button button-large barcode-button" [routerLink]="['/barcode']">
+        <ion-icon name="?"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button class="button button-large fridge-button" [routerLink]="['/fridge']">
+        <ion-icon name="?"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
