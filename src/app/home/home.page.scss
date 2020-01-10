@@ -1,8 +1,17 @@
+.app-name {
+  font-size: 1.6em;
+}
+
 .button {
-  height: 5em;
+  height: 6em;
+  width: 6em;
 
   ion-icon {
     font-size: 3em;
     color: white;
   }
+}
+
+.button-grid {
+  margin-top: 3em;
 }
