@@ -1,8 +1,13 @@
 /** widths **/
-
 @width_max-xl: 4000px;
 @width_min-xl: 1025px;
 @width_max-md:1024px;
 @width_min-md:601px;
 @width_max-sm:600px;
 @width_min-sm:1px;
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 40px 50px auto 50px 40px;
+  grid-template-rows: repeat(3, 33%);
+}
