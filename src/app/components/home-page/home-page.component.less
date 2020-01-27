@@ -1,0 +1,39 @@
+@import "../../../../src/styles.less";
+
+.mainPage {
+  #contentArea {
+    .mainMenu {
+      display: flex;
+    }
+
+    .menuElement {
+      @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
+        width: 20%;
+      }
+      @media screen and (max-width: @width_max-md) and (min-width: @width_min-md) {
+        width: 25%;
+      }
+      @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
+        width: 33%;
+      }
+
+      &.search {
+      }
+
+      &.shoppingList {
+      }
+
+      &.addNew {
+      }
+
+      &.barcodeScanner {
+      }
+
+      &.settings {
+      }
+
+      &.fridge {
+      }
+    }
+  }
+}
