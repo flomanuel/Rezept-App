@@ -13,7 +13,15 @@ const appRoutes: Routes = [
   {
     path: 'new_recipe',
     component: RecipeComponent
-  }
+  },
+  {
+    path: '',
+    component: HomePageComponent
+  },
+  {
+    path: 'home',
+    component: HomePageComponent
+  },
 ];
 
 @NgModule({
