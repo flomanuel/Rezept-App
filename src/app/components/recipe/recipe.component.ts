@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Recipe } from '../../Entity/recipe.class';
+import { Ingredient } from '../../Entity/ingredient.class';
 
 @Component({
   selector: 'app-recipe',
@@ -8,6 +9,7 @@ import { Recipe } from '../../Entity/recipe.class';
 })
 export class RecipeComponent {
   private recipe: Recipe = new Recipe();
+  description: string;
 
   constructor() {
   }
@@ -18,5 +20,10 @@ export class RecipeComponent {
 
   get title(): string {
     return this.recipe.title;
+  }
+
+  changeIngredients(ingredients: Ingredient[]): void {
+    console.log(ingredients);
+    // this.ingredients.push(ingredients);
   }
 }

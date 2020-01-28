@@ -1,13 +1,17 @@
-<div>
-  <form action="">
-    <div>
-      <label for="title">Title</label>
-      <input type="text" id="title" [(ngModel)]="title">
-    </div>
+<form action="" id="recipeForm">
+  <h1 id="heading">Ein neues Rezept hinzufügen</h1>
+  <div id="titleContainer">
+    <label for="title">Titel</label>
+    <input type="text" name="title" id="title" [(ngModel)]="title">
+  </div>
 
-    <div>
-      <label for="desciption">Description</label>
-      <textarea name="description" id="desciption" cols="30" rows="10"></textarea>
-    </div>
-  </form>
-</div>
+  <div id="desciptionContainer">
+    <label for="desciption">Beschreibung</label>
+    <textarea name="description" id="desciption" [(ngModel)]="description" cols="40" rows="2"></textarea>
+  </div>
+
+  <div id="ingredientsContainer">
+    <label>Zutaten</label>
+    <app-input-plus-list (onIngredient)="changeIngredients($event)"></app-input-plus-list>
+  </div>
+</form>

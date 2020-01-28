@@ -1,0 +1,48 @@
+@borderRadius: .2em;
+@focusTransition: 1s;
+@baseBorder: 2px solid lightgray;
+@baseBorderFocus: 2px solid black;
+@containerWidth: 80%;
+@baseWidth: 100%;
+
+.grid {
+  margin-top: .7em;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+
+  .ingredientContainer {
+    width: @containerWidth;
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
+
+  .amountContainer {
+    width: @containerWidth;
+    grid-column-start: 2;
+    grid-column-end: 3;
+  }
+
+  .suffixContainer {
+    width: @containerWidth;
+    grid-column-start: 3;
+    grid-column-end: 4;
+
+    select {
+      width: @baseWidth;
+      padding: .22em;
+      border: @baseBorder;
+    }
+  }
+
+  input {
+    border-radius: @borderRadius;
+    width: @baseWidth;
+    padding: .3em;
+    border: @baseBorder;
+  }
+
+  input:focus {
+    border: @baseBorderFocus;
+    transition: @focusTransition;
+  }
+}

@@ -1,0 +1,64 @@
+@borderRadius: .2em;
+@focusTransition: 1s;
+@baseBorder: 2px solid lightgray;
+@baseBorderFocus: 2px solid black;
+
+#recipeForm {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-column-gap: 1.2em;
+  grid-row-gap: 2em;
+  font-family: Arial sans-serif;
+
+  #heading {
+    grid-column: 2;
+  }
+
+  #titleContainer {
+    grid-column: 2;
+
+    input {
+      border: @baseBorder;
+      transition: .2s;
+      font-size: 1.2em;
+      margin-top: .7em;
+      width: 100%;
+      padding: .5em;
+      border-radius: @borderRadius;
+    }
+
+    input:focus {
+      border: @baseBorderFocus;
+      transition: @focusTransition;
+    }
+  }
+
+  #desciptionContainer {
+    grid-column: 2;
+
+    textarea {
+      font-family: Arial sans-serif;
+      padding: .5em;
+      border: @baseBorder;
+      margin-top: .7em;
+      font-size: 1.2em;
+      width: 100%;
+      transition: .2s;
+      resize: none;
+      border-radius: @borderRadius;
+    }
+
+    textarea:focus {
+      border: @baseBorderFocus;
+      transition: @focusTransition;
+    }
+  }
+
+  #ingredientsContainer {
+    grid-column: 2;
+  }
+
+  label {
+    font-size: 1.4em;
+  }
+}
