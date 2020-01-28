@@ -6,11 +6,16 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MarketSearchComponent } from './components/market-search/market-search.component';
 
 const appRoutes: Routes = [
   {
     path: 'new_recipe',
     component: RecipeComponent
+  },
+  {
+    path: 'markets',
+    component: MarketSearchComponent
   }
 ];
 
@@ -19,7 +24,8 @@ const appRoutes: Routes = [
     AppComponent,
     RecipeComponent,
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    MarketSearchComponent
   ],
   imports: [
     BrowserModule,
