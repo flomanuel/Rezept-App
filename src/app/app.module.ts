@@ -12,15 +12,15 @@ import { BasicIngredientComponent } from './components/input-plus-list/basic-ing
 const appRoutes: Routes = [
   {
     path: 'new_recipe',
-    component: RecipeComponent
+    component: RecipeComponent,
   },
   {
     path: '',
-    component: HomePageComponent
+    component: HomePageComponent,
   },
   {
     path: 'home',
-    component: HomePageComponent
+    component: HomePageComponent,
   },
 ];
 
@@ -41,7 +41,8 @@ const appRoutes: Routes = [
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    BasicIngredientComponent
-  ]
+    BasicIngredientComponent,
+  ],
 })
-export class AppModule { }
+export class AppModule {
+}
