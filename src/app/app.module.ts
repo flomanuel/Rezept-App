@@ -6,6 +6,8 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { IngredientListComponent } from './components/recipedetailpage/ingredient-list/ingredient-list.component';
+import { RecipedetailpageComponent } from './components/recipedetailpage/recipedetailpage.component';
 
 const appRoutes: Routes = [
   {
@@ -19,7 +21,9 @@ const appRoutes: Routes = [
     AppComponent,
     RecipeComponent,
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    IngredientListComponent,
+    RecipedetailpageComponent
   ],
   imports: [
     BrowserModule,
