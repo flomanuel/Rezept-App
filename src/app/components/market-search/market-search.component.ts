@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+declare var ol: any;
+
 @Component({
   selector: 'app-market-search',
   templateUrl: './market-search.component.html',
@@ -7,13 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MarketSearchComponent implements OnInit {
 
-  public TestString: string;
-  public Test: any;
-  public successCallback: any;
-
   constructor() {
     this.TestString = 'test';
   }
+
+  public TestString: string;
+
+
+  map: any;
 
   ermittlePosition() {
     if (navigator.geolocation) {
@@ -29,6 +32,17 @@ export class MarketSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.map = new ol.Map({
+      target: 'map',
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+      ],
+      view: new ol.View({
+        center: ol.proj.fromLonLat([8.7959733, 53.0891505]),
+        zoom: 17
+      })
+    });
   }
-
 }
