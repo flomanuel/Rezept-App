@@ -2,7 +2,22 @@
   <h1 id="heading">Ein neues Rezept hinzufügen</h1>
   <div id="titleContainer">
     <label for="title">Titel</label>
-    <input type="text" name="title" id="title" [(ngModel)]="title">
+    <input placeholder="Titel des Rezepts..." type="text" name="title" id="title" [(ngModel)]="title">
+  </div>
+
+  <div id="categoryAndRegionContainer">
+    <div>
+      <label for="category">Kategorie</label>
+      <select [(ngModel)]="category" name="category" id="category">
+        <option value="{{ item }}" *ngFor="let item of fileCategories">{{ item }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="region">Region</label>
+      <select [(ngModel)]="region" name="region" id="region">
+        <option value="{{ item }}" *ngFor="let item of fileRegions">{{ item }}</option>
+      </select>
+    </div>
   </div>
 
   <div id="desciptionContainer">
