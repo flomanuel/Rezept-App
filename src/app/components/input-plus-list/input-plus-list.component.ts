@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, EventEmitter, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { Ingredient } from '../../Entity/ingredient.class';
+import { Ingredient } from '../../entity/ingredient.class';
 import { BasicIngredientComponent } from './basic-ingredient/basic-ingredient.component';
 
 @Component({

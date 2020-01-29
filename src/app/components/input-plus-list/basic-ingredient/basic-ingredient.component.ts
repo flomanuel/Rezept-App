@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Ingredient } from '../../../Entity/ingredient.class';
+import { Ingredient } from '../../../entity/ingredient.class';
 
 @Component({
   selector: 'app-basic-ingredient',
