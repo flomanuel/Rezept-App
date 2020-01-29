@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-recipe',
@@ -8,9 +8,6 @@ import { Component } from '@angular/core';
 export class RecipeComponent {
   public title: string;
 
-  constructor() {}
-
-  doShit() {
-    console.log(this.title);
+  constructor() {
   }
 }

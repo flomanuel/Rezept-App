@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./home-page.component.less']
 })
 export class HomePageComponent implements OnInit {
-  mainImagePath: string;
+  private mainImagePath: string;
 
   constructor() {
     this.mainImagePath = 'assets/logo/logo_noText.svg';
