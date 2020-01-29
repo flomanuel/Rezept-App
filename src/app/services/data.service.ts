@@ -1,11 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Tag} from '../entity/Tag';
-import {Ingredient} from '../entity/Ingredient';
-import {Recipe} from '../entity/Recipe';
-import {Category} from '../entity/category.enum';
+import { Injectable } from '@angular/core';
+import { Tag } from '../entity/Tag';
+import { Ingredient } from '../entity/Ingredient';
+import { Recipe } from '../entity/Recipe';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
   tagList: Tag[] = [];

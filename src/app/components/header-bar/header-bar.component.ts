@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Location} from '@angular/common';
-import {DataService} from '../../services/data.service';
-import {Tag} from '../../entity/Tag';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Location } from '@angular/common';
+import { DataService } from '../../services/data.service';
+import { Tag } from '../../entity/Tag';
 
 @Component({
   selector: 'app-header-bar',
   templateUrl: './header-bar.component.html',
-  styleUrls: ['./header-bar.component.less']
+  styleUrls: ['./header-bar.component.less'],
 })
 export class HeaderBarComponent implements OnInit {
 
