@@ -1,0 +1,88 @@
+/*************************************
+imports
+filter tab
+   - filter tab title
+filter tab element container
+**************************************/
+
+/*************************************
+imports
+**************************************/
+@import "../../../../src/styles.less";
+
+/*************************************
+filter tab
+**************************************/
+.filter-tab {
+  padding: 9px 0;
+  margin-bottom: 25px;
+  border-width: 1px;
+  border-color: #000000;
+  border-style: solid none;
+
+  &.open {
+    .filter-tab__title {
+      padding-bottom: 10px;
+
+      &:before {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  /** filter tab title **/
+
+  .filter-tab__title {
+    display: inline-block;
+    cursor: pointer;
+    .mainFontFamily();
+    font-size: 24px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.54);
+    padding: 7px 23px 7px 9px;
+    background: @mainColors_lightGrey;
+    border-radius: 6px;
+
+    &:before {
+      display: inline-block;
+      content: '';
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 18px solid rgba(0, 0, 0, 0.54);
+      margin-right: 18px;
+    }
+  }
+
+  /*************************************
+  filter tab element container
+  **************************************/
+
+  .filter-tab__elementContainer {
+    display: flex;
+    flex-wrap: wrap;
+    background: @mainColors_lightGrey;
+    margin-top: -10px;
+    padding: 31px 14px 27px 14px;
+    border-radius: 6px;
+  }
+
+  .filter-tab__elementContainer__element {
+    display: inline-block;
+    .mainFontFamily();
+    border-radius: 12px;
+    padding: 5px 15px;
+    margin: 3px;
+    cursor: pointer;
+
+    &:not(.selected) {
+      color: #ffffff;
+      background-color: @mainColors_darkGrey;
+    }
+
+    &.selected {
+      color: #DADADA;
+      background: #909090;
+      box-shadow: 4px 3px 4px rgba(0, 0, 0, 0.25);
+    }
+  }
+}

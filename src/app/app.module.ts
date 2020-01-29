@@ -22,6 +22,10 @@ const appRoutes: Routes = [
     path: 'home',
     component: HomePageComponent,
   },
+  {
+    path: 'search',
+    component: SearchPageComponent
+  },
 ];
 
 @NgModule({
@@ -32,6 +36,11 @@ const appRoutes: Routes = [
     HomePageComponent,
     InputPlusListComponent,
     BasicIngredientComponent,
+    HomePageComponent,
+    SearchPageComponent,
+    RecipeListElementComponent,
+    SearchPageFilterTabComponent,
+    HeaderBarComponent,
   ],
   imports: [
     BrowserModule,
