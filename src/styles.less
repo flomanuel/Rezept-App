@@ -24,10 +24,13 @@
 
 .grid-container {
   display: grid;
-  grid-template-rows: repeat(3, 33%);
 
   &:not(.noExtraColumns) {
     grid-template-columns: 100px auto 100px;
+  }
+
+  &:not(.noRows) {
+    grid-template-rows: repeat(3, 33%);
   }
 
   &.noExtraColumns {
