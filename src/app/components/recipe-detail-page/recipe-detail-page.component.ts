@@ -4,7 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-recipedetailpage',
   templateUrl: './recipe-detail-page.component.html',
-  styleUrls: ['./recipe-detail-page.component.css']
+  styleUrls: ['./recipe-detail-page.component.less']
 })
 export class RecipedetailpageComponent implements OnInit {
 
