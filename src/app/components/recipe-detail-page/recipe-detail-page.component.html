@@ -1,0 +1,17 @@
+<div>
+
+</div>
+<div>
+  <h1>{{dataService.searchResult[this.index].title}}</h1>
+</div>
+
+<div class="div">
+  <table class="table table-striped">
+    <tbody>
+    <tr *ngFor="let ingredient of dataService.searchResult[this.index].ingredients" (click)="ingredient.AddMissing()">
+<!--      <td [class.missing]="ingredient.missing">{{ingredient.amount}}</td>-->
+      <td [class.missing]="ingredient.missing">{{ingredient.title}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
