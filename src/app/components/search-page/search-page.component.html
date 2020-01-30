@@ -5,8 +5,8 @@
                   [defaultIngredientsButton]="true"
                   (defaultIngredientsEvent)="onDefaultIngredientsChange($event)"
   ></app-header-bar>
-  <div id="contentArea" class="grid-container noExtraColumns">
-    <div class="tag-list">
+  <div id="contentArea" class="grid-container noExtraColumns noRows">
+    <div class="tag-list" *ngIf="suggestionsList.length > 0">
       <p class="tag-list__element" (click)="removeFilterParam(selectedTag, suggestionsList)"
          *ngFor="let selectedTag of suggestionsList">{{selectedTag.title}}</p>
     </div>
