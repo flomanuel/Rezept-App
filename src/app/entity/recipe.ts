@@ -1,7 +1,7 @@
-import {Category} from './category.enum';
-import {Region} from './region.enum';
-import {Ingredient} from './Ingredient';
-import {Tag} from './Tag';
+import { Category } from './category.enum';
+import { Region } from './region.enum';
+import { Ingredient } from './Ingredient';
+import { Tag } from './Tag';
 
 export class Recipe extends Tag {
   public missingIngredients: number;
