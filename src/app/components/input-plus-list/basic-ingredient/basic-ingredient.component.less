@@ -3,12 +3,14 @@
 @baseBorder: 2px solid lightgray;
 @baseBorderFocus: 2px solid black;
 @containerWidth: 80%;
-@baseWidth: 100%;
+@baseWidth: 110%;
 
 .grid {
   margin-top: .7em;
   display: grid;
   grid-template-columns: auto auto auto auto;
+  grid-row-gap: .7em;
+  grid-column-gap: .2em;
 
   .ingredientContainer {
     width: @containerWidth;
@@ -29,7 +31,7 @@
 
     select {
       width: @baseWidth;
-      padding: .22em;
+      padding: .5em;
       border: @baseBorder;
     }
   }
@@ -37,7 +39,7 @@
   input {
     border-radius: @borderRadius;
     width: @baseWidth;
-    padding: .3em;
+    padding: .6em;
     border: @baseBorder;
   }
 

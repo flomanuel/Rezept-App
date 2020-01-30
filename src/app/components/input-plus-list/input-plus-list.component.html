@@ -1,6 +1,9 @@
 <div class="input-plus-list">
-  <div #inputs class="inputs">
-    <app-basic-ingredient></app-basic-ingredient>
+  <div>
+    <div #inputs class="inputs">
+      <app-basic-ingredient></app-basic-ingredient>
+    </div>
+    <button id="removeBtn" class="newInputBtn" (click)="removeInput()">-</button>
   </div>
-  <button id="newInputBtn" (click)="newInput()">+</button>
+  <button id="addBtn" class="newInputBtn" (click)="newInput()">+</button>
 </div>

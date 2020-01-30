@@ -20,6 +20,10 @@ export class InputPlusListComponent {
     this.inputs.createComponent(child);
   }
 
+  removeInput() {
+    this.inputs.detach(this.inputs.length - 1);
+  }
+
   ingredientsHandler(ingredients: Ingredient[]): void {
     this.onIngredient.emit(ingredients);
   }

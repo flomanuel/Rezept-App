@@ -1,8 +1,18 @@
 <form action="" id="recipeForm">
+  <app-header-bar></app-header-bar>
   <h1 id="heading">Ein neues Rezept hinzufügen</h1>
-  <div id="titleContainer">
-    <label for="title">Titel</label>
-    <input placeholder="Titel des Rezepts..." type="text" name="title" id="title" [(ngModel)]="title">
+
+  <div id="titleAndPreparationTimeContainer">
+    <div id="titleContainer">
+      <label for="title">Titel</label>
+      <input placeholder="Titel des Rezepts..." type="text" name="title" id="title" [(ngModel)]="title">
+    </div>
+
+    <div id="preparationTimeContainer">
+      <label for="preparationTime">Vorbereitungszeit (in Minuten)</label>
+      <input placeholder="Vorbereitungszeit..." type="number" name="preparationTime" id="preparationTime"
+             [(ngModel)]="preparationTime">
+    </div>
   </div>
 
   <div id="categoryAndRegionContainer">
@@ -28,5 +38,14 @@
   <div id="ingredientsContainer">
     <label>Zutaten</label>
     <app-input-plus-list (onIngredient)="changeIngredients($event)"></app-input-plus-list>
+  </div>
+
+  <div id="instructionsContainer">
+    <label for="instructions">Anweisungen</label>
+    <textarea name="instructions" id="instructions" cols="40" rows="10"></textarea>
+  </div>
+
+  <div id="submitContainer">
+    <button>Anlegen</button>
   </div>
 </form>

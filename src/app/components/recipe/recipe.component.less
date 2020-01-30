@@ -6,22 +6,35 @@
 
 #recipeForm {
   display: grid;
+  box-sizing: border-box;
   grid-template-columns: repeat(12, auto);
   grid-column-gap: 1.2em;
   grid-row-gap: 2em;
   font-family: Arial sans-serif;
 
   #heading {
-    grid-row: 1;
     grid-column-start: @baseGridColumnStart;
-    grid-column-end: 6;
+    grid-column-end: 7;
   }
 
-  #titleContainer {
-    grid-row: 2;
+  #titleAndPreparationTimeContainer {
+    display: grid;
+    box-sizing: border-box;
     grid-column-start: @baseGridColumnStart;
+    grid-column-end: 7;
 
-    input {
+    div {
+      display: grid;
+      grid-template-columns: repeat(2, 50%);
+    }
+
+    label {
+      margin-top: 1em;
+    }
+
+    #title,
+    #preparationTime {
+      grid-column: 2;
       border: @baseBorder;
       transition: .2s;
       font-size: 1.2em;
@@ -31,7 +44,8 @@
       border-radius: @borderRadius;
     }
 
-    input:focus {
+    #title:focus,
+    #preparationTime:focus {
       border: @baseBorderFocus;
       transition: @focusTransition;
     }
@@ -42,7 +56,6 @@
     grid-template-columns: repeat(2, 50%);
     grid-column-start: @baseGridColumnStart;
     grid-column-end: 7;
-    grid-row: 3;
 
     div {
       grid-row: 1;
@@ -59,7 +72,8 @@
     }
   }
 
-  #desciptionContainer {
+  #desciptionContainer,
+  #instructionsContainer {
     grid-column-start: @baseGridColumnStart;
     grid-column-end: 6;
 
@@ -84,6 +98,23 @@
   #ingredientsContainer {
     grid-column-start: @baseGridColumnStart;
     grid-column-end: 6;
+  }
+
+  #submitContainer {
+    grid-column-start: @baseGridColumnStart;
+
+    button {
+      padding: .5em;
+      border: 1px solid black;
+      font-size: 1.2em;
+      background-color: #ffca2c;
+      border-radius: .2em;
+    }
+
+    button:hover {
+      background-color: #e8b32c;
+      cursor: pointer;
+    }
   }
 
   label {
