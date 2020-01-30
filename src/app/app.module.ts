@@ -1,29 +1,44 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { HomePageComponent } from './components/home-page/home-page.component';
-import { RecipeComponent } from './components/recipe/recipe.component';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { IngredientListComponent } from './components/recipedetailpage/ingredient-list/ingredient-list.component';
-import { RecipedetailpageComponent } from './components/recipedetailpage/recipedetailpage.component';
+import {AppComponent} from './app.component';
+import {HomePageComponent} from './components/home-page/home-page.component';
+import {RecipeComponent} from './components/recipe/recipe.component';
+import {RouterModule, Routes} from '@angular/router';
+import {FormsModule} from '@angular/forms';
+import { SearchPageComponent } from './components/search-page/search-page.component';
+import { RecipeListElementComponent } from './components/recipe-list-element/recipe-list-element.component';
+import { SearchPageFilterTabComponent } from './components/search-page-filter-tab/search-page-filter-tab.component';
+import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 
 const appRoutes: Routes = [
   {
     path: 'new_recipe',
     component: RecipeComponent
-  }
+  },
+  {
+    path: '',
+    component: HomePageComponent
+  },
+  {
+    path: 'home',
+    component: HomePageComponent
+  },
+  {
+    path: 'search',
+    component: SearchPageComponent
+  },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipeComponent,
-    AppComponent,
     HomePageComponent,
-    IngredientListComponent,
-    RecipedetailpageComponent
+    SearchPageComponent,
+    RecipeListElementComponent,
+    SearchPageFilterTabComponent,
+    HeaderBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,4 +48,5 @@ const appRoutes: Routes = [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

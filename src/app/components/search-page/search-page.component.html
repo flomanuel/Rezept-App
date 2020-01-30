@@ -1,0 +1,19 @@
+<div class="mainPage">
+  <app-header-bar [suggestions]="suggestionsList"
+                  [fridgeFlag]="true"
+                  [shoppingListButton]="true"
+                  [defaultIngredientsButton]="true"
+                  (defaultIngredientsEvent)="onDefaultIngredientsChange($event)"
+  ></app-header-bar>
+  <div id="contentArea" class="grid-container noExtraColumns noRows">
+    <div class="tag-list" *ngIf="suggestionsList.length > 0">
+      <p class="tag-list__element" (click)="removeFilterParam(selectedTag, suggestionsList)"
+         *ngFor="let selectedTag of suggestionsList">{{selectedTag.title}}</p>
+    </div>
+    <app-search-page-filter-tab [tabElements]="tabElements"
+                                (tabSelection)="onTabSelection($event)"></app-search-page-filter-tab>
+    <div class="recipe-list">
+      <app-recipe-list-element *ngFor="let recipe of searchResult" [recipe]="recipe"></app-recipe-list-element>
+    </div>
+  </div>
+</div>

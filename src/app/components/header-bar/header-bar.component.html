@@ -1,0 +1,32 @@
+<div id="header" class="grid-container noExtraColumns">
+  <span class="back" (click)="goBack()"></span>
+  <form *ngIf="suggestions" class="add-tag" [class.active]="suggestionContainerActive">
+    <input type="text" name="search-field" [(ngModel)]="searchValue" (click)="toggleSuggestionsContainer(true)">
+  </form>
+
+  <div class="rightSideButtonsWrapper" [class.afterSuggestionsBar]="suggestions">
+  <span class="default-ingredients-flag"
+        *ngIf="!(suggestionContainerActive && suggestions) && defaultIngredientsButton"
+        [class.selected]="defaultIngredientsStatus"
+        (click)="toggleIngredientsStatus()">
+    Standard<br/>Zutaten
+  </span>
+
+    <a class="fridge-flag"
+       *ngIf="!(suggestionContainerActive && suggestions) &&  fridgeFlag"
+       [class.selected]="fridgeContentStatus"
+       (click)="toggleFridgeStatus()">
+    </a>
+
+    <a class="open-shoppingList"
+       *ngIf="!(suggestionContainerActive && suggestions) &&  shoppingListButton" routerLink="/">
+    </a>
+  </div>
+</div>
+
+<div class="suggestionsContainer" *ngIf="suggestionContainerActive && suggestions">
+  <p class="suggestion"
+     *ngFor="let tag of this.dataService.getTagsBySearchString(this.searchValue)"
+     (click)="addSuggestion(tag)">{{tag.title}}
+  </p>
+</div>

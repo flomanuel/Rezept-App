@@ -1,0 +1,55 @@
+/*************************************
+imports
+content area
+  - suggestions container
+  - tag list
+  - recipe list
+**************************************/
+
+/*************************************
+imports
+**************************************/
+@import "../../../../src/styles.less";
+
+/*************************************
+content area
+**************************************/
+#contentArea {
+  height: 90%;
+  width: 100%;
+}
+
+/** tag list **/
+.tag-list {
+  padding-bottom: 34px;
+
+  .tag-list__element {
+    cursor: pointer;
+    display: inline-block;
+    .mainFontFamily();
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+    background-color: @mainColors_lightGrey;
+    border-radius: 12px;
+    padding: 5px 15px;
+    margin: 3px;
+  }
+}
+
+/** recipe list **/
+.recipe-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  > app-recipe-list-element {
+    @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
+      width: 30%;
+      margin: 15px;
+    }
+    @media screen and (max-width: @width_max-md) and (min-width: @width_min-sm) {
+      width: 372px;
+      margin: 10px;
+    }
+  }
+}
