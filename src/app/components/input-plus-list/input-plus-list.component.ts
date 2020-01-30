@@ -9,6 +9,7 @@ import { BasicIngredientComponent } from './basic-ingredient/basic-ingredient.co
 })
 export class InputPlusListComponent {
   @ViewChild('inputs', { static: false, read: ViewContainerRef }) inputs: ViewContainerRef;
+  // tslint:disable-next-line:no-output-on-prefix
   @Output() onIngredient: EventEmitter<Ingredient[]> = new EventEmitter<Ingredient[]>();
 
   constructor(private readonly resolver: ComponentFactoryResolver) {
