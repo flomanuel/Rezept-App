@@ -3,7 +3,7 @@ import {Region} from './region.enum';
 import {Ingredient} from './Ingredient';
 import {Tag} from './Tag';
 
-export class Recipe extends Tag{
+export class Recipe extends Tag {
   public missingIngredients: number;
 
   constructor(public ID: number, public title: string, public preparationTime: number, public category: Category[],
