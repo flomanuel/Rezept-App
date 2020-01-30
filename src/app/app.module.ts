@@ -10,6 +10,7 @@ import { SearchPageComponent } from './components/search-page/search-page.compon
 import { RecipeListElementComponent } from './components/recipe-list-element/recipe-list-element.component';
 import { SearchPageFilterTabComponent } from './components/search-page-filter-tab/search-page-filter-tab.component';
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
+import { RecipedetailpageComponent } from './components/recipe-detail-page/recipe-detail-page.component';
 
 const appRoutes: Routes = [
   {
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
     RecipeListElementComponent,
     SearchPageFilterTabComponent,
     HeaderBarComponent,
+    RecipedetailpageComponent
   ],
   imports: [
     BrowserModule,
