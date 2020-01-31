@@ -24,15 +24,16 @@ export class MarketSearchComponent implements OnInit {
 
   ermittlePosition() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.zeigePosition);
-      this.setCenter(this.coords.longitude, this.coords.latitude);
+      navigator.geolocation.getCurrentPosition(position => {
+        this.coords = position.coords;
+      });
     } else {
       console.log('Ihr Browser unterstützt keine Geolocation.');
     }
+    this.setCenter(this.coords.longitude, this.coords.latitude);
   }
-  zeigePosition(position): Coordinates {
+  zeigePosition(position) {
     console.log('Ihre Koordinaten sind: Breite: ' + position.coords.latitude + ' Länge: ' + position.coords.longitude);
-    return position.coords;
   }
 
   ngOnInit() {
@@ -53,6 +54,8 @@ export class MarketSearchComponent implements OnInit {
         zoom: 17
       })
     });
+    document.getElementsByClassName('ol-zoom ol-unselectable ol-control')[0].remove();
+
   }
   setCenter(longitude: number , latitude: number) {
     console.log('Ihre Koordinaten werden auf: Breite: ' + latitude + ' Länge: ' + longitude + ' gesetzt');
