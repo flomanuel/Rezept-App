@@ -1,0 +1,136 @@
+/*************************************
+imports
+header
+content area
+  - main menu
+  - menu element
+**************************************/
+
+/*************************************
+imports
+**************************************/
+@import "../../../../src/styles.less";
+
+/*************************************
+header
+**************************************/
+#header {
+  .title {
+    margin: 10px 0;
+    font: normal 48px/64px Arial, 'sans-serif';
+    text-align: center;
+  }
+
+  .logo-wrapper {
+    text-align: center;
+  }
+
+  .logo {
+    display: inline-block;
+
+    @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
+      width: 250px;
+      height: 250px;
+    }
+    @media screen and (max-width: @width_max-md) and (min-width: @width_min-md) {
+      width: 150px;
+      height: 150px;
+    }
+    @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
+      width: 115px;
+      height: 115px;
+    }
+  }
+}
+
+/*************************************
+content area
+**************************************/
+#contentArea {
+  /** main menu **/
+
+  .mainMenu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  /** menu element **/
+
+  .menuElement {
+    border-radius: 26px;
+    margin: 19px;
+
+    &:hover {
+      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
+      width: 10%;
+      height: 0;
+      padding-bottom: 10%; //because using padding instead of height makes aspect ratio stay the same
+    }
+    @media screen and (max-width: @width_max-md) and (min-width: @width_min-md) {
+      width: 20%;
+      padding-bottom: 20%;
+    }
+    @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
+      width: 33%;
+      padding-bottom: 33%;
+    }
+
+    &.search {
+      background: @colourButtonSearch url("../../../assets/icons/search--white.svg") no-repeat center;
+      background-size: 80%;
+
+      &:hover {
+        background-color: darken(@colourButtonSearch, 5%);
+      }
+    }
+
+    &.shoppingList {
+      background: @colourButtonShoppingList url("../../../assets/icons/shopping-list.svg") no-repeat center;
+      background-size: 80%;
+
+      &:hover {
+        background-color: darken(@colourButtonShoppingList, 5%);
+      }
+    }
+
+    &.addNew {
+      background: @colourButtonAddNew url("../../../assets/icons/add_24px.svg") no-repeat center;
+      background-size: 80%;
+
+      &:hover {
+        background-color: darken(@colourButtonAddNew, 5%);
+      }
+    }
+
+    &.barcodeScanner {
+      background: @colourButtonBarcodeScanner url("../../../assets/icons/icon barcode.svg") no-repeat center;
+      background-size: 80%;
+
+      &:hover {
+        background-color: darken(@colourButtonBarcodeScanner, 5%);
+      }
+    }
+
+    &.settings {
+      background: @colourButtonSettings url("../../../assets/icons/Gears Icon.svg") no-repeat center;
+      background-size: 80%;
+
+      &:hover {
+        background-color: darken(@colourButtonSettings, 5%);
+      }
+    }
+
+    &.fridge {
+      background: @colourButtonFridge url("../../../assets/icons/fridge--white.svg") no-repeat center;
+      background-size: 63%;
+
+      &:hover {
+        background-color: darken(@colourButtonFridge, 5%);
+      }
+    }
+  }
+}

@@ -1,0 +1,225 @@
+/*************************************
+imports
+header
+right side buttons wrapper
+suggestions container
+fridge button
+shopping list button
+default ingredients flag
+**************************************/
+
+/*************************************
+imports
+**************************************/
+@import "../../../../src/styles.less";
+
+/*************************************
+header
+**************************************/
+#header {
+  z-index: 2;
+  display: flex;
+  position: sticky;
+  top: 0;
+  height: 10%;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,1) 67%, rgba(255,255,255,0.8883754185267857) 79%, rgba(255,255,255,0.6054622532606793) 88%, rgba(255,255,255,0) 100%);
+
+  .back {
+    width: 35px;
+    height: 35px;
+    content: '';
+    background: url("../../../assets/icons/navigation/page_back.svg") no-repeat center;
+  }
+
+  .add-tag {
+    padding-left: 9px;
+    margin-bottom: 21px;
+    height: 34px;
+
+    &:not(.active) {
+      width: 48.9%;
+      border: 1px solid @mainColors_darkGrey;
+      border-radius: 53px;
+    }
+
+    &.active {
+      width: calc(100% - 35px);
+      border-bottom: 3px solid @mainColors_darkGrey;
+    }
+  }
+
+  .add-tag > input {
+    color: @mainColors_darkGrey;
+    .mainFontFamily();
+    width: 100%;
+    height: 100%;
+    padding-left: 32px;
+    border: none;
+    box-sizing: border-box;
+    background: url("../../../assets/icons/search--black.svg") no-repeat left;
+    background-size: 23px;
+  }
+}
+
+/*************************************
+right side buttons wrapper
+**************************************/
+.rightSideButtonsWrapper {
+  display: flex;
+  justify-content: flex-end;
+
+  &.afterSuggestionsBar {
+    width: 48.9%;
+  }
+
+  &:not(.afterSuggestionsBar) {
+    width: 100%;
+  }
+}
+
+
+/*************************************
+suggestions container
+**************************************/
+.suggestionsContainer {
+  z-index: 1;
+  overflow-y: auto;
+  position: fixed;
+  left: 0;
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+
+  .suggestion {
+    cursor: pointer;
+    color: @mainColors_darkGrey;
+    .mainFontFamily();
+    margin: 0 40px;
+    border-bottom: 1px solid #000000;
+    padding: 5px 0 10px 0;
+  }
+}
+
+/*************************************
+fridge button
+**************************************/
+.fridge-flag {
+  margin: 4px;
+  background: url("../../../assets/icons/fridge--black.svg") no-repeat center;
+  background-size: contain;
+  padding-right: 8px;
+  opacity: 0.25;
+  cursor: pointer;
+
+  @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
+    width: 50px;
+    height: 61px;
+  }
+  @media screen and (max-width: @width_max-md) and (min-width: @width_min-md) {
+    width: 40px;
+    height: 51px;
+  }
+  @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
+    width: 30px;
+    height: 41px;
+  }
+
+  &:not(:hover) {
+    border-right: 1px solid #000000;
+  }
+
+  &.selected:not(:hover) {
+    border-right: 1px solid #b7b7b7;
+  }
+
+  &:hover:not(.selected) {
+    opacity: 0.5;
+    border-right: 1px solid #1f1f1f;
+  }
+
+  &:hover.selected {
+    border-right: 1px solid #b9b9b9;
+  }
+
+  &.selected {
+    opacity: 1;
+  }
+
+
+}
+
+/*************************************
+shopping list button
+**************************************/
+.open-shoppingList {
+  margin: 4px;
+  background: url("../../../assets/icons/shopping-list--black.svg") no-repeat center;
+  background-size: contain;
+
+  @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
+    width: 60px;
+    height: 61px;
+  }
+  @media screen and (max-width: @width_max-md) and (min-width: @width_min-md) {
+    width: 50px;
+    height: 51px;
+  }
+  @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
+    width: 40px;
+    height: 41px;
+  }
+
+  &:not(:hover) {
+    opacity: 0.7;
+  }
+}
+
+/*************************************
+default ingredients flag
+**************************************/
+.default-ingredients-flag {
+  margin: 4px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  cursor: pointer;
+
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.25em;
+  text-align: center;
+
+  @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
+    font-size: 20px;
+    padding: 5px;
+
+  }
+  @media screen and (max-width: @width_max-md) and (min-width: @width_min-md) {
+    font-size: 20px;
+    padding: 5px;
+  }
+  @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
+    font-size: 12px;
+    height: 35px;
+    padding: 1px;
+  }
+
+  &:not(:hover) {
+    color: #B5B5B5;
+    background: rgba(109, 109, 109, 0.08);
+    border: 2px solid #CACACA;
+  }
+
+  &:hover:not(.selected) {
+    color: rgba(0, 0, 0, 0.64);
+    background: rgba(130, 130, 130, 0.24);
+    border: 2px solid #989898;
+  }
+
+  &.selected {
+    color: #000000;
+    background: rgba(109, 109, 109, 0.38);
+    border: 2px solid #929292;
+  }
+}
