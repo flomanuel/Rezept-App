@@ -14,10 +14,8 @@ import * as proj from 'ol/proj';
 export class MarketSearchComponent implements OnInit {
 
   constructor() {
-    this.TestString = 'test';
   }
 
-  public TestString: string;
   public longitude: number;
   public latitude: number;
   public coords: Coordinates;

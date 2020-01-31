@@ -13,6 +13,7 @@ import { RecipeListElementComponent } from './components/recipe-list-element/rec
 import { SearchPageFilterTabComponent } from './components/search-page-filter-tab/search-page-filter-tab.component';
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { RecipedetailpageComponent } from './components/recipe-detail-page/recipe-detail-page.component';
+import { MarketSearchComponent } from './components/market-search/market-search.component';
 
 const appRoutes: Routes = [
   {
@@ -31,6 +32,10 @@ const appRoutes: Routes = [
     path: 'search',
     component: SearchPageComponent
   },
+  {
+    path: 'markets',
+    component: MarketSearchComponent
+  },
 ];
 
 @NgModule({
@@ -46,7 +51,8 @@ const appRoutes: Routes = [
     RecipeListElementComponent,
     SearchPageFilterTabComponent,
     HeaderBarComponent,
-    RecipedetailpageComponent
+    RecipedetailpageComponent,
+    MarketSearchComponent
   ],
   imports: [
     BrowserModule,
