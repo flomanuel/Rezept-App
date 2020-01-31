@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import Tile from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import * as proj from 'ol/proj';
 
-declare var ol: any;
 
 @Component({
   selector: 'app-market-search',
   templateUrl: './market-search.component.html',
-  styleUrls: ['./market-search.component.css']
+  styleUrls: ['./market-search.component.less']
 })
 export class MarketSearchComponent implements OnInit {
 
@@ -14,35 +18,49 @@ export class MarketSearchComponent implements OnInit {
   }
 
   public TestString: string;
-
+  public longitude: number;
+  public latitude: number;
+  public coords: Coordinates;
 
   map: any;
 
   ermittlePosition() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.zeigePosition);
+      this.setCenter(this.coords.longitude, this.coords.latitude);
     } else {
-      // ausgabe.innerHTML = 'Ihr Browser unterstützt keine Geolocation.';
+      console.log('Ihr Browser unterstützt keine Geolocation.');
     }
   }
-  zeigePosition(position) {
-    // this.TestString = 'Ihre Koordinaten sind: Breite: ' + position.coords.latitude + 'Länge: ' + position.coords.longitude;
-    // tslint:disable-next-line:max-line-length
-    document.getElementsByClassName('text')[0].innerHTML = 'Ihre Koordinaten sind: Breite: ' + position.coords.latitude + 'Länge: ' + position.coords.longitude;
+  zeigePosition(position): Coordinates {
+    console.log('Ihre Koordinaten sind: Breite: ' + position.coords.latitude + ' Länge: ' + position.coords.longitude);
+    return position.coords;
   }
 
   ngOnInit() {
-    this.map = new ol.Map({
+    document.body.style.margin = '0';
+    this.InitMap();
+  }
+
+  InitMap() {
+    this.map = new Map({
       target: 'map',
       layers: [
-        new ol.layer.Tile({
-          source: new ol.source.OSM()
+        new Tile({
+          source: new OSM()
         })
       ],
-      view: new ol.View({
-        center: ol.proj.fromLonLat([8.7959733, 53.0891505]),
+      view: new View({
+        center: proj.fromLonLat([8.7959733, 53.0891505]),
         zoom: 17
       })
     });
   }
+  setCenter(longitude: number , latitude: number) {
+    console.log('Ihre Koordinaten werden auf: Breite: ' + latitude + ' Länge: ' + longitude + ' gesetzt');
+    const view = this.map.getView();
+    view.setCenter(proj.fromLonLat([longitude, latitude]));
+    view.setZoom(17);
+  }
 }
+
