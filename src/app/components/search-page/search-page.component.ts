@@ -3,6 +3,8 @@ import {Tag} from '../../entity/Tag';
 import {DataService} from '../../services/data.service';
 import {Region} from '../../entity/Region';
 import {Recipe} from '../../entity/Recipe';
+import { Title } from '../../entity/title.class';
+import { Id } from '../../entity/id.class';
 
 @Component({
   selector: 'app-search-page',
@@ -16,11 +18,9 @@ export class SearchPageComponent implements OnInit {
   private defaultIngredientsStatus = false;
 
   constructor(private dataService: DataService) {
-    this.tabElements.push(new Region('Italienisch', 1));
-    this.tabElements.push(new Region('Asiatisch', 2));
-    this.tabElements.push(new Region('Griechisch', 3));
-    this.tabElements.push(new Region('Griechisch', 3));
-    this.tabElements.push(new Region('Griechisch', 3));
+    this.tabElements.push(new Region(Title.create('Italienisch'), Id.fromNumber(Id.generate())));
+    this.tabElements.push(new Region(Title.create('Asiatisch'), Id.fromNumber(Id.generate())));
+    this.tabElements.push(new Region(Title.create('Griechisch'), Id.fromNumber(Id.generate())));
   }
 
   ngOnInit() {

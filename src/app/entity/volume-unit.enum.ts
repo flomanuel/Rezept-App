@@ -1,4 +1,6 @@
 export enum VolumeUnit {
+  STUECK      = 'Stk',
+
   GRAMM       = 'g',
   KILOGRAMM   = 'kg',
 

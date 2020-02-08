@@ -1,13 +1,13 @@
 <div class="listElement listElement--recipe">
   <div class="listElement__content">
     <p class="listElement__content__title">
-      {{recipe.title}}
+      {{recipe.title.title}}
     </p>
     <p class="listElement__content__secondLine">
       <span class="missingIngredients">{{countMissingIngredients()}} fehlende Zutaten</span>
       <span class="preparationTime">
-       {{calculatePreparationTime(recipe.preparationTime)[0]}} h
-       {{calculatePreparationTime(recipe.preparationTime)[1]}} min
+       {{calculatePreparationTime(recipe.preparationTime.preparationTime)[0]}} h
+       {{calculatePreparationTime(recipe.preparationTime.preparationTime)[1]}} min
       </span>
     </p>
   </div>
