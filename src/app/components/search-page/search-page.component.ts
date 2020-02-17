@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {Tag} from '../../entity/Tag';
-import {DataService} from '../../services/data.service';
-import {Region} from '../../entity/Region';
-import {Recipe} from '../../entity/Recipe';
+import { Component, OnInit } from '@angular/core';
+import { Tag } from '../../entity/Tag';
+import { DataService } from '../../services/data.service';
+import { Region } from '../../entity/Region';
 import { Title } from '../../entity/title.class';
 import { Id } from '../../entity/id.class';
+import { Recipe } from '../../entity/recipe';
 
 @Component({
   selector: 'app-search-page',
   templateUrl: './search-page.component.html',
-  styleUrls: ['./search-page.component.less']
+  styleUrls: ['./search-page.component.less'],
 })
 export class SearchPageComponent implements OnInit {
   private suggestionsList: Tag[] = [];
