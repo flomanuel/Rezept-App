@@ -18,13 +18,13 @@
   <div id="categoryAndRegionContainer">
     <div>
       <label for="category">Kategorie</label>
-      <select [(ngModel)]="category" name="category" id="category">
+      <select multiple [(ngModel)]="category" name="category" id="category">
         <option value="{{ item }}" *ngFor="let item of fileCategories">{{ item }}</option>
       </select>
     </div>
     <div>
       <label for="region">Region</label>
-      <select [(ngModel)]="region" name="region" id="region">
+      <select multiple [(ngModel)]="region" name="region" id="region">
         <option value="{{ item }}" *ngFor="let item of fileRegions">{{ item }}</option>
       </select>
     </div>
@@ -37,15 +37,15 @@
 
   <div id="ingredientsContainer">
     <label>Zutaten</label>
-    <app-input-plus-list (onIngredient)="changeIngredients($event)"></app-input-plus-list>
+    <app-input-plus-list></app-input-plus-list>
   </div>
 
   <div id="instructionsContainer">
     <label for="instructions">Anweisungen</label>
-    <textarea name="instructions" id="instructions" cols="40" rows="10"></textarea>
+    <textarea [(ngModel)]="instructions" name="instructions" id="instructions" cols="40" rows="10"></textarea>
   </div>
 
   <div id="submitContainer">
-    <button>Anlegen</button>
+    <button [disabled]="!validRecipe()" (click)="saveRecipe()">Anlegen</button>
   </div>
 </form>

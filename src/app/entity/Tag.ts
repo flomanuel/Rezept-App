@@ -1,4 +1,7 @@
+import { Title } from './title.class';
+import { Id } from './id.class';
+
 export abstract class Tag {
-  constructor(public title: string, public ID: number) {
+  constructor(public title: Title, public id: Id) {
   }
 }

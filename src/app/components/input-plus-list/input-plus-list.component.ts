@@ -1,5 +1,4 @@
-import { Component, ComponentFactoryResolver, EventEmitter, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { Ingredient } from '../../entity/ingredient.class';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { BasicIngredientComponent } from './basic-ingredient/basic-ingredient.component';
 
 @Component({
@@ -7,10 +6,12 @@ import { BasicIngredientComponent } from './basic-ingredient/basic-ingredient.co
   templateUrl: './input-plus-list.component.html',
   styleUrls: ['./input-plus-list.component.less'],
 })
-export class InputPlusListComponent {
+export class InputPlusListComponent implements OnInit {
   @ViewChild('inputs', { static: false, read: ViewContainerRef }) inputs: ViewContainerRef;
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onIngredient: EventEmitter<Ingredient[]> = new EventEmitter<Ingredient[]>();
+  private showRemoveBtn = false;
+
+  ngOnInit(): void {
+  }
 
   constructor(private readonly resolver: ComponentFactoryResolver) {
   }
@@ -19,13 +20,15 @@ export class InputPlusListComponent {
   newInput() {
     const child = this.resolver.resolveComponentFactory(BasicIngredientComponent);
     this.inputs.createComponent(child);
+    if (this.inputs.length > 0) {
+      this.showRemoveBtn = true;
+    }
   }
 
   removeInput() {
     this.inputs.detach(this.inputs.length - 1);
-  }
-
-  ingredientsHandler(ingredients: Ingredient[]): void {
-    this.onIngredient.emit(ingredients);
+    if (this.inputs.length === 0) {
+      this.showRemoveBtn = false;
+    }
   }
 }
