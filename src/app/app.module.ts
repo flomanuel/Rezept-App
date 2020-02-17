@@ -13,6 +13,8 @@ import { RecipeListElementComponent } from './components/recipe-list-element/rec
 import { SearchPageFilterTabComponent } from './components/search-page-filter-tab/search-page-filter-tab.component';
 import { HeaderBarComponent } from './components/header-bar/header-bar.component';
 import { RecipedetailpageComponent } from './components/recipe-detail-page/recipe-detail-page.component';
+import {BarcodeScannerComponent} from './components/barcode-scanner/barcode-scanner.component';
+import {OpenFoodFactsDetailpageComponent} from './components/open-food-facts-detailpage/open-food-facts-detailpage.component';
 
 const appRoutes: Routes = [
   {
@@ -54,7 +56,9 @@ const appRoutes: Routes = [
     RecipeListElementComponent,
     SearchPageFilterTabComponent,
     HeaderBarComponent,
-    RecipedetailpageComponent
+    RecipedetailpageComponent,
+    BarcodeScannerComponent,
+    OpenFoodFactsDetailpageComponent
   ],
   imports: [
     BrowserModule,
