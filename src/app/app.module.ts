@@ -31,6 +31,14 @@ const appRoutes: Routes = [
     path: 'search',
     component: SearchPageComponent
   },
+  {
+    path: 'barcode-scanner',
+    component: BarcodeScannerComponent
+  },
+  {
+    path: 'food-facts/:ean',
+    component: OpenFoodFactsDetailpageComponent
+  },
 ];
 
 @NgModule({

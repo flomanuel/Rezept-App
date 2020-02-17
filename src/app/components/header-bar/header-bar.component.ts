@@ -15,8 +15,10 @@ export class HeaderBarComponent implements OnInit {
 
   @Input() suggestions: Tag[];
   @Input() fridgeFlag: boolean;
+  @Input() fridgeLink: boolean;
   @Input() shoppingListButton: boolean;
   @Input() defaultIngredientsButton: boolean;
+  @Input() opacity = 1;
 
   private suggestionContainerActive = false;
   private searchValue = '';
