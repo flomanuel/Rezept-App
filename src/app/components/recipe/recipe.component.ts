@@ -9,6 +9,7 @@ import { Instructions } from '../../entity/instructions.class';
 import { Region } from '../../entity/region.enum';
 import { Category } from '../../entity/category.enum';
 import { Id } from '../../entity/id.class';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-recipe',
@@ -29,7 +30,7 @@ export class RecipeComponent {
   public preparationTime: number;
   public instructions: string;
 
-  constructor(private readonly translationService: TranslationService) {
+  constructor(private readonly translationService: TranslationService, private readonly localStorageService: LocalStorageService) {
     this.fileCategories = Object.values(Category).map(category => this.getTranslatedWord(category));
     this.fileRegions = Object.values(Region).map(region => this.getTranslatedWord(region));
   }
@@ -64,5 +65,7 @@ export class RecipeComponent {
     const instructions = Instructions.create(this.instructions);
 
     const recipe = new Recipe(id, title, preparationTime, this.category, this.region, this.ingredients, instructions, '');
+
+    this.localStorageService.addToRecipes(recipe);
   }
 }
