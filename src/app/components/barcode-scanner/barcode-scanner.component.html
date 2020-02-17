@@ -1,0 +1,11 @@
+<div id="barcode-scanner">
+  <app-header-bar [shoppingListButton]="true" [fridgeLink]="true" [opacity]="0.6"></app-header-bar>
+  <div *ngIf="!readerStatus" class="barcode-reader__typeSelection">
+    <div class="barcode-reader__typeSelection__ean barcode-reader__typeSelection__ean--ean-8"
+         (click)="startScanner('ean_8_reader')"><span>EAN-8</span></div>
+    <div class="barcode-reader__typeSelection__ean barcode-reader__typeSelection__ean--ean-13"
+         (click)="startScanner('ean_13_reader')"><span>EAN-13</span></div>
+  </div>
+  <video *ngIf="readerStatus"></video>
+  <canvas *ngIf="readerStatus" class="drawingBuffer"></canvas>
+</div>

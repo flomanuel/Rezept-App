@@ -1,0 +1,94 @@
+<app-header-bar [shoppingListButton]="true" [fridgeLink]="true"></app-header-bar>
+<div *ngIf="this.foodFacts" class="openff-detail-page">
+
+  <!--start name -->
+  <ng-container *ngIf="this.foodFacts.product.product_name_de;then name_de else name_global"></ng-container>
+  <ng-template #name_de>
+    <div class="openff-detail-page__name">
+      <h1>{{this.foodFacts.product.product_name_de}}</h1>
+    </div>
+  </ng-template>
+  <ng-template #name_global>
+    <div *ngIf="this.foodFacts.product.product_name" class="openff-detail-page__name">
+      {{this.foodFacts.product.product_name}}
+    </div>
+  </ng-template>
+  <!-- end name -->
+  <!--start image -->
+  <ng-container *ngIf="this.foodFacts.product.image_front_url;then img_front else img"></ng-container>
+  <ng-template #img_front>
+    <div class="openff-detail-page__image">
+      <img alt="Produktbild" [src]="this.foodFacts.product.image_front_url"/>
+    </div>
+  </ng-template>
+
+  <ng-template #img>
+    <div *ngIf="this.foodFacts.product.image_url" class="openff-detail-page__image">
+      <img alt="Produktbild" [src]="this.foodFacts.product.image_url"/>
+    </div>
+  </ng-template>
+  <!--end image -->
+
+  <!--start nutri-score -->
+  <div *ngIf="this.foodFacts.product.nutriscore_grade" class="openff-detail-page__nutri_score">
+    <span class="nutri_score--grade {{this.foodFacts.product.nutriscore_grade}}">
+      <img alt="Bild nutri-score Wert von {{this.foodFacts.product.nutriscore_grade}}"
+           src="../../../assets/objects/labels/nutri-score/nutriscore-{{this.foodFacts.product.nutriscore_grade}}.png"/>
+    </span>
+  </div>
+  <!--end nutri-score -->
+  <!--start ingredient analysis -->
+  <div class="openff-detail-page__ingredient-analysis">
+    <ng-container *ngFor="let ingredient_analysis of this.foodFacts.product?.ingredients_analysis_tags">
+      <ng-container [ngSwitch]="ingredient_analysis">
+      <span *ngSwitchCase="'en:palm-oil'" class="ingredient-analysis ingredient-analysis--palm-oil">
+        Enthält Palmöl.
+      </span>
+        <span *ngSwitchCase="'en:palm-oil-free'" class="ingredient-analysis ingredient-analysis--palm-oil-free">
+        Palmölfrei
+      </span>
+        <span *ngSwitchCase="'en:non-vegan'" class="ingredient-analysis ingredient-analysis--non-vegan">
+        Nicht Vegan
+      </span>
+        <span *ngSwitchCase="'en:vegan'" class="ingredient-analysis ingredient-analysis--vegan">
+        Vegan
+      </span>
+        <span *ngSwitchCase="'en:non-vegetarian'" class="ingredient-analysis ingredient-analysis--non-vegetarian">
+        Nicht vegetarisch
+      </span>
+        <span *ngSwitchCase="'en:vegetarian'" class="ingredient-analysis ingredient-analysis--vegetarian">
+        Vegetarisch
+      </span>
+      </ng-container>
+    </ng-container>
+  </div>
+  <!--end ingredient analysis -->
+  <!--start labels -->
+  <div class="openff-detail-page__labels">
+    <ng-container *ngFor="let label of this.foodFacts.product?.labels_tags">
+      <ng-container [ngSwitch]="label">
+        <span *ngSwitchCase="'en:eu-organic'" class="label label--eu-organic">
+          <img alt="Europäisches Bio-Siegel" src="../../../assets/objects/labels/bio/eu-organic.svg"/>
+      </span>
+        <span *ngSwitchCase="'en:eg-oko-verordnung'" class="label label--eg-oko-verordnung">
+          <img alt="Deutsches staatliches Bio-Siegel" src="../../../assets/objects/labels/bio/eg-oko.svg"/>
+      </span>
+      </ng-container>
+    </ng-container>
+  </div>
+  <!--end labels -->
+</div>
+
+<div *ngIf="!this.foodFacts" class="loadingAnimation">
+  <p>Bitte haben Sie einen Monent Geduld, die Suche läuft.</p>
+  <div class="lds-roller">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
