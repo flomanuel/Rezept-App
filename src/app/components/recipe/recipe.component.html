@@ -1,6 +1,51 @@
-<div>
-  <form action="">
-    <label for="title">Title</label>
-    <input type="text" id="title" (change)="doShit()" [(ngModel)]="title">
-  </form>
-</div>
+<form action="" id="recipeForm">
+  <app-header-bar></app-header-bar>
+  <h1 id="heading">Ein neues Rezept hinzufügen</h1>
+
+  <div id="titleAndPreparationTimeContainer">
+    <div id="titleContainer">
+      <label for="title">Titel</label>
+      <input placeholder="Titel des Rezepts..." type="text" name="title" id="title" [(ngModel)]="title">
+    </div>
+
+    <div id="preparationTimeContainer">
+      <label for="preparationTime">Vorbereitungszeit (in Minuten)</label>
+      <input placeholder="Vorbereitungszeit..." type="number" name="preparationTime" id="preparationTime"
+             [(ngModel)]="preparationTime">
+    </div>
+  </div>
+
+  <div id="categoryAndRegionContainer">
+    <div>
+      <label for="category">Kategorie</label>
+      <select multiple [(ngModel)]="category" name="category" id="category">
+        <option value="{{ item }}" *ngFor="let item of fileCategories">{{ item }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="region">Region</label>
+      <select multiple [(ngModel)]="region" name="region" id="region">
+        <option value="{{ item }}" *ngFor="let item of fileRegions">{{ item }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="desciptionContainer">
+    <label for="desciption">Beschreibung</label>
+    <textarea name="description" id="desciption" [(ngModel)]="description" cols="40" rows="2"></textarea>
+  </div>
+
+  <div id="ingredientsContainer">
+    <label>Zutaten</label>
+    <app-input-plus-list></app-input-plus-list>
+  </div>
+
+  <div id="instructionsContainer">
+    <label for="instructions">Anweisungen</label>
+    <textarea [(ngModel)]="instructions" name="instructions" id="instructions" cols="40" rows="10"></textarea>
+  </div>
+
+  <div id="submitContainer">
+    <button [disabled]="!validRecipe()" (click)="saveRecipe()">Anlegen</button>
+  </div>
+</form>

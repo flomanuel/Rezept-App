@@ -1,0 +1,8 @@
+<div class="input-plus-list">
+
+  <div #inputs class="inputs"> <!-- New BasicIngredientComponent will dynamically append here -->
+  </div>
+
+  <button *ngIf="showRemoveBtn" id="removeBtn" class="newInputBtn" (click)="removeInput()">-</button>
+  <button id="addBtn" class="newInputBtn" (click)="newInput()">+</button>
+</div>
