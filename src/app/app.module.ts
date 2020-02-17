@@ -1,20 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { HomePageComponent } from './components/home-page/home-page.component';
-import { RecipeComponent } from './components/recipe/recipe.component';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { InputPlusListComponent } from './components/input-plus-list/input-plus-list.component';
-import { BasicIngredientComponent } from './components/input-plus-list/basic-ingredient/basic-ingredient.component';
-import { SearchPageComponent } from './components/search-page/search-page.component';
-import { RecipeListElementComponent } from './components/recipe-list-element/recipe-list-element.component';
-import { SearchPageFilterTabComponent } from './components/search-page-filter-tab/search-page-filter-tab.component';
-import { HeaderBarComponent } from './components/header-bar/header-bar.component';
-import { RecipedetailpageComponent } from './components/recipe-detail-page/recipe-detail-page.component';
+import {AppComponent} from './app.component';
+import {HomePageComponent} from './components/home-page/home-page.component';
+import {RecipeComponent} from './components/recipe/recipe.component';
+import {RouterModule, Routes} from '@angular/router';
+import {FormsModule} from '@angular/forms';
+import {InputPlusListComponent} from './components/input-plus-list/input-plus-list.component';
+import {BasicIngredientComponent} from './components/input-plus-list/basic-ingredient/basic-ingredient.component';
+import {SearchPageComponent} from './components/search-page/search-page.component';
+import {RecipeListElementComponent} from './components/recipe-list-element/recipe-list-element.component';
+import {SearchPageFilterTabComponent} from './components/search-page-filter-tab/search-page-filter-tab.component';
+import {HeaderBarComponent} from './components/header-bar/header-bar.component';
+import {RecipedetailpageComponent} from './components/recipe-detail-page/recipe-detail-page.component';
 import {BarcodeScannerComponent} from './components/barcode-scanner/barcode-scanner.component';
 import {OpenFoodFactsDetailpageComponent} from './components/open-food-facts-detailpage/open-food-facts-detailpage.component';
+import {MarketSearchComponent} from './components/market-search/market-search.component';
 
 const appRoutes: Routes = [
   {
@@ -41,6 +42,10 @@ const appRoutes: Routes = [
     path: 'food-facts/:ean',
     component: OpenFoodFactsDetailpageComponent
   },
+  {
+    path: 'markets',
+    component: MarketSearchComponent
+  },
 ];
 
 @NgModule({
@@ -58,7 +63,8 @@ const appRoutes: Routes = [
     HeaderBarComponent,
     RecipedetailpageComponent,
     BarcodeScannerComponent,
-    OpenFoodFactsDetailpageComponent
+    OpenFoodFactsDetailpageComponent,
+    MarketSearchComponent
   ],
   imports: [
     BrowserModule,
