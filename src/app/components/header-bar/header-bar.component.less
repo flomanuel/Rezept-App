@@ -4,6 +4,8 @@ header
 right side buttons wrapper
 suggestions container
 fridge button
+  - fridge flag
+  - fridge link
 shopping list button
 default ingredients flag
 **************************************/
@@ -23,7 +25,7 @@ header
   top: 0;
   height: 10%;
   width: 100%;
-  background: linear-gradient(180deg, rgba(255,255,255,1) 67%, rgba(255,255,255,0.8883754185267857) 79%, rgba(255,255,255,0.6054622532606793) 88%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 67%, rgba(255, 255, 255, 0.8883754185267857) 79%, rgba(255, 255, 255, 0.6054622532606793) 88%, rgba(255, 255, 255, 0) 100%);
 
   .back {
     width: 35px;
@@ -104,12 +106,11 @@ suggestions container
 /*************************************
 fridge button
 **************************************/
-.fridge-flag {
+.fridge-button {
   margin: 4px;
   background: url("../../../assets/icons/fridge--black.svg") no-repeat center;
   background-size: contain;
   padding-right: 8px;
-  opacity: 0.25;
   cursor: pointer;
 
   @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
@@ -124,6 +125,12 @@ fridge button
     width: 30px;
     height: 41px;
   }
+}
+
+
+/** fridge flag **/
+.fridge-flag {
+  opacity: 0.25;
 
   &:not(:hover) {
     border-right: 1px solid #000000;
@@ -145,8 +152,15 @@ fridge button
   &.selected {
     opacity: 1;
   }
+}
 
+/** fridge link **/
+.fridge-link {
+  opacity: 0.65;
 
+  &:hover {
+    opacity: 1;
+  }
 }
 
 /*************************************

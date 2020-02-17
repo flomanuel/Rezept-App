@@ -8,9 +8,9 @@
 <div class="div">
   <table class="table table-striped">
     <tbody>
-    <tr *ngFor="let ingredient of dataService.searchResult[this.index].ingredients" (click)="ingredient.AddMissing()">
+    <tr *ngFor="let ingredient of dataService.searchResult[this.index].ingredients">
 <!--      <td [class.missing]="ingredient.missing">{{ingredient.amount}}</td>-->
-      <td [class.missing]="ingredient.missing">{{ingredient.title}}</td>
+      <td [class.missing]="ingredient.missing">{{ingredient.label}}</td>
     </tr>
     </tbody>
   </table>
