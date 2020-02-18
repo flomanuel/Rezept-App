@@ -16,7 +16,7 @@ export class OpenFoodFactsDetailpageComponent implements OnInit {
     this.getRouteParams.paramMap.subscribe(params => {
       this.ean = params.get('ean');
     });
-
+/* todo: use Angulars http client (https://angular.io/guide/http) */
     this.getResponse().then((xmlHttp) => {
       xmlHttp.onreadystatechange = () => {
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
