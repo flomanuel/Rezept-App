@@ -1,7 +1,9 @@
-import {Tag} from './Tag';
+import { Tag } from './Tag';
+import { Title } from './title.class';
+import { Id } from './id.class';
 
 export class Region extends Tag {
-  constructor(title: string, id: number) {
+  constructor(title: Title, id: Id) {
     super(title, id);
   }
 }

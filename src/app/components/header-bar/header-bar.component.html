@@ -1,4 +1,4 @@
-<div id="header" class="grid-container noExtraColumns">
+<div id="header" class="grid-container noExtraColumns" [style.opacity]="opacity">
   <span class="back" (click)="goBack()"></span>
   <form *ngIf="suggestions" class="add-tag" [class.active]="suggestionContainerActive">
     <input type="text" name="search-field" [(ngModel)]="searchValue" (click)="toggleSuggestionsContainer(true)">
@@ -12,9 +12,14 @@
     Standard<br/>Zutaten
   </span>
 
-    <a class="fridge-flag"
+    <a class="fridge-flag fridge-button"
        *ngIf="!(suggestionContainerActive && suggestions) &&  fridgeFlag"
        [class.selected]="fridgeContentStatus"
+       (click)="toggleFridgeStatus()">
+    </a>
+
+    <a class="fridge-link fridge-button"
+       *ngIf="!(suggestionContainerActive && suggestions) &&  fridgeLink"
        (click)="toggleFridgeStatus()">
     </a>
 

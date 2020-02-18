@@ -3,9 +3,9 @@
   <div class="filter-tab__elementContainer" *ngIf="showTabElements">
     <p class="filter-tab__elementContainer__element"
        *ngFor="let tabElement of tabElements"
-       (click)="deselectTabElement(tabElement)? null: selectTabElement(tabElement);"
+       (click)="deselectTabElement(tabElement) ? null: selectTabElement(tabElement);"
        [class.selected]="selectedTabElements.indexOf(tabElement) >= 0">
-      {{tabElement.title}}
+      {{tabElement.title.title}}
     </p>
   </div>
 </div>

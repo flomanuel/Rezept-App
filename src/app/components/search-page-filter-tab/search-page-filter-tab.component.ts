@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Tag} from '../../entity/Tag';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Tag } from '../../entity/Tag';
 
 @Component({
   selector: 'app-search-page-filter-tab',
   templateUrl: './search-page-filter-tab.component.html',
-  styleUrls: ['./search-page-filter-tab.component.less']
+  styleUrls: ['./search-page-filter-tab.component.less'],
 })
 export class SearchPageFilterTabComponent implements OnInit {
 

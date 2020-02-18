@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Recipe} from '../../entity/Recipe';
+import { Component, Input, OnInit } from '@angular/core';
+import { Recipe } from '../../entity/recipe';
 
 @Component({
   selector: 'app-recipe-list-element',
   templateUrl: './recipe-list-element.component.html',
-  styleUrls: ['./recipe-list-element.component.less']
+  styleUrls: ['./recipe-list-element.component.less'],
 })
 export class RecipeListElementComponent implements OnInit {
   @Input() recipe: Recipe;
