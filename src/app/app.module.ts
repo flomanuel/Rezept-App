@@ -16,6 +16,7 @@ import {RecipedetailpageComponent} from './components/recipe-detail-page/recipe-
 import {BarcodeScannerComponent} from './components/barcode-scanner/barcode-scanner.component';
 import {OpenFoodFactsDetailpageComponent} from './components/open-food-facts-detailpage/open-food-facts-detailpage.component';
 import {MarketSearchComponent} from './components/market-search/market-search.component';
+import { IngredientAdditionalInformationComponent } from './components/ingredient-additional-information/ingredient-additional-information.component';
 
 const appRoutes: Routes = [
   {
@@ -64,7 +65,8 @@ const appRoutes: Routes = [
     RecipedetailpageComponent,
     BarcodeScannerComponent,
     OpenFoodFactsDetailpageComponent,
-    MarketSearchComponent
+    MarketSearchComponent,
+    IngredientAdditionalInformationComponent
   ],
   imports: [
     BrowserModule,
