@@ -44,7 +44,6 @@ export class RecipeComponent {
   }
 
   validRecipe(): boolean {
-    console.log(this.ingredients);
     return this.title &&
       this.region.length >= 1 &&
       this.description &&
