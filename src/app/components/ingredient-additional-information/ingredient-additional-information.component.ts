@@ -1,16 +1,17 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Tag} from '../../entity/Tag';
-import {DataService} from '../../services/data.service';
-import {IngredientInfoService} from '../../services/ingredient-info.service';
+import { Component, OnInit } from '@angular/core';
+import { IngredientInfoService } from '../../services/ingredient-info.service';
 
 @Component({
   selector: 'app-ingredient-additional-information',
   templateUrl: './ingredient-additional-information.component.html',
-  styleUrls: ['./ingredient-additional-information.component.css']
+  styleUrls: ['./ingredient-additional-information.component.css'],
 })
 export class IngredientAdditionalInformationComponent implements OnInit {
 
-  constructor(private ingredientInfo: IngredientInfoService, private additionalInfo) {
+  constructor(private ingredientInfo: IngredientInfoService) {
+    this.ingredientInfo.getInfoById(1).then((e) => {
+      console.log(e);
+    });
   }
 
   ngOnInit() {

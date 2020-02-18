@@ -1,13 +1,24 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IngredientInfoService {
 
-  constructor() {
+  private ADDITIONAL_INFO_COLLECTION = 'ingredients-additional-info';
+
+  constructor(private db: AngularFirestore) {
   }
 
-  getInfoById(id: number) {
+  getInfoById(id: number): Promise<any> {
+    return new Promise<any>((resolve) => {
+      this.db.collection(
+        this.ADDITIONAL_INFO_COLLECTION, ref => ref.where('id', '==', id),
+      ).valueChanges().subscribe((snapshots: any[]) => {
+        resolve(snapshots);
+      });
+    });
   }
 }
