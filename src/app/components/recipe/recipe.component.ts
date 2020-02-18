@@ -66,6 +66,9 @@ export class RecipeComponent {
 
     const recipe = new Recipe(id, title, preparationTime, this.category, this.region, this.ingredients, instructions, '');
 
+    // @ts-ignore
+    document.querySelector('#recipeForm').reset();
+
     this.localStorageService.addToRecipes(recipe);
   }
 }
