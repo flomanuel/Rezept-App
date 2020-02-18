@@ -18,7 +18,7 @@ export class Ingredient {
   get amount(): number {
     return this._amount;
   }
-
+VideoClass
   get suffix(): string {
     return this._suffix;
   }
