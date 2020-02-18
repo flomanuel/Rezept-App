@@ -29,6 +29,10 @@ const appRoutes: Routes = [
     path: 'search',
     component: SearchPageComponent
   },
+  {
+    path: 'recipe_details',
+    component: RecipedetailpageComponent
+  },
 ];
 
 @NgModule({

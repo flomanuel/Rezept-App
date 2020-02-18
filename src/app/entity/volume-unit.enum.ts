@@ -6,5 +6,7 @@ export enum VolumeUnit {
   LITER       = 'l',
 
   TEELOEFFEL  = 'TL',
-  ESSLOEFFEL  = 'EL'
+  ESSLOEFFEL  = 'EL',
+
+  STUECK      = 'Stk'
 }
