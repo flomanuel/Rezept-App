@@ -1,10 +1,12 @@
 export class Ingredient {
   private readonly _label: string;
+  private readonly _additionalInfo: number;
   private readonly _amount: number;
   private readonly _suffix: string;
   private _missing: boolean;
 
-  constructor(label: string, amount: number, suffix: string) {
+  constructor(label: string, amount: number, suffix: string, additionalInfo: number) {
+    this._additionalInfo = additionalInfo;
     this._label = label;
     this._amount = amount;
     this._suffix = suffix;
@@ -18,7 +20,7 @@ export class Ingredient {
   get amount(): number {
     return this._amount;
   }
-VideoClass
+
   get suffix(): string {
     return this._suffix;
   }
@@ -29,5 +31,9 @@ VideoClass
 
   set missing(missing: boolean) {
     this._missing = missing;
+  }
+
+  get additionalInfo(): number {
+    return this._additionalInfo;
   }
 }

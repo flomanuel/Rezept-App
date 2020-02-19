@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { VolumeUnit } from '../../../entity/volume-unit.enum';
+import { VolumeUnit } from '../../../types';
 
 @Component({
   selector: 'app-basic-ingredient',
