@@ -5,7 +5,7 @@ export class Ingredient {
   private readonly _suffix: string;
   private _missing: boolean;
 
-  constructor(label: string, amount: number, suffix: string, additionalInfo: number) {
+  constructor(label: string, amount: number, suffix: string, additionalInfo: number = 0) {
     this._additionalInfo = additionalInfo;
     this._label = label;
     this._amount = amount;
