@@ -4,7 +4,7 @@
     <div class="barcode-reader__typeSelection__ean barcode-reader__typeSelection__ean--ean-8"
          (click)="startScanner('ean_8_reader')"><span>EAN-8</span></div>
     <div class="barcode-reader__typeSelection__ean barcode-reader__typeSelection__ean--ean-13"
-         (click)="startScanner('ean_13_reader')"><span>EAN-13</span></div>
+         (click)="startScanner('ean_reader')"><span>EAN-13</span></div>
   </div>
   <video *ngIf="readerStatus"></video>
   <canvas *ngIf="readerStatus" class="drawingBuffer"></canvas>
