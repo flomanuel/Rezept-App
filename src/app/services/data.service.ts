@@ -6,6 +6,7 @@ import { Title } from '../entity/title.class';
 import { PreparationTime } from '../entity/preparation-time.class';
 import { Instructions } from '../entity/instructions.class';
 import { Recipe } from '../entity/recipe';
+import { Video } from '../entity/video.class';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +16,10 @@ export class DataService {
   searchResult: Recipe[] = [];
 
   constructor() {
-    this.tagList.push(new Ingredient('Pfeffer', 1, 'el'));
-    this.tagList.push(new Ingredient('Salz', 2, 'el'));
-    this.tagList.push(new Ingredient('Apfel', 3, 'Stk'));
-    this.tagList.push(new Ingredient('Schinken', 4, 'g'));
+    this.tagList.push(new Ingredient('Pfeffer', 1, 'el', 0));
+    this.tagList.push(new Ingredient('Salz', 2, 'el', 0));
+    this.tagList.push(new Ingredient('Apfel', 3, 'Stk', 0));
+    this.tagList.push(new Ingredient('Schinken', 4, 'g', 0));
 
     this.searchResult.push(new Recipe(
       Id.fromNumber(Id.generate()),
@@ -26,9 +27,10 @@ export class DataService {
       PreparationTime.create(130),
       [],
       [],
-      [new Ingredient('Test', 2, 'el')],
+      [new Ingredient('Test', 2, 'el', 0)],
       Instructions.create(''),
-      ''));
+      [],
+      Video.create('')));
   }
 
   getTagsBySearchString(searchValue: string) {

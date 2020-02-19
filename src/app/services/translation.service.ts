@@ -18,7 +18,7 @@ export class TranslationService {
     return null;
   }
 
-  private getMapping(): { category: object, region: object } {
+  private getMapping(): { category: { [key: string]: string }, region: { [key: string]: string } } {
     return {
       category: {
         soup: 'Suppe',
