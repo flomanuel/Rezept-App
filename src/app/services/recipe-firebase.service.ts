@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { FireBaseQueryResult } from '../types';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Database } from '../../config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeFirebaseService {
-  private readonly path = '/recipes';
 
   constructor(private readonly db: AngularFirestore) {
   }
 
-  collection(): Observable<FireBaseQueryResult[]> {
-    // @ts-ignore
-    return this.db.collection(this.path).valueChanges();
+  collection(): Promise<AngularFirestoreCollection> {
+    return new Promise<any>((resolve) => {
+      const recipes = this.db.collection(Database.RECIPES).valueChanges();
+      resolve(recipes);
+    });
   }
 }
