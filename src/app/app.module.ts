@@ -14,13 +14,13 @@ import { BasicIngredientComponent } from './components/input-plus-list/basic-ing
 import { SearchPageComponent } from './components/search-page/search-page.component';
 import { RecipeListElementComponent } from './components/recipe-list-element/recipe-list-element.component';
 import { SearchPageFilterTabComponent } from './components/search-page-filter-tab/search-page-filter-tab.component';
-import { HeaderBarComponent } from './components/header-bar/header-bar.component';
+import { HeaderBarComponent } from './components/_shared/header-bar/header-bar.component';
 import { RecipedetailpageComponent } from './components/recipe-detail-page/recipe-detail-page.component';
 import { BarcodeScannerComponent } from './components/barcode-scanner/barcode-scanner.component';
 import { OpenFoodFactsDetailpageComponent } from './components/open-food-facts-detailpage/open-food-facts-detailpage.component';
 import { MarketSearchComponent } from './components/market-search/market-search.component';
 import { IngredientAdditionalInformationComponent } from './components/ingredient-additional-information/ingredient-additional-information.component';
-import { IngredientInfoService } from './services/ingredient-info.service';
+import { LoadingAnimationComponent } from './components/_shared/loading-animation/loading-animation.component';
 
 const appRoutes: Routes = [
   {
@@ -52,9 +52,14 @@ const appRoutes: Routes = [
     component: MarketSearchComponent,
   },
   {
-    path: 'ingredient-additional-information',
+    path: 'ingredient-information/:id',
     component: IngredientAdditionalInformationComponent,
   },
+  {
+    // this should always be the last entry since otherwise all paths get mapped to the homepage
+    path: '**',
+    component: HomePageComponent,
+  }
 ];
 
 @NgModule({
@@ -75,6 +80,7 @@ const appRoutes: Routes = [
     OpenFoodFactsDetailpageComponent,
     MarketSearchComponent,
     IngredientAdditionalInformationComponent,
+    LoadingAnimationComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
-import { DataService } from '../../services/data.service';
-import { Tag } from '../../entity/Tag';
+import { DataService } from '../../../services/data.service';
+import { Tag } from '../../../entity/Tag';
 
 @Component({
   selector: 'app-header-bar',
