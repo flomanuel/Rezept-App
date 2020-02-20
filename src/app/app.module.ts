@@ -19,8 +19,12 @@ import { RecipedetailpageComponent } from './components/recipe-detail-page/recip
 import { BarcodeScannerComponent } from './components/barcode-scanner/barcode-scanner.component';
 import { OpenFoodFactsDetailpageComponent } from './components/open-food-facts-detailpage/open-food-facts-detailpage.component';
 import { MarketSearchComponent } from './components/market-search/market-search.component';
-import { IngredientAdditionalInformationComponent } from './components/ingredient-additional-information/ingredient-additional-information.component';
+import {
+  IngredientAdditionalInformationComponent,
+} from './components/ingredient-additional-information/ingredient-additional-information.component';
 import { LoadingAnimationComponent } from './components/_shared/loading-animation/loading-animation.component';
+import { PopupComponent } from './components/_shared/popup/popup.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {
@@ -59,7 +63,7 @@ const appRoutes: Routes = [
     // this should always be the last entry since otherwise all paths get mapped to the homepage
     path: '**',
     component: HomePageComponent,
-  }
+  },
 ];
 
 @NgModule({
@@ -81,6 +85,7 @@ const appRoutes: Routes = [
     MarketSearchComponent,
     IngredientAdditionalInformationComponent,
     LoadingAnimationComponent,
+    PopupComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -88,6 +93,7 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

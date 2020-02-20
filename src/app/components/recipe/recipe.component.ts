@@ -31,6 +31,7 @@ export class RecipeComponent {
   public categories: Categories[] = [];
   public preparationTime: number;
   public instructions: string;
+  public recipeSaved = false;
 
   constructor(private readonly translationService: TranslationService, private readonly localStorageService: LocalStorageService) {
     this.fileCategories = Object.values(Categories).map(category => this.getTranslatedWord(category));
@@ -73,5 +74,9 @@ export class RecipeComponent {
     document.querySelector('#recipeForm').reset();
 
     this.localStorageService.addToRecipes(recipe);
+    this.recipeSaved = true;
+    setInterval(() => {
+      this.recipeSaved = false;
+    }, 3000);
   }
 }
