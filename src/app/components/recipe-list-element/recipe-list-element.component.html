@@ -12,7 +12,7 @@
     </p>
   </div>
   <div class="listElement__image">
-    <img alt="{{recipe.title}}" *ngIf="recipe.image !== ''" [src]="recipe.image">
-    <img alt="{{recipe.title}}" *ngIf="recipe.image === ''" src="{{fallbackImagePath}}">
+    <img alt="{{recipe.title.title}}" *ngIf="recipe.image !== ''" [src]="recipe.image">
+    <img alt="{{recipe.title.title}}" *ngIf="recipe.image === ''" src="{{fallbackImagePath}}">
   </div>
 </div>
