@@ -1,9 +1,11 @@
-import {Tag} from './Tag';
-import construct = Reflect.construct;
+import { Tag } from './Tag';
+import { Title } from './title.class';
+import { Id } from './id.class';
 
 export class Ingredient extends Tag {
   missing: boolean;
-  constructor(title: string, id: number) {
+
+  constructor(title: Title, id: Id) {
     super(title, id);
     this.missing = false;
   }

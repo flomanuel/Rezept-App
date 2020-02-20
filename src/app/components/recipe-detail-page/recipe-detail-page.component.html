@@ -8,27 +8,26 @@
   </div>
 
 
-
   <body>
   <div>
     <div class="headLine"><h1>{{dataService.searchResult[this.index].title}}</h1></div>
     <div class="headLine">{{dataService.searchResult[this.index].preparationTime}}</div>
-    <div class="headLine" >
+    <div class="headLine">
       <i class="favorite-flag" *ngIf="this.recipe.favorite" (click)="SetFavorite(this.recipe)"></i>
     </div>
   </div>
 
-    <div class="bodyLists">
-      <table class="table table-striped">
-        <tbody>
-        <tr *ngFor="let ingredient of dataService.searchResult[this.index].ingredients" (click)="ingredient.AddMissing()">
-          <td [class.missing]="ingredient.missing">{{ingredient.amount}}</td>
-          <td [class.missing]="ingredient.missing">{{ingredient.unit}}</td>
-          <td [class.missing]="ingredient.missing">{{ingredient.title}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="bodyLists">
+    <table class="table table-striped">
+      <tbody>
+      <tr *ngFor="let ingredient of dataService.searchResult[this.index].ingredients" (click)="ingredient.AddMissing()">
+        <td [class.missing]="ingredient.missing">{{ingredient.amount}}</td>
+        <td [class.missing]="ingredient.missing">{{ingredient.unit}}</td>
+        <td [class.missing]="ingredient.missing">{{ingredient.title}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
   </body>
 
 </div>

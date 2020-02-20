@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AngularFireModule, FirebaseFirestore } from '@angular/fire';
+import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 
@@ -15,10 +15,11 @@ import { SearchPageComponent } from './components/search-page/search-page.compon
 import { RecipeListElementComponent } from './components/recipe-list-element/recipe-list-element.component';
 import { SearchPageFilterTabComponent } from './components/search-page-filter-tab/search-page-filter-tab.component';
 import { HeaderBarComponent } from './components/_shared/header-bar/header-bar.component';
-import { RecipedetailpageComponent } from './components/recipe-detail-page/recipe-detail-page.component';
+import { RecipeDetailPageComponent } from './components/recipe-detail-page/recipe-detail-page.component';
 import { BarcodeScannerComponent } from './components/barcode-scanner/barcode-scanner.component';
 import { OpenFoodFactsDetailpageComponent } from './components/open-food-facts-detailpage/open-food-facts-detailpage.component';
 import { MarketSearchComponent } from './components/market-search/market-search.component';
+// tslint:disable-next-line:max-line-length
 import { IngredientAdditionalInformationComponent } from './components/ingredient-additional-information/ingredient-additional-information.component';
 import { LoadingAnimationComponent } from './components/_shared/loading-animation/loading-animation.component';
 
@@ -52,6 +53,10 @@ const appRoutes: Routes = [
     component: MarketSearchComponent,
   },
   {
+    path: 'recipe-detail-page',
+    component: RecipeDetailPageComponent,
+  },
+  {
     path: 'ingredient-information/:id',
     component: IngredientAdditionalInformationComponent,
   },
@@ -59,7 +64,7 @@ const appRoutes: Routes = [
     // this should always be the last entry since otherwise all paths get mapped to the homepage
     path: '**',
     component: HomePageComponent,
-  }
+  },
 ];
 
 @NgModule({
@@ -75,7 +80,7 @@ const appRoutes: Routes = [
     RecipeListElementComponent,
     SearchPageFilterTabComponent,
     HeaderBarComponent,
-    RecipedetailpageComponent,
+    RecipeDetailPageComponent,
     BarcodeScannerComponent,
     OpenFoodFactsDetailpageComponent,
     MarketSearchComponent,

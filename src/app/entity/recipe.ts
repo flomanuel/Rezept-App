@@ -29,4 +29,8 @@ export class Recipe extends Tag {
   public add_missing(): void {
     this.missingIngredients++;
   }
+
+  ChangeFavoriteState() {
+    console.log('Did nothing. But actually I had to change the "FavouriteState"');
+  }
 }
