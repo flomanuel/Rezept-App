@@ -9,6 +9,4 @@ export enum VolumeUnit {
 
   TEELOEFFEL  = 'TL',
   ESSLOEFFEL  = 'EL',
-
-  STUECK      = 'Stk'
 }
