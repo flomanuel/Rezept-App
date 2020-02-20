@@ -32,16 +32,22 @@ export enum Regions {
 }
 
 export enum VolumeUnit {
-  STUECK      = 'Stk',
+  STUECK = 'Stk',
 
-  GRAMM       = 'g',
-  KILOGRAMM   = 'kg',
+  GRAMM = 'g',
+  KILOGRAMM = 'kg',
 
-  MILLILITER  = 'ml',
-  LITER       = 'l',
+  MILLILITER = 'ml',
+  LITER = 'l',
 
-  TEELOEFFEL  = 'TL',
-  ESSLOEFFEL  = 'EL'
+  TEELOEFFEL = 'TL',
+  ESSLOEFFEL = 'EL'
+}
+
+export enum PopupType {
+  INFO = 'info',
+  SUCCESS = 'success',
+  DANGER = 'danger',
 }
 
 export const categories = {
