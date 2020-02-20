@@ -1,33 +1,10 @@
-<div class="mainFontFamily">
-  <app-header-bar [fridgeFlag]="true"
-                  [shoppingListButton]="true"
-  ></app-header-bar>
-
-  <div class="title__image">
-    <img class="image" alt="Error: Image file not found" src="{{dataService.searchResult[this.index].image}}">
+<app-header-bar [fridgeLink]="true" [shoppingListButton]="true"></app-header-bar>
+<div *ngIf="recipe?.images" #imageGallery class="image-gallery">
+  {{initImageGallery()}}
+  <div *ngFor="let image of recipe.images" class="image-gallery__element">
+    <img alt="Alternativtext für das Bild" src="{{image.link}}"/>
   </div>
-
-
-  <body>
-  <div>
-    <div class="headLine"><h1>{{dataService.searchResult[this.index].title}}</h1></div>
-    <div class="headLine">{{dataService.searchResult[this.index].preparationTime}}</div>
-    <div class="headLine">
-      <i class="favorite-flag" *ngIf="this.recipe.favorite" (click)="SetFavorite(this.recipe)"></i>
-    </div>
-  </div>
-
-  <div class="bodyLists">
-    <table class="table table-striped">
-      <tbody>
-      <tr *ngFor="let ingredient of dataService.searchResult[this.index].ingredients" (click)="ingredient.AddMissing()">
-        <td [class.missing]="ingredient.missing">{{ingredient.amount}}</td>
-        <td [class.missing]="ingredient.missing">{{ingredient.unit}}</td>
-        <td [class.missing]="ingredient.missing">{{ingredient.title}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  </body>
-
 </div>
+
+
+<app-loading-animation *ngIf="!recipe"></app-loading-animation>

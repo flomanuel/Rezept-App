@@ -1,4 +1,4 @@
 export enum Database {
-  ADDITIONAL_INFO_COLLECTION = 'ingredients-additional-info',
+  ADDITIONAL_INFO = 'ingredients-additional-info',
   RECIPES = 'recipes',
 }

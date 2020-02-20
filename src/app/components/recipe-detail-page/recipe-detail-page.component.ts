@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Recipe } from '../../entity/recipe';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Database } from '../../../config';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -8,22 +9,32 @@ import { Recipe } from '../../entity/recipe';
   styleUrls: ['./recipe-detail-page.component.less'],
 })
 export class RecipeDetailPageComponent implements OnInit {
-  public recipe: Recipe;
-  public index: number;
 
-  constructor(private dataService: DataService) {
-    this.index = 0;
+  private recipe: Recipe;
+
+  @ViewChild('imageGallery', { static: false }) gallery: ElementRef;
+
+  // @Input() 'recipe': Recipe[];
+
+  constructor(private db: AngularFirestore) {
   }
 
   ngOnInit() {
-    document.body.style.margin = '0';
+    this.getNewRecipe().then((collection) => {
+      collection.valueChanges().subscribe((snapshots: Recipe[]) => {
+        this.recipe = snapshots[0];
+      });
+    });
   }
 
-  SetRecipe(recipe: Recipe): void {
-    this.recipe = recipe;
+  getNewRecipe() {
+    return new Promise<any>((resolve) => {
+      const collection = this.db.collection(Database.RECIPES, ref => ref.where('title', '==', 'Suppe1'));
+      resolve(collection);
+    });
   }
 
-  SetFavorite(recipe: Recipe): void {
-    this.recipe.ChangeFavoriteState();
+  initImageGallery() {
+    console.log(this.gallery);
   }
 }
