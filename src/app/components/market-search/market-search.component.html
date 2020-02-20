@@ -1,6 +1,18 @@
+
 <button type="button" data-toggle="modal" class="button"
-        (click)="ermittlePosition()">Zur eigenen Position
+        (click)="getResponse()">Reload
+</button>
+<div *ngFor="let market of markets">
+<button type="button" data-toggle="modal" class="button"
+        (click)="setCenter(stringToFloat(market.lon) , stringToFloat(market.lat))">Zur eigenen Position
 </button>
 
+<!--  <h2>{{market.place_id}} - [{{market.lat}} {{market.lon}}]</h2>-->
+<!--  <h2>{{market.boundingbox}}]</h2>-->
+</div>
 
 <div id="map" class="map"></div>
+
+<div id="popup" title="popup"></div>
+<a class="overlay" id="testOverlay" >Test</a>
+
