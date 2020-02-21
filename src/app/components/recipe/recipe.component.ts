@@ -1,17 +1,17 @@
-import { Component, ViewChild } from '@angular/core';
-import { TranslationService } from '../../services/translation.service';
-import { InputPlusListComponent } from '../input-plus-list/input-plus-list.component';
-import { Ingredient } from '../../entity/ingredient.class';
-import { Title } from '../../entity/title.class';
-import { PreparationTime } from '../../entity/preparation-time.class';
-import { Instructions } from '../../entity/instructions.class';
-import { Categories, Regions } from '../../types';
-import { Id } from '../../entity/id.class';
-import { LocalStorageService } from '../../services/local-storage.service';
-import { Recipe } from '../../entity/recipe';
-import { Video } from '../../entity/video.class';
-import { Category } from '../../entity/category.class';
-import { Region } from '../../entity/region.class';
+import {Component, ViewChild} from '@angular/core';
+import {TranslationService} from '../../services/translation.service';
+import {InputPlusListComponent} from '../input-plus-list/input-plus-list.component';
+import {Ingredient} from '../../entity/ingredient.class';
+import {Title} from '../../entity/title.class';
+import {PreparationTime} from '../../entity/preparation-time.class';
+import {Instructions} from '../../entity/instructions.class';
+import {Categories, Regions, VolumeUnit} from '../../types';
+import {Id} from '../../entity/id.class';
+import {LocalStorageService} from '../../services/local-storage.service';
+import {Recipe} from '../../entity/recipe';
+import {Video} from '../../entity/video.class';
+import {Category} from '../../entity/category.class';
+import {Region} from '../../entity/region.class';
 
 @Component({
   selector: 'app-recipe',
@@ -57,8 +57,8 @@ export class RecipeComponent {
   saveRecipe(): void {
     for (let i = 0; i < this.childReference.inputs.length; i++) {
       // @ts-ignore
-      const { label, amount, suffix } = this.childReference.inputs.get(i)._view.nodes[1].instance;
-      this.ingredients.push(new Ingredient(label, amount, suffix, 0));
+      const { label, amount} = this.childReference.inputs.get(i)._view.nodes[1].instance;
+      this.ingredients.push(new Ingredient(label, amount, VolumeUnit.GRAMM, 0));
     }
 
     const id = Id.fromNumber(Id.generate());
