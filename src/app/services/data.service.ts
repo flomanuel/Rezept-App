@@ -7,11 +7,8 @@ import {PreparationTime} from '../entity/preparation-time.class';
 import {Instructions} from '../entity/instructions.class';
 import {Recipe} from '../entity/recipe';
 import {Video} from '../entity/video.class';
-import {Image} from '../entity/image.class';
 import {IngredientList} from '../entity/IngredientList';
-import {Categories, Regions, VolumeUnit} from '../types';
-import {Category} from '../entity/category.class';
-import {Region} from '../entity/region.class';
+import {VolumeUnit} from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +21,7 @@ export class DataService {
   fridgeIngredients: Ingredient[] = [];
   privateShoppingList: Ingredient[] = [];
   recipeShoppingLists: IngredientList[] = [];
-  allIngredientsFilteredShoppingList: Ingredient[];
+  allIngredientsFilteredShoppingList: Ingredient[] = [];
   sharingString: string;
 
   constructor() {
