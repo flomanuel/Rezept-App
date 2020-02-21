@@ -13,8 +13,8 @@ import { RecipeStep } from './RecipeStep';
 export class Recipe extends Tag {
   public missingIngredients: number;
 
-  constructor(public id: Id,
-              public title: Title,
+  constructor(id: Id,
+              title: Title,
               public preparationTime: PreparationTime,
               public category: Category[],
               public region: Region[],
