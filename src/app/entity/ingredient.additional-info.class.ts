@@ -1,6 +1,8 @@
-import { IngredientNutritionClass } from './ingredient.nutrition.class';
+import { IngredientNutrition } from './ingredientNutrition';
 
-export class IngredientAdditionalInfoClass {
-  constructor(public description: string, public id: number, public title: string, public nutrition: IngredientNutritionClass) {
-  }
+export interface IngredientAdditionalInfoClass {
+  description: string;
+  id: number;
+  title: string;
+  nutrition: IngredientNutrition;
 }
