@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core';
 })
 export class LocalStorageService {
   addToRecipes(recipe: Recipe): void {
-    const recipes = this.getItem('recipes') || [];
+    const recipes = this.getItem('created-recipes');
     recipes.push(recipe);
-    this.setItem('recipes', recipes);
+    this.setItem('created-recipes', recipes);
   }
 
   getItem(key: string): any[] {

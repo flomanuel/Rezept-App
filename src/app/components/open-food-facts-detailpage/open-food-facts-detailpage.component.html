@@ -79,16 +79,5 @@
   <!--end labels -->
 </div>
 
-<div *ngIf="!this.foodFacts" class="loadingAnimation">
-  <p>Bitte haben Sie einen Monent Geduld, die Suche läuft.</p>
-  <div class="lds-roller">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-</div>
+<app-loading-animation *ngIf="!this.foodFacts"></app-loading-animation>
+

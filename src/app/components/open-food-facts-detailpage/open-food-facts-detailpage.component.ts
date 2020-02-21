@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-open-food-facts-detailpage',
   templateUrl: './open-food-facts-detailpage.component.html',
-  styleUrls: ['./open-food-facts-detailpage.component.less']
+  styleUrls: ['./open-food-facts-detailpage.component.less'],
 })
 export class OpenFoodFactsDetailpageComponent implements OnInit {
 
@@ -16,7 +16,7 @@ export class OpenFoodFactsDetailpageComponent implements OnInit {
     this.getRouteParams.paramMap.subscribe(params => {
       this.ean = params.get('ean');
     });
-
+    /* todo: use Angulars http client (https://angular.io/guide/http) */
     this.getResponse().then((xmlHttp) => {
       xmlHttp.onreadystatechange = () => {
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
@@ -33,7 +33,7 @@ export class OpenFoodFactsDetailpageComponent implements OnInit {
   ngOnInit() {
   }
 
-  async getResponse(): Promise<XMLHttpRequest> {
+  getResponse(): Promise<XMLHttpRequest> {
     const url = this.foodFactsURL.replace('[barcode]', this.ean);
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.open('GET', url, true);

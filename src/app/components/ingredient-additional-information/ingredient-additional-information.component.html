@@ -1,0 +1,17 @@
+<app-header-bar [fridgeLink]="true" [shoppingListButton]="true"></app-header-bar>
+<div *ngFor="let i of info">
+  <h1>{{i.title}}</h1>
+  <p>{{i.description}}</p>
+  <p *ngIf="i.nutrition.kcal || i.nutrition.carbohydrates || i.nutrition.fat || i.nutrition.protein ||
+    i.nutrition.protein || i.nutrition.roughage" class="headline">
+    Nährwerte pro 100g.</p>
+  <ul>
+    <li *ngIf="i.nutrition.kcal">Kilokalorien: {{i.nutrition.kcal}}</li>
+    <li *ngIf="i.nutrition.carbohydrates">Kohlenhydrate: {{i.nutrition.carbohydrates}}</li>
+    <li *ngIf="i.nutrition.fat">Fett: {{i.nutrition.fat}}</li>
+    <li *ngIf="i.nutrition.protein">Protein: {{i.nutrition.protein}}</li>
+    <li *ngIf="i.nutrition.roughage">Ballaststoffe: {{i.nutrition.roughage}}</li>
+  </ul>
+</div>
+
+<app-loading-animation *ngIf="!this.info"></app-loading-animation>
