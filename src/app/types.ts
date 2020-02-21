@@ -65,3 +65,7 @@ export const regions = {
   4: 'american',
   5: 'asian',
 };
+
+export const ingredients = {
+  1: 'Linsen',
+};
