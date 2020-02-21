@@ -1,6 +1,9 @@
 <app-header-bar [fridgeLink]="true" [shoppingListButton]="true"></app-header-bar>
 
 <app-image-gallery *ngIf="recipe?.images"
-                   [images]="[recipe.images[0], recipe.images[0], recipe.images[0]]"></app-image-gallery>
+                   [images]="[recipe.images[0], recipe.images[0], recipe.images[0]]"
+                   [width]="'calc(100vw - 16px)'" [height]="'31vh'"
+>
+</app-image-gallery>
 
 <app-loading-animation *ngIf="!recipe"></app-loading-animation>

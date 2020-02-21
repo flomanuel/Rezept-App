@@ -9,11 +9,16 @@ import { Image } from '../../../entity/image.class';
 export class ImageGalleryComponent implements AfterViewInit {
 
   @Input() 'images': Image[];
+  @Input() 'width' = '100vw';
+  @Input() 'height' = '100vh';
 
   private gallery: HTMLElement;
-  private wrapperWdith: number;
+  private wrapperWidth: number;
   private galleryChildren;
   private pointer: number;
+  private buttonLeft: HTMLElement;
+  private buttonRight: HTMLElement;
+  private sliderAvailable: boolean;
 
   constructor() {
   }
@@ -23,19 +28,23 @@ export class ImageGalleryComponent implements AfterViewInit {
   }
 
   initGallery() {
+    this.sliderAvailable = false;
     this.gallery = document.querySelector('.image-gallery-wrapper');
     this.calculateWrapperWidth();
     this.styleWrapperElement();
     this.styleChildElements();
     this.pointer = 0;
+    this.initControlButtons();
+    // todo: add pan-left / pan-right touch implementation (using HAMMER.JS)
+    this.sliderAvailable = true;
   }
 
   private calculateWrapperWidth() {
-    this.wrapperWdith = 100 * this.gallery.childElementCount;
+    this.wrapperWidth = 100 * this.gallery.childElementCount;
   }
 
   private styleWrapperElement() {
-    this.gallery.style.width = this.wrapperWdith.toString() + '%';
+    this.gallery.style.width = this.wrapperWidth.toString() + '%';
     this.gallery.style.marginLeft = '0';
   }
 
@@ -48,12 +57,33 @@ export class ImageGalleryComponent implements AfterViewInit {
   }
 
   private slideLeft() {
+    this.sliderAvailable = false;
     this.pointer--;
-    this.gallery.style.margin = 100;
+    this.gallery.style.marginLeft = (100 * this.pointer).toString() + '%';
+    this.sliderAvailable = true;
   }
 
   private slideRight() {
+    this.sliderAvailable = false;
     this.pointer++;
-    this.gallery;
+    this.gallery.style.marginLeft = (100 * this.pointer).toString() + '%';
+    this.sliderAvailable = true;
+  }
+
+  private initControlButtons() {
+    this.buttonLeft = document.querySelector('.sliderButton--left');
+    this.buttonRight = document.querySelector('.sliderButton--right');
+
+    this.buttonLeft.onclick = () => {
+      if (this.sliderAvailable && this.pointer < 0) {
+        this.slideRight();
+      }
+    };
+
+    this.buttonRight.onclick = () => {
+      if (this.sliderAvailable && this.pointer > ((this.galleryChildren.length - 1) * -1)) {
+        this.slideLeft();
+      }
+    };
   }
 }
