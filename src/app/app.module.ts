@@ -22,6 +22,7 @@ import { MarketSearchComponent } from './components/market-search/market-search.
 // tslint:disable-next-line:max-line-length
 import { IngredientAdditionalInformationComponent } from './components/ingredient-additional-information/ingredient-additional-information.component';
 import { LoadingAnimationComponent } from './components/_shared/loading-animation/loading-animation.component';
+import { ImageGalleryComponent } from './components/_shared/image-gallery/image-gallery.component';
 
 const appRoutes: Routes = [
   {
@@ -86,6 +87,7 @@ const appRoutes: Routes = [
     MarketSearchComponent,
     IngredientAdditionalInformationComponent,
     LoadingAnimationComponent,
+    ImageGalleryComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

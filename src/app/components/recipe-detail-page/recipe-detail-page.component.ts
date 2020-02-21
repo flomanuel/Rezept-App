@@ -12,8 +12,6 @@ export class RecipeDetailPageComponent implements OnInit {
 
   private recipe: Recipe;
 
-  @ViewChild('imageGallery', { static: false }) gallery: ElementRef;
-
   // @Input() 'recipe': Recipe[];
 
   constructor(private db: AngularFirestore) {
@@ -32,9 +30,5 @@ export class RecipeDetailPageComponent implements OnInit {
       const collection = this.db.collection(Database.RECIPES, ref => ref.where('title', '==', 'Suppe1'));
       resolve(collection);
     });
-  }
-
-  initImageGallery() {
-    console.log(this.gallery);
   }
 }

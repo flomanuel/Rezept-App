@@ -1,10 +1,6 @@
 <app-header-bar [fridgeLink]="true" [shoppingListButton]="true"></app-header-bar>
-<div *ngIf="recipe?.images" #imageGallery class="image-gallery">
-  {{initImageGallery()}}
-  <div *ngFor="let image of recipe.images" class="image-gallery__element">
-    <img alt="Alternativtext für das Bild" src="{{image.link}}"/>
-  </div>
-</div>
 
+<app-image-gallery *ngIf="recipe?.images"
+                   [images]="[recipe.images[0], recipe.images[0], recipe.images[0]]"></app-image-gallery>
 
 <app-loading-animation *ngIf="!recipe"></app-loading-animation>
