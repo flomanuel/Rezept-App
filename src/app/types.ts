@@ -32,16 +32,16 @@ export enum Regions {
 }
 
 export enum VolumeUnit {
-  STUECK      = 'Stk',
+  STUECK = 'Stk',
 
-  GRAMM       = 'g',
-  KILOGRAMM   = 'kg',
+  GRAMM = 'g',
+  KILOGRAMM = 'kg',
 
-  MILLILITER  = 'ml',
-  LITER       = 'l',
+  MILLILITER = 'ml',
+  LITER = 'l',
 
-  TEELOEFFEL  = 'TL',
-  ESSLOEFFEL  = 'EL'
+  TEELOEFFEL = 'TL',
+  ESSLOEFFEL = 'EL'
 }
 
 export const categories = {
@@ -58,4 +58,8 @@ export const regions = {
   3: 'italian',
   4: 'american',
   5: 'asian',
+};
+
+export const ingredients = {
+  1: 'Linsen',
 };
