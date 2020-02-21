@@ -11,6 +11,7 @@ import { Region } from './region.class';
 
 export class Recipe extends Tag {
   public missingIngredients: number;
+  private readonly _title: Title;
 
   constructor(public id: Id,
               public title: Title,
@@ -24,7 +25,6 @@ export class Recipe extends Tag {
   ) {
     super(title, id);
   }
-
 
   public add_missing(): void {
     this.missingIngredients++;
