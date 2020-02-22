@@ -1,16 +1,17 @@
 <div id="header" class="grid-container noExtraColumns" [style.opacity]="opacity">
   <span class="back" (click)="goBack()"></span>
   <form *ngIf="suggestions" class="add-tag" [class.active]="suggestionContainerActive">
+    <!-- todo: consider usability regarding fullscreen-switch -->
     <input type="text" name="search-field" [(ngModel)]="searchValue" (click)="toggleSuggestionsContainer(true)">
   </form>
 
   <div class="rightSideButtonsWrapper" [class.afterSuggestionsBar]="suggestions">
-  <span class="default-ingredients-flag"
-        *ngIf="!(suggestionContainerActive && suggestions) && defaultIngredientsButton"
-        [class.selected]="defaultIngredientsStatus"
-        (click)="toggleIngredientsStatus()">
-    Standard<br/>Zutaten
-  </span>
+    <span class="default-ingredients-flag"
+          *ngIf="!(suggestionContainerActive && suggestions) && defaultIngredientsButton"
+          [class.selected]="defaultIngredientsStatus"
+          (click)="toggleIngredientsStatus()">
+      Standard<br/>Zutaten
+    </span>
 
     <a class="fridge-flag fridge-button"
        *ngIf="!(suggestionContainerActive && suggestions) &&  fridgeFlag"
@@ -24,7 +25,7 @@
     </a>
 
     <a class="open-shoppingList"
-       *ngIf="!(suggestionContainerActive && suggestions) &&  shoppingListButton" routerLink="/">
+       *ngIf="!(suggestionContainerActive && suggestions) &&  shoppingListButton" routerLink="/shopping_list">
     </a>
   </div>
 </div>
