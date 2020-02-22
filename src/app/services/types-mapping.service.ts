@@ -4,7 +4,7 @@ import { VolumeUnit } from '../types';
 @Injectable({
   providedIn: 'root',
 })
-export class TypesMapperService {
+export class TypesMappingService {
 
   constructor() {
   }
