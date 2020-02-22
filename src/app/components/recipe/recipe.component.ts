@@ -5,7 +5,7 @@ import { Ingredient } from '../../entity/ingredient.class';
 import { Title } from '../../entity/title.class';
 import { PreparationTime } from '../../entity/preparation-time.class';
 import { Instructions } from '../../entity/instructions.class';
-import { Categories, Regions } from '../../types';
+import { Categories, Regions, VolumeUnit } from '../../types';
 import { Id } from '../../entity/id.class';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Recipe } from '../../entity/recipe';
@@ -85,9 +85,8 @@ export class RecipeComponent {
 
     for (let i = 0; i < this.childReference.inputs.length; i++) {
       // @ts-ignore
-      const { label, amount, suffix } = this.childReference.inputs.get(i)._view.nodes[1].instance;
-      this.ingredients.push(new Ingredient(label, amount, suffix, 0));
-      console.log(this.ingredients);
+      const { label, amount } = this.childReference.inputs.get(i)._view.nodes[1].instance;
+      this.ingredients.push(new Ingredient(label, amount, VolumeUnit.GRAMM, 0));
     }
 
     if (this.ingredients.length === 0) {

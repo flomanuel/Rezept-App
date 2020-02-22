@@ -15,7 +15,8 @@ import { SearchPageComponent } from './components/search-page/search-page.compon
 import { RecipeListElementComponent } from './components/recipe-list-element/recipe-list-element.component';
 import { SearchPageFilterTabComponent } from './components/search-page-filter-tab/search-page-filter-tab.component';
 import { HeaderBarComponent } from './components/_shared/header-bar/header-bar.component';
-import { RecipedetailpageComponent } from './components/recipe-detail-page/recipe-detail-page.component';
+import {ShoppingListComponent} from './components/shopping-list/shopping-list.component';
+import {RecipedetailpageComponent } from './components/recipe-detail-page/recipe-detail-page.component';
 import { BarcodeScannerComponent } from './components/barcode-scanner/barcode-scanner.component';
 import { OpenFoodFactsDetailpageComponent } from './components/open-food-facts-detailpage/open-food-facts-detailpage.component';
 import { MarketSearchComponent } from './components/market-search/market-search.component';
@@ -62,6 +63,10 @@ const appRoutes: Routes = [
     component: IngredientAdditionalInformationComponent,
   },
   {
+    path: 'shopping_list',
+    component: ShoppingListComponent
+  },
+  {
     // this should always be the last entry since otherwise all paths get mapped to the homepage
     path: '**',
     component: HomePageComponent,
@@ -81,6 +86,7 @@ const appRoutes: Routes = [
     RecipeListElementComponent,
     SearchPageFilterTabComponent,
     HeaderBarComponent,
+    ShoppingListComponent,
     RecipedetailpageComponent,
     BarcodeScannerComponent,
     OpenFoodFactsDetailpageComponent,

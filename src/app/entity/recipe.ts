@@ -8,12 +8,13 @@ import { Category } from './category.class';
 import { Image } from './image.class';
 import { Video } from './video.class';
 import { Region } from './region.class';
+import { RecipeStep } from './RecipeStep';
 
 export class Recipe extends Tag {
   public missingIngredients: number;
 
-  constructor(public id: Id,
-              public title: Title,
+  constructor(id: Id,
+              title: Title,
               public preparationTime: PreparationTime,
               public category: Category[],
               public region: Region[],
@@ -21,12 +22,9 @@ export class Recipe extends Tag {
               public instructions: Instructions,
               public images: Image[],
               public video: Video,
+              public uid?: number,
+              public steps?: RecipeStep[],
   ) {
     super(title, id);
-  }
-
-
-  public add_missing(): void {
-    this.missingIngredients++;
   }
 }
