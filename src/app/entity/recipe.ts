@@ -1,6 +1,5 @@
 import { Tag } from './Tag';
 import { Title } from './title.class';
-import { PreparationTime } from './preparation-time.class';
 import { Instructions } from './instructions.class';
 import { Ingredient } from './ingredient.class';
 import { Id } from './id.class';
@@ -15,7 +14,7 @@ export class Recipe extends Tag {
 
   constructor(id: Id,
               title: Title,
-              public preparationTime: PreparationTime,
+              public preparationTime: number,
               public category: Category[],
               public region: Region[],
               public ingredients: Ingredient[],

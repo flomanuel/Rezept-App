@@ -3,7 +3,6 @@ import { Tag } from '../entity/Tag';
 import { Ingredient } from '../entity/ingredient.class';
 import { Id } from '../entity/id.class';
 import { Title } from '../entity/title.class';
-import { PreparationTime } from '../entity/preparation-time.class';
 import { Instructions } from '../entity/instructions.class';
 import { Recipe } from '../entity/recipe';
 import { Video } from '../entity/video.class';
@@ -33,7 +32,7 @@ export class DataService {
     this.searchResult.push(new Recipe(
       Id.fromNumber(Id.generate()),
       Title.create('Pizza'),
-      PreparationTime.create(130),
+      130,
       [],
       [],
       [new Ingredient('Test', 2, VolumeUnit.GRAMM, 1, 0)],

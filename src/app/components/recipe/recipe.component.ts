@@ -3,7 +3,6 @@ import {TranslationService} from '../../services/translation.service';
 import {InputPlusListComponent} from '../input-plus-list/input-plus-list.component';
 import {Ingredient} from '../../entity/ingredient.class';
 import {Title} from '../../entity/title.class';
-import {PreparationTime} from '../../entity/preparation-time.class';
 import {Instructions} from '../../entity/instructions.class';
 import {Categories, Regions, VolumeUnit} from '../../types';
 import {Id} from '../../entity/id.class';
@@ -63,12 +62,11 @@ export class RecipeComponent {
 
     const id = Id.fromNumber(Id.generate());
     const title = Title.create(this.title);
-    const preparationTime = PreparationTime.create(this.preparationTime);
     const instructions = Instructions.create(this.instructions);
     const categories = this.categories.map(cat => Category.create(cat));
     const regions = this.regions.map(reg => Region.create(reg));
 
-    const recipe = new Recipe(id, title, preparationTime, categories, regions, this.ingredients, instructions, [], Video.create(''));
+    const recipe = new Recipe(id, title, this.preparationTime, categories, regions, this.ingredients, instructions, [], Video.create(''));
 
     // @ts-ignore
     document.querySelector('#recipeForm').reset();
