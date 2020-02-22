@@ -85,8 +85,8 @@ export class RecipeComponent {
 
     for (let i = 0; i < this.childReference.inputs.length; i++) {
       // @ts-ignore
-      const { label, amount } = this.childReference.inputs.get(i)._view.nodes[1].instance;
-      this.ingredients.push(new Ingredient(label, amount, VolumeUnit.GRAMM, 0));
+      const { label, amount, suffix } = this.childReference.inputs.get(i)._view.nodes[1].instance;
+      this.ingredients.push(new Ingredient(label, amount, suffix, 0));
     }
 
     if (this.ingredients.length === 0) {
