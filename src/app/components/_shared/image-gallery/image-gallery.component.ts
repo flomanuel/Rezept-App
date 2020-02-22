@@ -9,8 +9,10 @@ import { Image } from '../../../entity/image.class';
 export class ImageGalleryComponent implements AfterViewInit {
 
   @Input() 'images': Image[];
-  @Input() 'width' = '100vw';
-  @Input() 'height' = '100vh';
+  @Input() 'width' = 'initial';
+  @Input() 'height' = 'initial';
+  @Input() 'maxWidth' = 'initial';
+  @Input() 'maxHeight' = 'initial';
 
   private gallery: HTMLElement;
   private wrapperWidth: number;
