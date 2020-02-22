@@ -58,7 +58,7 @@ export class RecipeComponent {
     for (let i = 0; i < this.childReference.inputs.length; i++) {
       // @ts-ignore
       const { label, amount} = this.childReference.inputs.get(i)._view.nodes[1].instance;
-      this.ingredients.push(new Ingredient(label, amount, VolumeUnit.GRAMM, 0));
+      this.ingredients.push(new Ingredient(label, amount, VolumeUnit.GRAMM, 1, 0));
     }
 
     const id = Id.fromNumber(Id.generate());

@@ -18,6 +18,7 @@ export class RecipeDetailPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.body.style.margin = '0';
     this.getNewRecipe().then((collection) => {
       collection.valueChanges().subscribe((snapshots: Recipe[]) => {
         this.recipe = snapshots[0];

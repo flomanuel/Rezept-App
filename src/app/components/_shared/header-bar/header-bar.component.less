@@ -8,6 +8,7 @@ fridge button
   - fridge link
 shopping list button
 default ingredients flag
+add-recipe-to-shopping-list button
 **************************************/
 
 /*************************************
@@ -25,13 +26,22 @@ header
   top: 0;
   height: 10%;
   width: 100%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 67%, rgba(255, 255, 255, 0.8883754185267857) 79%, rgba(255, 255, 255, 0.6054622532606793) 88%, rgba(255, 255, 255, 0) 100%);
+
+  &.background {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 67%, rgba(255, 255, 255, 0.8883754185267857) 79%, rgba(255, 255, 255, 0.6054622532606793) 88%, rgba(255, 255, 255, 0) 100%);
+  }
 
   .back {
     width: 35px;
     height: 35px;
     content: '';
     background: url("../../../../assets/icons/navigation/page_back.svg") no-repeat center;
+    margin: 4px;
+
+    &.allowElementsBehind {
+      z-index: 1;
+      position: absolute;
+    }
   }
 
   .add-tag {
@@ -70,6 +80,10 @@ right side buttons wrapper
 .rightSideButtonsWrapper {
   display: flex;
   justify-content: flex-end;
+
+  &.allowElementsBehind {
+    position: absolute;
+  }
 
   &.afterSuggestionsBar {
     width: 48.9%;
@@ -239,5 +253,44 @@ default ingredients flag
     color: #000000;
     background: rgba(109, 109, 109, 0.38);
     border: 2px solid #929292;
+  }
+}
+
+/*************************************
+add-recipe-to-shopping-list button
+**************************************/
+.button--add-recipe-to-shopping-list {
+  margin: 4px;
+  background-size: contain;
+  transition: transform 175ms ease-in-out;
+
+  @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
+    width: 60px;
+    height: 61px;
+  }
+  @media screen and (max-width: @width_max-md) and (min-width: @width_min-md) {
+    width: 50px;
+    height: 51px;
+  }
+  @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
+    width: 40px;
+    height: 41px;
+  }
+
+  &:not(:hover) {
+    opacity: 0.7;
+  }
+
+  &.recipeAddedToList {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("../../../../assets/icons/checked.svg");
+  }
+
+  &:not(.recipeAddedToList) {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("../../../../assets/icons/addToShoppingList.svg");
+    transform: rotateZ(-360deg);
   }
 }

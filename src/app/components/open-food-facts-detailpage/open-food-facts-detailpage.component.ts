@@ -24,7 +24,6 @@ export class OpenFoodFactsDetailpageComponent implements OnInit {
           if (parsedJSON.status_verbose === 'product found') {
             this.foodFacts = parsedJSON;
           }
-          console.log(this.foodFacts);
         }
       };
     });

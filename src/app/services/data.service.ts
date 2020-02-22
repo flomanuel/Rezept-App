@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {Tag} from '../entity/Tag';
-import {Ingredient} from '../entity/ingredient.class';
-import {Id} from '../entity/id.class';
-import {Title} from '../entity/title.class';
-import {PreparationTime} from '../entity/preparation-time.class';
-import {Instructions} from '../entity/instructions.class';
-import {Recipe} from '../entity/recipe';
-import {Video} from '../entity/video.class';
-import {IngredientList} from '../entity/IngredientList';
-import {VolumeUnit} from '../types';
+import { Injectable } from '@angular/core';
+import { Tag } from '../entity/Tag';
+import { Ingredient } from '../entity/ingredient.class';
+import { Id } from '../entity/id.class';
+import { Title } from '../entity/title.class';
+import { PreparationTime } from '../entity/preparation-time.class';
+import { Instructions } from '../entity/instructions.class';
+import { Recipe } from '../entity/recipe';
+import { Video } from '../entity/video.class';
+import { IngredientList } from '../entity/IngredientList';
+import { VolumeUnit } from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +36,7 @@ export class DataService {
       PreparationTime.create(130),
       [],
       [],
-      [new Ingredient('Test', 2, VolumeUnit.GRAMM, 0)],
+      [new Ingredient('Test', 2, VolumeUnit.GRAMM, 1, 0)],
       Instructions.create(''),
       [],
       Video.create('')));

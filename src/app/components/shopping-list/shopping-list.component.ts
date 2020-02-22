@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Ingredient} from '../../entity/ingredient.class';
-import {DataService} from '../../services/data.service';
+import { Component, OnInit } from '@angular/core';
+import { Ingredient } from '../../entity/ingredient.class';
+import { DataService } from '../../services/data.service';
 import { VolumeUnit } from '../../types';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.less']
+  styleUrls: ['./shopping-list.component.less'],
 })
 export class ShoppingListComponent implements OnInit {
 
@@ -14,7 +14,7 @@ export class ShoppingListComponent implements OnInit {
   recipeFilter: boolean;
 
   constructor(private dataService: DataService) {
-    this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 0);
+    this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, 0);
     this.recipeFilter = true;
   }
 
@@ -35,9 +35,9 @@ export class ShoppingListComponent implements OnInit {
   }
 
   addNewPrivateIngredient() {
-    if (this.privateIngredient.label !== undefined) {
+    if (this.privateIngredient.label !== '') {
       this.dataService.addItemToPrivateShoppingList(this.privateIngredient);
-      this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 0);
+      this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, 0);
       this.createSharingString();
     }
   }

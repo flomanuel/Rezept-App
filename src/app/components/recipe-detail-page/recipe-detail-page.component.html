@@ -1,4 +1,7 @@
-<app-header-bar [fridgeLink]="true" [shoppingListButton]="true"></app-header-bar>
+<app-header-bar
+  [shoppingListButton]="true" [width]="'calc(100% - 16px)'"
+  [background]="false" [allowElementsBehind]="true" [currentRecipe]="recipe">
+</app-header-bar>
 
 <app-image-gallery *ngIf="recipe?.images"
                    [images]="[recipe.images[0], recipe.images[0], recipe.images[0]]"

@@ -41,7 +41,10 @@ export enum VolumeUnit {
   LITER = 'l',
 
   TEELOEFFEL = 'TL',
-  ESSLOEFFEL = 'EL'
+  ESSLOEFFEL = 'EL',
+
+  TASSE = 'Tasse',
+  TASSEN = 'Tassen',
 }
 
 export enum PopupType {

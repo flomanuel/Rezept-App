@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
 import { DataService } from '../../../services/data.service';
 import { Tag } from '../../../entity/Tag';
+import { Recipe } from '../../../entity/recipe';
 
 @Component({
   selector: 'app-header-bar',
@@ -19,11 +20,16 @@ export class HeaderBarComponent implements OnInit {
   @Input() shoppingListButton: boolean;
   @Input() defaultIngredientsButton: boolean;
   @Input() opacity = 1;
+  @Input() width = 'initial';
+  @Input() background = true;
+  @Input() allowElementsBehind = false;
+  @Input() currentRecipe: Recipe;
 
   private suggestionContainerActive = false;
   private searchValue = '';
   private defaultIngredientsStatus = false;
   private fridgeContentStatus = false;
+  recipeAddedToList = false;
 
   constructor(private location: Location, private dataService: DataService) {
   }
@@ -61,5 +67,12 @@ export class HeaderBarComponent implements OnInit {
   toggleFridgeStatus(): void {
     this.fridgeContentStatus = !this.fridgeContentStatus;
     this.fridgeStatusEvent.emit(this.fridgeContentStatus);
+  }
+
+  addRecipeToShoppingList() {
+    if (this.currentRecipe) {
+      this.dataService.addRecipe(this.currentRecipe);
+      this.recipeAddedToList = true;
+    }
   }
 }
