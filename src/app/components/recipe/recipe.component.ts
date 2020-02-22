@@ -5,7 +5,7 @@ import { Ingredient } from '../../entity/ingredient.class';
 import { Title } from '../../entity/title.class';
 import { PreparationTime } from '../../entity/preparation-time.class';
 import { Instructions } from '../../entity/instructions.class';
-import { Categories, Regions, VolumeUnit } from '../../types';
+import { Categories, Regions } from '../../types';
 import { Id } from '../../entity/id.class';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Recipe } from '../../entity/recipe';
