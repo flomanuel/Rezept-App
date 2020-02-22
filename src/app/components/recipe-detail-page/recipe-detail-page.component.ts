@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../../entity/recipe';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Database } from '../../../config';
@@ -31,5 +31,21 @@ export class RecipeDetailPageComponent implements OnInit {
       const collection = this.db.collection(Database.RECIPES, ref => ref.where('title', '==', 'Suppe1'));
       resolve(collection);
     });
+  }
+
+  favouriteRevipe() {
+    alert('favourised recipe');
+  }
+
+  calculatePreparationTime(format: string) {
+    const time = this.recipe.preparationTime;
+    console.log(this.recipe);
+    if (format === 'h') {
+      return Math.trunc(time / 60);
+    }
+
+    if (format === 'm') {
+      return time % 60;
+    }
   }
 }

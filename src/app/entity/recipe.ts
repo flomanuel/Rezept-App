@@ -21,6 +21,7 @@ export class Recipe extends Tag {
               public instructions: Instructions,
               public images: Image[],
               public video: Video,
+              public allergens?: string[],
               public uid?: number,
               public steps?: RecipeStep[],
   ) {

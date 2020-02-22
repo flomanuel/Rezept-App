@@ -1,12 +1,28 @@
-<app-header-bar
-  [shoppingListButton]="true" [width]="'calc(100% - 16px)'"
-  [background]="false" [allowElementsBehind]="true" [currentRecipe]="recipe">
-</app-header-bar>
+<div class="wrapper" *ngIf="recipe">
+  <app-header-bar
+    [shoppingListButton]="true" [width]="'calc(100% - 16px)'"
+    [background]="false" [allowElementsBehind]="true" [currentRecipe]="recipe">
+  </app-header-bar>
 
-<app-image-gallery *ngIf="recipe?.images"
-                   [images]="[recipe.images[0], recipe.images[0], recipe.images[0]]"
-                   [maxWidth]="'584px'" [height]="'31vh'"
->
-</app-image-gallery>
+  <app-image-gallery *ngIf="recipe?.images"
+                     [images]="[recipe.images[0], recipe.images[0], recipe.images[0]]"
+                     [maxWidth]="'584px'" [height]="'31vh'"
+  >
+  </app-image-gallery>
 
+  <div class="headline">
+    <span class="headline__title">{{recipe.title}}</span>
+    <span class="headline__cookingTime">
+      {{calculatePreparationTime('h')}} h
+      {{calculatePreparationTime('m')}} min
+    </span>
+    <span class="headline__favouriteRecipe" (click)="favouriteRevipe()"></span>
+    <div class="information-components--wrapper">
+      <div class="information-components__recipe-list"></div>
+      <div class="information-components__tools-list"></div>
+      <div class="information-components__allergens-list"></div>
+    </div>
+  </div>
+
+</div>
 <app-loading-animation *ngIf="!recipe"></app-loading-animation>
