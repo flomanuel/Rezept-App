@@ -12,6 +12,7 @@ import { Recipe } from '../../entity/recipe';
 import { Video } from '../../entity/video.class';
 import { Category } from '../../entity/category.class';
 import { Region } from '../../entity/region.class';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-recipe',
@@ -25,15 +26,23 @@ export class RecipeComponent {
   private fileRegions: string[] = [];
 
   public ingredients: Ingredient[] = [];
-  public title: string;
+  public title = '';
   public description: string;
   public regions: Regions[] = [];
   public categories: Categories[] = [];
   public preparationTime: number;
   public instructions: string;
   public recipeSaved = false;
+  public error: any = false;
+  public categoriesWereSelected = true;
+  public regionsWereSelected = true;
 
-  constructor(private readonly translationService: TranslationService, private readonly localStorageService: LocalStorageService) {
+  public infoModalTitle: string;
+  public infoModalMessage: string;
+
+  constructor(private readonly translationService: TranslationService,
+              private readonly localStorageService: LocalStorageService,
+              private readonly modalService: ModalService) {
     this.fileCategories = Object.values(Categories).map(category => this.getTranslatedWord(category));
     this.fileRegions = Object.values(Regions).map(region => this.getTranslatedWord(region));
   }
@@ -48,17 +57,44 @@ export class RecipeComponent {
 
   validRecipe(): boolean {
     return this.title &&
-      this.regions.length >= 1 &&
+      this.regions.length > 0 &&
       this.description &&
       this.preparationTime &&
-      this.categories.length >= 1;
+      this.instructions &&
+      this.categories.length > 0;
+  }
+
+  selectCategories(event): void {
+    this.categoriesWereSelected = event.length !== 0;
+    this.categories = event;
+  }
+
+  selectRegions(event): void {
+    this.regionsWereSelected = event.length !== 0;
+    this.regions = event;
   }
 
   saveRecipe(): void {
+    if (!this.validRecipe()) {
+      this.infoModalTitle = 'Fehler beim Speichern des Rezeptes!';
+      this.infoModalMessage = 'Rezept konnte nicht gespeichert werden. ' +
+        'Bitte überprüfen Sie Ihre Eingabe und gehen Sie sicher, dass sie alle Felder ausgefüllt haben.';
+      this.modalService.openModal('info-modal');
+      return;
+    }
+
     for (let i = 0; i < this.childReference.inputs.length; i++) {
       // @ts-ignore
       const { label, amount, suffix } = this.childReference.inputs.get(i)._view.nodes[1].instance;
       this.ingredients.push(new Ingredient(label, amount, suffix, 0));
+      console.log(this.ingredients);
+    }
+
+    if (this.ingredients.length === 0) {
+      this.infoModalTitle = 'Fehler beim Speichern des Rezeptes!';
+      this.infoModalMessage = 'Bitte geben Sie die Zutaten zu Ihrem Rezept an.';
+      this.modalService.openModal('info-modal');
+      return;
     }
 
     const id = Id.fromNumber(Id.generate());
@@ -72,11 +108,18 @@ export class RecipeComponent {
 
     // @ts-ignore
     document.querySelector('#recipeForm').reset();
+    this.categories = [];
+    this.regions = [];
 
     this.localStorageService.addToRecipes(recipe);
     this.recipeSaved = true;
     setInterval(() => {
       this.recipeSaved = false;
+      window.location.reload(); // Is needed because ingredients wont be reset...
     }, 3000);
+  }
+
+  openModal(id: string) {
+    this.modalService.openModal(id);
   }
 }

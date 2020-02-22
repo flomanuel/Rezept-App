@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { PopupType } from '../../../types';
 import { animate, style, transition, trigger } from '@angular/animations';
 
@@ -22,8 +22,10 @@ export class PopupComponent implements OnInit {
   @Input() title = '';
   @Input() message!: string;
   @Input() status: PopupType = PopupType.INFO;
+  private element: any;
 
-  constructor() {
+  constructor(private readonly el: ElementRef) {
+    this.element = el.nativeElement;
   }
 
   ngOnInit() {
@@ -39,7 +41,7 @@ export class PopupComponent implements OnInit {
 
     if (this.status === PopupType.DANGER) {
       // @ts-ignore
-      document.querySelector('.wrapper').style.backgroundColor = '#cc0e09';
+      document.querySelector('.wrapper').style.backgroundColor = '#bf4647';
     }
   }
 }

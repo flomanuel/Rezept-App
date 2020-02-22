@@ -25,6 +25,8 @@ import {
 import { LoadingAnimationComponent } from './components/_shared/loading-animation/loading-animation.component';
 import { PopupComponent } from './components/_shared/popup/popup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MultiselectModalComponent } from './components/multiselect-modal/multiselect-modal.component';
+import { InfoModalComponent } from './components/info-modal/info-modal.component';
 
 const appRoutes: Routes = [
   {
@@ -86,6 +88,8 @@ const appRoutes: Routes = [
     IngredientAdditionalInformationComponent,
     LoadingAnimationComponent,
     PopupComponent,
+    MultiselectModalComponent,
+    InfoModalComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

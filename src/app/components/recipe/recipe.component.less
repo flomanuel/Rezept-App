@@ -121,10 +121,26 @@
       padding: .5em;
       border-radius: @borderRadius;
     }
+
+    #categoryContainer button,
+    #regionContainer button {
+      width: 90%;
+      background-color: #ffca2c;
+      padding: .5rem;
+      border: 1px solid black;
+      margin-bottom: .5rem;
+    }
+
+    #categoryContainer button:hover,
+    #regionContainer button:hover {
+      background-color: #e8b32c;
+      cursor: pointer;
+    }
   }
 
   #desciptionContainer,
   #instructionsContainer {
+    display: block;
     grid-column-start: @baseGridColumnStart;
     grid-column-end: 6;
 
@@ -171,6 +187,33 @@
   label {
     font-size: 1.4em;
   }
+
+  .field-error {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-template-columns: auto;
+    background-color: goldenrod;
+    opacity: .7;
+
+    div,
+    p {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+
+    p {
+      text-align: center;
+    }
+  }
+
+  .modal-error {
+    margin-top: -.5rem;
+    display: flex;
+    width: 90%;
+    text-align: center;
+    background-color: goldenrod;
+    opacity: .7;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -196,6 +239,58 @@
         float: left;
         margin-bottom: 1em;
       }
+    }
+
+    #categoryAndRegionContainer {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(1, 100%);
+      grid-gap: .7rem;
+
+      #categoryContainer {
+        grid-row: 1;
+      }
+
+      #regionContainer {
+        grid-row: 2;
+      }
+
+      #categoryContainer button,
+      #regionContainer button {
+        width: 100%;
+        background-color: #ffca2c;
+        padding: .5rem;
+        border: 1px solid black;
+      }
+
+      #categoryContainer button:hover,
+      #regionContainer button:hover {
+        background-color: #e8b32c;
+        cursor: pointer;
+      }
+    }
+
+    .field-error {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      grid-template-columns: auto;
+      background-color: goldenrod;
+      opacity: .7;
+      padding: 0;
+
+      div,
+      p {
+        grid-column-start: 1;
+        grid-column-end: 3;
+      }
+
+      p {
+        text-align: center;
+      }
+    }
+
+    .modal-error {
+      width: 100%;
     }
   }
 }
