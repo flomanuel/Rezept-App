@@ -44,6 +44,12 @@ export enum VolumeUnit {
   ESSLOEFFEL = 'EL'
 }
 
+export enum PopupType {
+  INFO = 'info',
+  SUCCESS = 'success',
+  DANGER = 'danger',
+}
+
 export const categories = {
   1: 'soup',
   2: 'vegetarian',

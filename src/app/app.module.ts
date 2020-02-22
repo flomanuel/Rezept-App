@@ -19,10 +19,14 @@ import { RecipeDetailPageComponent } from './components/recipe-detail-page/recip
 import { BarcodeScannerComponent } from './components/barcode-scanner/barcode-scanner.component';
 import { OpenFoodFactsDetailpageComponent } from './components/open-food-facts-detailpage/open-food-facts-detailpage.component';
 import { MarketSearchComponent } from './components/market-search/market-search.component';
-// tslint:disable-next-line:max-line-length
-import { IngredientAdditionalInformationComponent } from './components/ingredient-additional-information/ingredient-additional-information.component';
+import {
+  IngredientAdditionalInformationComponent,
+} from './components/ingredient-additional-information/ingredient-additional-information.component';
 import { LoadingAnimationComponent } from './components/_shared/loading-animation/loading-animation.component';
+import { PopupComponent } from './components/_shared/popup/popup.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageGalleryComponent } from './components/_shared/image-gallery/image-gallery.component';
+import {ShoppingListComponent} from './components/shopping-list/shopping-list.component';
 
 const appRoutes: Routes = [
   {
@@ -62,6 +66,10 @@ const appRoutes: Routes = [
     component: IngredientAdditionalInformationComponent,
   },
   {
+    path: 'shopping_list',
+    component: ShoppingListComponent
+  },
+  {
     // this should always be the last entry since otherwise all paths get mapped to the homepage
     path: '**',
     component: HomePageComponent,
@@ -82,12 +90,14 @@ const appRoutes: Routes = [
     SearchPageFilterTabComponent,
     HeaderBarComponent,
     RecipeDetailPageComponent,
+    ShoppingListComponent,
     BarcodeScannerComponent,
     OpenFoodFactsDetailpageComponent,
     MarketSearchComponent,
     IngredientAdditionalInformationComponent,
     LoadingAnimationComponent,
     ImageGalleryComponent,
+    PopupComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -95,6 +105,7 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
