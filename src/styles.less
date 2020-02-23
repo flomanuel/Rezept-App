@@ -22,19 +22,3 @@
 @width_min-md: 601px;
 @width_max-sm: 600px;
 @width_min-sm: 1px;
-
-.grid-container {
-  display: grid;
-
-  &:not(.noExtraColumns) {
-    grid-template-columns: 100px auto 100px;
-  }
-
-  &:not(.noRows) {
-    grid-template-rows: repeat(3, 33%);
-  }
-
-  &.noExtraColumns {
-    grid-template-columns: auto;
-  }
-}
