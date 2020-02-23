@@ -5,24 +5,46 @@
   </app-header-bar>
 
   <app-image-gallery *ngIf="recipe?.images"
-                     [images]="[recipe.images[0], recipe.images[0], recipe.images[0]]"
+                     [images]="recipe.images"
                      [maxWidth]="'584px'" [height]="'31vh'"
   >
   </app-image-gallery>
 
   <div class="headline">
-    <span class="headline__title">{{recipe.title}}</span>
-    <span class="headline__cookingTime">
+    <h1 class="headline__title" *ngIf="recipe.title">{{recipe.title}}</h1>
+    <p class="headline__cookingTime" *ngIf="recipe.preparationTime">
       {{calculatePreparationTime('h')}} h
       {{calculatePreparationTime('m')}} min
-    </span>
-    <span class="headline__favouriteRecipe" (click)="favouriteRevipe()"></span>
-    <div class="information-components--wrapper">
-      <div class="information-components__recipe-list"></div>
-      <div class="information-components__tools-list"></div>
-      <div class="information-components__allergens-list"></div>
+    </p>
+    <span class="headline__favouriteRecipe" [class.favoured]="localStorageService.isRecipeFavoured(recipe.uid)"
+          (click)="toggleFavouriteRecipe()"></span>
+  </div>
+
+  <div class="information-components--wrapper">
+    <table class="information-components__recipe-list" *ngIf="recipe.ingredients.length >= 1">
+      <thead class="recipe-list__title">N fehlende Zutaten</thead>
+      <tr *ngFor="let ingredient of recipe.ingredients">
+        <td *ngIf="ingredient.customTitle">{{ingredient.customTitle}}</td>
+        <td *ngIf="!ingredient.customTitle">{{typesMapper.getRecipeNameById(ingredient.id)}}</td>
+        <td>{{ingredient.amount}} {{typesMapper.getVolumeUnitByParam(ingredient.volumeUnit)}}</td>
+      </tr>
+    </table>
+    <table class="information-components__tools-list" *ngIf="recipe.tools.length >= 1">
+      <tr *ngFor="let tool of recipe.tools">
+        <td>{{tool}}</td>
+      </tr>
+    </table>
+    <div class="information-components__allergens-list" *ngIf="recipe.allergens.length >= 1">
+      <span class="allergens-list__title">Allergene:</span>
+      <span class="allergens-list__elements">{{recipe.allergens.join(', ')}}</span>
     </div>
   </div>
 
+  <div class="short-description" *ngIf="recipe.instructions">
+    {{ (recipe.instructions.length > 218) ? (recipe.instructions | slice:0:218) + '...' : (recipe.instructions) }}
+  </div>
+
+  <a class="button--cook-now" routerLink="/">Jetzt zubereiten!</a>
 </div>
+
 <app-loading-animation *ngIf="!recipe"></app-loading-animation>

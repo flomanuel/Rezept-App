@@ -1,16 +1,15 @@
-import {Component, ViewChild} from '@angular/core';
-import {TranslationService} from '../../services/translation.service';
-import {InputPlusListComponent} from '../input-plus-list/input-plus-list.component';
-import {Ingredient} from '../../entity/ingredient.class';
-import {Title} from '../../entity/title.class';
-import {Instructions} from '../../entity/instructions.class';
-import {Categories, Regions, VolumeUnit} from '../../types';
-import {Id} from '../../entity/id.class';
-import {LocalStorageService} from '../../services/local-storage.service';
-import {Recipe} from '../../entity/recipe';
-import {Video} from '../../entity/video.class';
-import {Category} from '../../entity/category.class';
-import {Region} from '../../entity/region.class';
+import { Component, ViewChild } from '@angular/core';
+import { TranslationService } from '../../services/translation.service';
+import { InputPlusListComponent } from '../input-plus-list/input-plus-list.component';
+import { Ingredient } from '../../entity/ingredient.class';
+import { Title } from '../../entity/title.class';
+import { Categories, Regions, VolumeUnit } from '../../types';
+import { Id } from '../../entity/id.class';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { Recipe } from '../../entity/recipe';
+import { Video } from '../../entity/video.class';
+import { Category } from '../../entity/category.class';
+import { Region } from '../../entity/region.class';
 
 @Component({
   selector: 'app-recipe',
@@ -56,17 +55,17 @@ export class RecipeComponent {
   saveRecipe(): void {
     for (let i = 0; i < this.childReference.inputs.length; i++) {
       // @ts-ignore
-      const { label, amount} = this.childReference.inputs.get(i)._view.nodes[1].instance;
+      const { label, amount } = this.childReference.inputs.get(i)._view.nodes[1].instance;
       this.ingredients.push(new Ingredient(label, amount, VolumeUnit.GRAMM, 1, 0));
     }
 
     const id = Id.fromNumber(Id.generate());
     const title = Title.create(this.title);
-    const instructions = Instructions.create(this.instructions);
     const categories = this.categories.map(cat => Category.create(cat));
     const regions = this.regions.map(reg => Region.create(reg));
 
-    const recipe = new Recipe(id, title, this.preparationTime, categories, regions, this.ingredients, instructions, [], Video.create(''));
+    const recipe = new Recipe(id, title, this.preparationTime, categories, regions,
+      this.ingredients, this.instructions, [], Video.create(''));
 
     // @ts-ignore
     document.querySelector('#recipeForm').reset();

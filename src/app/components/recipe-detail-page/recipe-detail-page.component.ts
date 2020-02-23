@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../../entity/recipe';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Database } from '../../../config';
+import { TypesMappingService } from '../../services/types-mapping.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -14,7 +16,7 @@ export class RecipeDetailPageComponent implements OnInit {
 
   // @Input() 'recipe': Recipe[];
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private typesMapper: TypesMappingService, private localStorageService: LocalStorageService) {
   }
 
   ngOnInit() {
@@ -33,13 +35,17 @@ export class RecipeDetailPageComponent implements OnInit {
     });
   }
 
-  favouriteRevipe() {
-    alert('favourised recipe');
+  toggleFavouriteRecipe() {
+    const uid = this.recipe.uid;
+    if (this.localStorageService.isRecipeFavoured(uid)) {
+      this.localStorageService.removeFromFavouriteRecipes(uid);
+    } else {
+      this.localStorageService.addToFavouriteRecipes(uid);
+    }
   }
 
   calculatePreparationTime(format: string) {
     const time = this.recipe.preparationTime;
-    console.log(this.recipe);
     if (format === 'h') {
       return Math.trunc(time / 60);
     }

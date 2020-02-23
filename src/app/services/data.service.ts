@@ -3,7 +3,6 @@ import { Tag } from '../entity/Tag';
 import { Ingredient } from '../entity/ingredient.class';
 import { Id } from '../entity/id.class';
 import { Title } from '../entity/title.class';
-import { Instructions } from '../entity/instructions.class';
 import { Recipe } from '../entity/recipe';
 import { Video } from '../entity/video.class';
 import { IngredientList } from '../entity/IngredientList';
@@ -36,7 +35,7 @@ export class DataService {
       [],
       [],
       [new Ingredient('Test', 2, VolumeUnit.GRAMM, 1, 0)],
-      Instructions.create(''),
+      '',
       [],
       Video.create('')));
   }
