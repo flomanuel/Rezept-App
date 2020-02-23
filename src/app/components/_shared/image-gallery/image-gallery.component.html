@@ -5,6 +5,6 @@
       <img alt="Alternativtext für das Bild" src="{{image.link}}"/>
     </div>
   </div>
-  <div class="sliderButton sliderButton--right"></div>
-  <div class="sliderButton sliderButton--left"></div>
+  <div class="sliderButton sliderButton--right" *ngIf="images.length > 1"></div>
+  <div class="sliderButton sliderButton--left" *ngIf="images.length > 1"></div>
 </div>

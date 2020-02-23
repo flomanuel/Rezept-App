@@ -76,16 +76,18 @@ export class ImageGalleryComponent implements AfterViewInit {
     this.buttonLeft = document.querySelector('.sliderButton--left');
     this.buttonRight = document.querySelector('.sliderButton--right');
 
-    this.buttonLeft.onclick = () => {
-      if (this.sliderAvailable && this.pointer < 0) {
-        this.slideRight();
-      }
-    };
+    if (this.buttonLeft && this.buttonRight) {
+      this.buttonLeft.onclick = () => {
+        if (this.sliderAvailable && this.pointer < 0) {
+          this.slideRight();
+        }
+      };
 
-    this.buttonRight.onclick = () => {
-      if (this.sliderAvailable && this.pointer > ((this.galleryChildren.length - 1) * -1)) {
-        this.slideLeft();
-      }
-    };
+      this.buttonRight.onclick = () => {
+        if (this.sliderAvailable && this.pointer > ((this.galleryChildren.length - 1) * -1)) {
+          this.slideLeft();
+        }
+      };
+    }
   }
 }
