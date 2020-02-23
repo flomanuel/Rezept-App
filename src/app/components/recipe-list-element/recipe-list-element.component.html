@@ -1,18 +1,18 @@
 <div class="listElement listElement--recipe">
   <div class="listElement__content">
     <p class="listElement__content__title">
-      {{recipe.title.title}}
+      {{recipe.title}}
     </p>
     <p class="listElement__content__secondLine">
       <span class="missingIngredients">{{countMissingIngredients()}} fehlende Zutaten</span>
       <span class="preparationTime">
-       {{calculatePreparationTime(recipe.preparationTime.preparationTime)[0]}} h
-       {{calculatePreparationTime(recipe.preparationTime.preparationTime)[1]}} min
+       {{calculatePreparationTime(recipe.preparationTime)[0]}} h
+       {{calculatePreparationTime(recipe.preparationTime)[1]}} min
       </span>
     </p>
   </div>
   <div class="listElement__image">
-    <img alt="{{recipe.title.title}}" *ngIf="recipe.images[0]" [src]="recipe.images[0].link">
-    <img alt="{{recipe.title.title}}" *ngIf="!recipe.images[0]" src="{{fallbackImagePath}}">
+    <img alt="{{recipe.title}}" *ngIf="recipe.images[0]" [src]="recipe.images[0].link">
+    <img alt="{{recipe.title}}" *ngIf="!recipe.images[0]" src="{{fallbackImagePath}}">
   </div>
 </div>

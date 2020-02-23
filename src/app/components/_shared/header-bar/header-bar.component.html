@@ -41,6 +41,6 @@
 <div class="suggestionsContainer" *ngIf="suggestionContainerActive && suggestions">
   <p class="suggestion"
      *ngFor="let tag of this.dataService.getTagsBySearchString(this.searchValue)"
-     (click)="addSuggestion(tag)">{{tag.title}}
+     (click)="addSuggestion(tag)">{{tag}}
   </p>
 </div>

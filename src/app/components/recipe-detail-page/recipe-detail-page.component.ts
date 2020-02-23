@@ -36,11 +36,11 @@ export class RecipeDetailPageComponent implements OnInit {
   }
 
   toggleFavouriteRecipe() {
-    const uid = this.recipe.uid;
-    if (this.localStorageService.isRecipeFavoured(uid)) {
-      this.localStorageService.removeFromFavouriteRecipes(uid);
+    const id = this.recipe.id;
+    if (this.localStorageService.isRecipeFavoured(id)) {
+      this.localStorageService.removeFromFavouriteRecipes(id);
     } else {
-      this.localStorageService.addToFavouriteRecipes(uid);
+      this.localStorageService.addToFavouriteRecipes(id);
     }
   }
 

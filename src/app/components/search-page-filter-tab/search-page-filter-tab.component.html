@@ -5,7 +5,7 @@
        *ngFor="let tabElement of tabElements"
        (click)="deselectTabElement(tabElement) ? null: selectTabElement(tabElement);"
        [class.selected]="selectedTabElements.indexOf(tabElement) >= 0">
-      {{tabElement.title.title}}
+      {{translationService.translate(tabElement)}}
     </p>
   </div>
 </div>

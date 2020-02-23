@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
 import { DataService } from '../../../services/data.service';
-import { Tag } from '../../../entity/Tag';
 import { Recipe } from '../../../entity/recipe';
 
 @Component({
@@ -14,7 +13,7 @@ export class HeaderBarComponent implements OnInit {
   @Output() defaultIngredientsEvent = new EventEmitter<boolean>();
   @Output() fridgeStatusEvent = new EventEmitter<boolean>();
 
-  @Input() suggestions: Tag[];
+  @Input() suggestions: string[];
   @Input() fridgeFlag: boolean;
   @Input() fridgeLink: boolean;
   @Input() shoppingListButton: boolean;
@@ -53,7 +52,7 @@ export class HeaderBarComponent implements OnInit {
     }
   }
 
-  addSuggestion(tag: Tag): void {
+  addSuggestion(tag: string): void {
     this.suggestions.push(tag);
     this.searchValue = '';
     this.toggleSuggestionsContainer();

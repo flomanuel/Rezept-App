@@ -16,7 +16,7 @@
       {{calculatePreparationTime('h')}} h
       {{calculatePreparationTime('m')}} min
     </p>
-    <span class="headline__favouriteRecipe" [class.favoured]="localStorageService.isRecipeFavoured(recipe.uid)"
+    <span class="headline__favouriteRecipe" [class.favoured]="localStorageService.isRecipeFavoured(recipe.id)"
           (click)="toggleFavouriteRecipe()"></span>
   </div>
 

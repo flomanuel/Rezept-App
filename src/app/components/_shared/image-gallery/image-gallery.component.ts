@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { Image } from '../../../entity/image.class';
+import { AfterViewInit, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-image-gallery',
@@ -8,7 +7,7 @@ import { Image } from '../../../entity/image.class';
 })
 export class ImageGalleryComponent implements AfterViewInit {
 
-  @Input() 'images': Image[];
+  @Input() 'images': string[];
   @Input() 'width' = 'initial';
   @Input() 'height' = 'initial';
   @Input() 'maxWidth' = 'initial';
@@ -53,8 +52,9 @@ export class ImageGalleryComponent implements AfterViewInit {
   private styleChildElements() {
     this.galleryChildren = this.gallery.children;
     const childAmount = this.galleryChildren.length;
-    for (let i = 0; i < this.galleryChildren.length; i++) {
-      this.galleryChildren[i].style.width = 100 / childAmount + '%';
+
+    for (const child of this.galleryChildren) {
+      child.style.width = 100 / childAmount + '%';
     }
   }
 
