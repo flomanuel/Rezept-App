@@ -1,17 +1,10 @@
-import {Component, ViewChild} from '@angular/core';
-import {TranslationService} from '../../services/translation.service';
-import {InputPlusListComponent} from '../input-plus-list/input-plus-list.component';
-import {Ingredient} from '../../entity/ingredient.class';
-import {Title} from '../../entity/title.class';
-import {PreparationTime} from '../../entity/preparation-time.class';
-import {Instructions} from '../../entity/instructions.class';
-import {Categories, Regions, VolumeUnit} from '../../types';
-import {Id} from '../../entity/id.class';
-import {LocalStorageService} from '../../services/local-storage.service';
-import {Recipe} from '../../entity/recipe';
-import {Video} from '../../entity/video.class';
-import {Category} from '../../entity/category.class';
-import {Region} from '../../entity/region.class';
+import { Component, ViewChild } from '@angular/core';
+import { TranslationService } from '../../services/translation.service';
+import { InputPlusListComponent } from '../input-plus-list/input-plus-list.component';
+import { Ingredient } from '../../entity/ingredient.class';
+import { categories, regions, VolumeUnit } from '../../types';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { Recipe } from '../../entity/recipe';
 
 @Component({
   selector: 'app-recipe',
@@ -27,15 +20,15 @@ export class RecipeComponent {
   public ingredients: Ingredient[] = [];
   public title: string;
   public description: string;
-  public regions: Regions[] = [];
-  public categories: Categories[] = [];
+  public regions: number[] = [];
+  public categories: number[] = [];
   public preparationTime: number;
   public instructions: string;
   public recipeSaved = false;
 
   constructor(private readonly translationService: TranslationService, private readonly localStorageService: LocalStorageService) {
-    this.fileCategories = Object.values(Categories).map(category => this.getTranslatedWord(category));
-    this.fileRegions = Object.values(Regions).map(region => this.getTranslatedWord(region));
+    this.fileCategories = Object.values(categories).map(category => this.getTranslatedWord(category));
+    this.fileRegions = Object.values(regions).map(region => this.getTranslatedWord(region));
   }
 
   private getTranslatedWord(word: string): string {
@@ -57,18 +50,14 @@ export class RecipeComponent {
   saveRecipe(): void {
     for (let i = 0; i < this.childReference.inputs.length; i++) {
       // @ts-ignore
-      const { label, amount} = this.childReference.inputs.get(i)._view.nodes[1].instance;
-      this.ingredients.push(new Ingredient(label, amount, VolumeUnit.GRAMM, 0));
+      const { label, amount } = this.childReference.inputs.get(i)._view.nodes[1].instance;
+      this.ingredients.push(new Ingredient(label, amount, VolumeUnit.GRAMM, 1, 0));
     }
 
-    const id = Id.fromNumber(Id.generate());
-    const title = Title.create(this.title);
-    const preparationTime = PreparationTime.create(this.preparationTime);
-    const instructions = Instructions.create(this.instructions);
-    const categories = this.categories.map(cat => Category.create(cat));
-    const regions = this.regions.map(reg => Region.create(reg));
+    const id = Math.floor(Math.random() * 9000);
 
-    const recipe = new Recipe(id, title, preparationTime, categories, regions, this.ingredients, instructions, [], Video.create(''));
+    const recipe = new Recipe(id, this.title, this.preparationTime, this.categories, this.regions,
+      this.ingredients, this.instructions, [], '');
 
     // @ts-ignore
     document.querySelector('#recipeForm').reset();

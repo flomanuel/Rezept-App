@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Tag } from '../../entity/Tag';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'app-search-page-filter-tab',
@@ -8,19 +8,19 @@ import { Tag } from '../../entity/Tag';
 })
 export class SearchPageFilterTabComponent implements OnInit {
 
-  @Input() tabElements: Tag[];
-  @Output() tabSelection = new EventEmitter<Tag[]>();
+  @Input() tabElements: string[];
+  @Output() tabSelection = new EventEmitter<string[]>();
 
   private showTabElements = false;
-  private selectedTabElements: Tag[] = [];
+  private selectedTabElements: string[] = [];
 
-  constructor() {
+  constructor(private translationService: TranslationService) {
   }
 
   ngOnInit() {
   }
 
-  selectTabElement(tabElement: Tag): boolean {
+  selectTabElement(tabElement: string): boolean {
     if (this.selectedTabElements && tabElement) {
       this.selectedTabElements.push(tabElement);
       this.tabSelection.emit(this.selectedTabElements);
@@ -29,7 +29,7 @@ export class SearchPageFilterTabComponent implements OnInit {
     return false;
   }
 
-  deselectTabElement(tabElement: Tag): boolean {
+  deselectTabElement(tabElement: string): boolean {
     if (this.selectedTabElements && tabElement) {
       const index = this.selectedTabElements.indexOf(tabElement);
       if (index >= 0) {

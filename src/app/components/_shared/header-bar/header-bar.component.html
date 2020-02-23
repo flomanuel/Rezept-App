@@ -1,16 +1,26 @@
-<div id="header" class="grid-container noExtraColumns" [style.opacity]="opacity">
-  <span class="back" (click)="goBack()"></span>
+<div id="header" class="grid-container noExtraColumns"
+     [style.opacity]="opacity" [style.width]="width" [class.background]="background"
+>
+  <span class="back" [class.allowElementsBehind]="allowElementsBehind" (click)="goBack()"></span>
+
   <form *ngIf="suggestions" class="add-tag" [class.active]="suggestionContainerActive">
+    <!-- todo: consider usability regarding fullscreen-switch -->
     <input type="text" name="search-field" [(ngModel)]="searchValue" (click)="toggleSuggestionsContainer(true)">
   </form>
 
-  <div class="rightSideButtonsWrapper" [class.afterSuggestionsBar]="suggestions">
-  <span class="default-ingredients-flag"
-        *ngIf="!(suggestionContainerActive && suggestions) && defaultIngredientsButton"
-        [class.selected]="defaultIngredientsStatus"
-        (click)="toggleIngredientsStatus()">
-    Standard<br/>Zutaten
-  </span>
+  <div class="rightSideButtonsWrapper" [class.allowElementsBehind]="allowElementsBehind"
+       [class.afterSuggestionsBar]="suggestions">
+    <span class="default-ingredients-flag"
+          *ngIf="!(suggestionContainerActive && suggestions) && defaultIngredientsButton"
+          [class.selected]="defaultIngredientsStatus"
+          (click)="toggleIngredientsStatus()">
+      Standard<br/>Zutaten
+    </span>
+
+    <span class="button--add-recipe-to-shopping-list" [class.recipeAddedToList]="recipeAddedToList"
+          *ngIf="!(suggestionContainerActive && suggestions) && !ingredientsListButton && currentRecipe"
+          (click)="addRecipeToShoppingList()">
+    </span>
 
     <a class="fridge-flag fridge-button"
        *ngIf="!(suggestionContainerActive && suggestions) &&  fridgeFlag"
@@ -24,14 +34,31 @@
     </a>
 
     <a class="open-shoppingList"
-       *ngIf="!(suggestionContainerActive && suggestions) &&  shoppingListButton" routerLink="/">
+       *ngIf="!(suggestionContainerActive && suggestions) &&  shoppingListButton" routerLink="/shopping_list">
     </a>
+
+    <div class="open-ingredientsList"
+         *ngIf="!(suggestionContainerActive && suggestions) &&  ingredientsListButton"
+         (click)="ingredientsListButtonState = !ingredientsListButtonState">
+    </div>
   </div>
 </div>
 
 <div class="suggestionsContainer" *ngIf="suggestionContainerActive && suggestions">
   <p class="suggestion"
      *ngFor="let tag of this.dataService.getTagsBySearchString(this.searchValue)"
-     (click)="addSuggestion(tag)">{{tag.title}}
+     (click)="addSuggestion(tag)">{{tag}}
   </p>
+</div>
+
+<div class="ingredientList--wrapper"
+     *ngIf="(!(suggestionContainerActive && suggestions) &&  ingredientsListButton) && ingredientsListButtonState && currentRecipe">
+  <div class="ingredientList--closingButton" (click)="ingredientsListButtonState = !ingredientsListButtonState"></div>
+  <table class="ingredientList" *ngIf="currentRecipe.ingredients.length >= 1">
+    <tr *ngFor="let ingredient of currentRecipe.ingredients">
+      <td *ngIf="ingredient.customTitle">{{ingredient.customTitle}}</td>
+      <td *ngIf="!ingredient.customTitle">{{typesMapper.getRecipeNameById(ingredient.id)}}</td>
+      <td>{{ingredient.amount}} {{typesMapper.getVolumeUnitByParam(ingredient.volumeUnit)}}</td>
+    </tr>
+  </table>
 </div>

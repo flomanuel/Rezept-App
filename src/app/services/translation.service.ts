@@ -15,10 +15,14 @@ export class TranslationService {
       return mapping.region[word];
     }
 
+    if (mapping.ingredient.hasOwnProperty(word)) {
+      return mapping.ingredient[word];
+    }
+
     return null;
   }
 
-  private getMapping(): { category: { [key: string]: string }, region: { [key: string]: string } } {
+  private getMapping(): { category: { [key: string]: string }, region: { [key: string]: string }, ingredient: { [key: string]: string } } {
     return {
       category: {
         soup: 'Suppe',
@@ -33,6 +37,9 @@ export class TranslationService {
         german: 'Deutsch',
         american: 'Amerikanisch',
         italian: 'Italienisch',
+      },
+      ingredient: {
+        lentils: 'Linsen',
       },
     };
   }

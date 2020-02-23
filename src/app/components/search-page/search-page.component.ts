@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Tag } from '../../entity/Tag';
 import { DataService } from '../../services/data.service';
-import { Region } from '../../entity/Region';
-import { Title } from '../../entity/title.class';
-import { Id } from '../../entity/id.class';
 import { Recipe } from '../../entity/recipe';
+import { regions } from '../../types';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'app-search-page',
@@ -12,21 +10,21 @@ import { Recipe } from '../../entity/recipe';
   styleUrls: ['./search-page.component.less'],
 })
 export class SearchPageComponent implements OnInit {
-  private suggestionsList: Tag[] = [];
-  private tabElements: Tag[] = [];
-  private selectedFilterTabElements: Tag[] = [];
+  private suggestionsList: string[] = [];
+  private tabElements: string[] = [];
+  private selectedFilterTabElements: string[] = [];
   private defaultIngredientsStatus = false;
 
   constructor(private dataService: DataService) {
-    this.tabElements.push(new Region(Title.create('Italienisch'), Id.fromNumber(Id.generate())));
-    this.tabElements.push(new Region(Title.create('Asiatisch'), Id.fromNumber(Id.generate())));
-    this.tabElements.push(new Region(Title.create('Griechisch'), Id.fromNumber(Id.generate())));
+    this.tabElements.push(regions['1']);
+    this.tabElements.push(regions['2']);
+    this.tabElements.push(regions['3']);
   }
 
   ngOnInit() {
   }
 
-  removeFilterParam(tag: Tag, storage: Tag[]): boolean {
+  removeFilterParam(tag: string, storage: string[]): boolean {
     if (storage && tag) {
       const index = storage.indexOf(tag);
       if (index >= 0) {
@@ -42,7 +40,7 @@ export class SearchPageComponent implements OnInit {
     return this.dataService.searchRecipesByParams(searchParams);
   }
 
-  onTabSelection($event: Tag[]): void {
+  onTabSelection($event: string[]): void {
     this.selectedFilterTabElements = $event;
   }
 

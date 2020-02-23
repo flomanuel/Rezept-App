@@ -1,3 +1,5 @@
+@import "../../../../src/styles.less";
+
 @borderRadius: .2em;
 @focusTransition: 1s;
 @baseBorder: 2px solid lightgray;
@@ -61,7 +63,7 @@
   grid-template-columns: repeat(12, auto);
   grid-column-gap: 1.2em;
   grid-row-gap: 2em;
-  font-family: Arial sans-serif;
+  .mainFontFamily();
 
   #heading {
     grid-column-start: @baseGridColumnStart;
@@ -129,7 +131,7 @@
     grid-column-end: 6;
 
     textarea {
-      font-family: Arial sans-serif;
+      .mainFontFamily();
       padding: .5em;
       border: @baseBorder;
       margin-top: .7em;

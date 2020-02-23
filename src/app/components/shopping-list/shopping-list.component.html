@@ -33,10 +33,10 @@
   <div *ngIf="recipeFilter">
     <h3>Einkaufsliste</h3>
     <table>
-      <tr class="clear-row" *ngIf="allIngredientsFilteredShoppingList.length === 0">Keine Rezepte ausgewählt.</tr>
+      <tr class="clear-row" *ngIf="allIngredientsFilteredShoppingList.length === 0">Keine Rezepte ausgewählt. 1</tr>
       <tr [class.item-checked]="ingredient.done" *ngFor="let ingredient of allIngredientsFilteredShoppingList"
           (click)="toggleIngredient(ingredient)">
-        <td>{{ingredient.label}}</td>
+        <td>{{ingredient.customTitle}}</td>
         <td class="td-second">{{ingredient.amount}}</td>
         <td class="td-second">{{ingredient.volumeUnit}}</td>
       </tr>
