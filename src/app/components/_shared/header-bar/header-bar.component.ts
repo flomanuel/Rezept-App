@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
 import { DataService } from '../../../services/data.service';
 import { Recipe } from '../../../entity/recipe';
+import { TypesMappingService } from '../../../services/types-mapping.service';
 
 @Component({
   selector: 'app-header-bar',
@@ -23,6 +24,8 @@ export class HeaderBarComponent implements OnInit {
   @Input() background = true;
   @Input() allowElementsBehind = false;
   @Input() currentRecipe: Recipe;
+  @Input() ingredientsListButton = false;
+  @Input() ingredientsListButtonState = false;
 
   private suggestionContainerActive = false;
   private searchValue = '';
@@ -30,7 +33,7 @@ export class HeaderBarComponent implements OnInit {
   private fridgeContentStatus = false;
   recipeAddedToList = false;
 
-  constructor(private location: Location, private dataService: DataService) {
+  constructor(private location: Location, private dataService: DataService, private typesMapper: TypesMappingService) {
   }
 
   ngOnInit() {

@@ -4,6 +4,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Database } from '../../../config';
 import { TypesMappingService } from '../../services/types-mapping.service';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { NavigationExtras, Router } from '@angular/router';
+import { IngredientInfoService } from '../../services/ingredient-info.service';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -12,11 +15,18 @@ import { LocalStorageService } from '../../services/local-storage.service';
 })
 export class RecipeDetailPageComponent implements OnInit {
 
-  private recipe: Recipe;
-
   // @Input() 'recipe': Recipe[];
 
-  constructor(private db: AngularFirestore, private typesMapper: TypesMappingService, private localStorageService: LocalStorageService) {
+  private recipe: Recipe;
+  private cookingSteps = false;
+
+
+  constructor(private db: AngularFirestore,
+              private typesMapper: TypesMappingService,
+              private localStorageService: LocalStorageService,
+              private ingredientInfoService: IngredientInfoService,
+              private translationService: TranslationService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -52,6 +62,26 @@ export class RecipeDetailPageComponent implements OnInit {
 
     if (format === 'm') {
       return time % 60;
+    }
+  }
+
+  openCookingSteps() {
+    this.router.navigate(['cooking-steps'], {
+        queryParams: {
+          recipe: JSON.stringify(this.recipe),
+        },
+      },
+    );
+  }
+
+  showIngredientInfo(infoID: number) {
+    if (infoID > 0) {
+      this.router.navigate(['ingredient-information'], {
+          queryParams: {
+            id: infoID,
+          },
+        },
+      );
     }
   }
 }

@@ -25,8 +25,14 @@
       <thead class="recipe-list__title">N fehlende Zutaten</thead>
       <tr *ngFor="let ingredient of recipe.ingredients">
         <td *ngIf="ingredient.customTitle">{{ingredient.customTitle}}</td>
-        <td *ngIf="!ingredient.customTitle">{{typesMapper.getRecipeNameById(ingredient.id)}}</td>
-        <td>{{ingredient.amount}} {{typesMapper.getVolumeUnitByParam(ingredient.volumeUnit)}}</td>
+        <td [class.additionalInfo]="ingredient.additionalInfo != 0"
+            (click)="showIngredientInfo(ingredient.additionalInfo)" *ngIf="!ingredient.customTitle">
+          {{translationService.translate(typesMapper.getRecipeNameById(ingredient.id))}}
+        </td>
+        <td [class.additionalInfo]="ingredient.additionalInfo != 0"
+            (click)="showIngredientInfo(ingredient.additionalInfo)">
+          {{ingredient.amount}} {{typesMapper.getVolumeUnitByParam(ingredient.volumeUnit)}}
+        </td>
       </tr>
     </table>
     <table class="information-components__tools-list" *ngIf="recipe.tools.length >= 1">
@@ -44,7 +50,7 @@
     {{ (recipe.instructions.length > 218) ? (recipe.instructions | slice:0:218) + '...' : (recipe.instructions) }}
   </div>
 
-  <a class="button--cook-now" routerLink="/">Jetzt zubereiten!</a>
+  <a class="button--cook-now" (click)="openCookingSteps()">Jetzt zubereiten!</a>
 </div>
 
 <app-loading-animation *ngIf="!recipe"></app-loading-animation>

@@ -10,7 +10,7 @@ button "cook now"
 /*************************************
 imports
 **************************************/
-@import "../../../../src/styles.less";
+@import "../../../styles.less";
 
 /*************************************
 basic setup
@@ -40,7 +40,7 @@ headline
   margin: 0;
   .mainFontFamily();
   font-style: normal;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 1.5rem;
   line-height: 1.75rem;
 }
@@ -102,12 +102,15 @@ headline
 information-components
 **************************************/
 .information-components--wrapper {
-  column-count: 2;
+  padding: 14px 0;
 }
 
 .information-components__recipe-list {
+  width: 100%;
+  padding-bottom: 3vh;
 
-  thead {
+  .recipe-list__title {
+    display: table-caption;
     .mainFontFamily();
     font-style: normal;
     font-weight: 700;
@@ -115,11 +118,121 @@ information-components
     line-height: 124%;
     color: red;
     text-decoration: underline;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 2.125rem;
+      height: 1.875rem;
+      margin-right: 9px;
+
+      border-style: none solid solid none;
+      border-width: 1px;
+      border-color: #000000;
+      border-radius: 0 0 2px 0;
+
+      background-image: url("../../../assets/icons/ingredients-list-icon.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  }
+
+  tr + tr > td {
+    padding-top: 10px;
+  }
+
+  td {
+    .mainFontFamily();
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 124%;
+
+    &:first-child {
+      text-align: left;
+    }
+
+    &:last-child:not(:first-child) {
+      text-align: right;
+    }
+
+    &.additionalInfo {
+      display: inline-table;
+      cursor: pointer;
+
+      &:not(:hover):after {
+        opacity: 0.5;
+      }
+
+      &:after {
+        content: '';
+        display: inline-block;
+        width: 1.4rem;
+        height: 1.4rem;
+        vertical-align: bottom;
+
+        background-image: url("../../../assets/icons/information-button.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+    }
+
   }
 }
 
 .information-components__tools-list {
-  border-bottom: 1px solid #000000;
+  width: 100%;
+  padding-bottom: 3vh;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 2.125rem;
+    height: 1.875rem;
+    margin-right: 9px;
+
+    border-style: none solid solid none;
+    border-width: 1px;
+    border-color: #000000;
+    border-radius: 0 0 2px 0;
+
+    background-image: url("../../../assets/icons/tools-list-icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  td {
+    .mainFontFamily();
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 124%;
+    text-align: left;
+  }
+}
+
+.information-components__allergens-list {
+  width: 100%;
+
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.72rem;
+  line-height: 124%;
+  text-align: left;
+
+  .allergens-list__title {
+    display: block;
+    color: @mainColors_lightGrey;
+    text-decoration: underline;
+  }
+
+  .allergens-list__elements {
+    color: @mainColors_lightGrey;
+  }
 }
 
 /*************************************
@@ -127,6 +240,13 @@ short-description
 **************************************/
 .short-description {
   border-top: 1px solid #000000;
+
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 124%;
+  text-align: left;
 }
 
 /*************************************
@@ -135,11 +255,12 @@ button "cook now"
 .button--cook-now {
   .mainFontFamily();
   font-style: normal;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 15px;
   line-height: 124%;
   color: #000000;
   text-decoration: none;
+  cursor: pointer;
 
   display: inline-block;
   position: relative;

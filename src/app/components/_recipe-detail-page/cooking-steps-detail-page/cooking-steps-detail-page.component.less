@@ -1,0 +1,72 @@
+/*************************************
+imports
+basic setup
+headline
+cooking steps
+**************************************/
+
+/*************************************
+imports
+**************************************/
+@import "../../../../styles.less";
+
+/*************************************
+basic setup
+**************************************/
+
+/*************************************
+headline
+**************************************/
+.headline {
+  padding: 17px 9px 6px 9px;
+  display: flex;
+  border-bottom: 1px solid #000000;
+}
+
+.headline__title {
+  margin: 0;
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+}
+
+
+.headline__cookingTime {
+  .mainFontFamily();
+  font-size: 12px;
+  line-height: 124%;
+  margin: auto 0 0 auto;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    background-image: url("../../../../assets/icons/stopwatch.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  + .headline__favouriteRecipe {
+    margin: 0 9px;
+  }
+}
+
+/*************************************
+cooking steps
+**************************************/
+.cooking-steps {
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 124%;
+
+  li + li {
+    padding-top: 30px;
+  }
+}

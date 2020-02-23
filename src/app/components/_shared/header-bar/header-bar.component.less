@@ -9,6 +9,8 @@ fridge button
 shopping list button
 default ingredients flag
 add-recipe-to-shopping-list button
+open ingredient list button
+ingredient list
 **************************************/
 
 /*************************************
@@ -32,11 +34,16 @@ header
   }
 
   .back {
+    cursor: pointer;
     width: 35px;
     height: 35px;
     content: '';
     background: url("../../../../assets/icons/navigation/page_back.svg") no-repeat center;
     margin: 4px;
+
+    &:not(:hover) {
+      opacity: 0.85;
+    }
 
     &.allowElementsBehind {
       z-index: 1;
@@ -148,6 +155,7 @@ fridge button
 
 /** fridge flag **/
 .fridge-flag {
+  cursor: pointer;
   opacity: 0.25;
 
   &:not(:hover) {
@@ -185,6 +193,7 @@ fridge button
 shopping list button
 **************************************/
 .open-shoppingList {
+  cursor: pointer;
   margin: 4px;
   background: url("../../../../assets/icons/shopping-list--black.svg") no-repeat center;
   background-size: contain;
@@ -260,6 +269,7 @@ default ingredients flag
 add-recipe-to-shopping-list button
 **************************************/
 .button--add-recipe-to-shopping-list {
+  cursor: pointer;
   margin: 4px;
   background-size: contain;
   transition: transform 175ms ease-in-out;
@@ -292,5 +302,93 @@ add-recipe-to-shopping-list button
     background-position: center;
     background-image: url("../../../../assets/icons/addToShoppingList.svg");
     transform: rotateZ(-360deg);
+  }
+}
+
+/*************************************
+open ingredient list button
+**************************************/
+.open-ingredientsList {
+  cursor: pointer;
+  width: 2.625rem;
+  height: 2.625rem;
+
+  background-image: url("../../../../assets/icons/ingredients-list-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  &:not(:hover) {
+    opacity: 0.6;
+  }
+}
+
+
+/*************************************
+ingredient list
+**************************************/
+.ingredientList--wrapper {
+  z-index: 1;
+  overflow-y: auto;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: @mainColors_lightGrey;
+  width: 70vw;
+  height: 35vh;
+  border-radius: 10px;
+
+  .ingredientList--closingButton {
+    position: absolute;
+    right: 0;
+
+    &:not(:hover) {
+      opacity: 0.8;
+    }
+
+    &:before {
+      cursor: pointer;
+      content: '';
+      display: inline-block;
+      width: 1.6875rem;
+      height: 1.6875rem;
+      margin: 8px 11px 0 0;
+
+      background-image: url("../../../../assets/icons/closing-X.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  }
+
+  .ingredientList {
+    padding: 40px 20px 25px 20px;
+
+    width: 100%;
+
+    .recipe-list__title {
+      display: table-caption;
+      .mainFontFamily();
+      font-style: normal;
+      font-weight: 700;
+      font-size: 0.875rem;
+      line-height: 124%;
+      color: red;
+      text-decoration: underline;
+    }
+
+    tr + tr > td {
+      padding-top: 10px;
+    }
+
+    td {
+      .mainFontFamily();
+      font-style: normal;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 124%;
+      text-align: left;
+    }
   }
 }
