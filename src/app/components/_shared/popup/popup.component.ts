@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PopupType } from '../../../types';
 import { animate, style, transition, trigger } from '@angular/animations';
 
@@ -22,11 +22,6 @@ export class PopupComponent implements OnInit {
   @Input() title = '';
   @Input() message!: string;
   @Input() status: PopupType = PopupType.INFO;
-  private element: any;
-
-  constructor(private readonly el: ElementRef) {
-    this.element = el.nativeElement;
-  }
 
   ngOnInit() {
     if (this.status === PopupType.INFO) {
