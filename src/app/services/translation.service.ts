@@ -43,4 +43,21 @@ export class TranslationService {
       },
     };
   }
+
+  getGermanMapping() {
+    const mapping = this.getMapping();
+    return {
+      category: this.flipKeysAndValuesFromObject(mapping.category),
+      region: this.flipKeysAndValuesFromObject(mapping.region),
+      ingredient: this.flipKeysAndValuesFromObject(mapping.ingredient),
+    };
+  }
+
+  private flipKeysAndValuesFromObject(object: object) {
+    return Object.keys(object)
+      .reduce((obj, key) => {
+        obj[object[key]] = key;
+        return obj;
+      }, {});
+  }
 }

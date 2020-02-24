@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { TranslationService } from '../../services/translation.service';
 import { InputPlusListComponent } from '../input-plus-list/input-plus-list.component';
 import { Ingredient } from '../../entity/ingredient.class';
-import { categories, regions, VolumeUnit } from '../../types';
+import { categories, regions } from '../../types';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Recipe } from '../../entity/recipe';
 import { ModalService } from '../../services/modal.service';
@@ -91,7 +91,17 @@ export class RecipeComponent {
 
     const id = Math.floor(Math.random() * 9000);
 
-    const recipe = new Recipe(id, this.title, this.preparationTime, this.categories, this.regions,
+    const categoryKeys = this.categories.map(cat => {
+      cat = this.translationService.getGermanMapping().category[cat];
+      return parseInt(Object.keys(categories).find(key => categories[key] === cat), 10);
+    });
+
+    const regionKeys = this.regions.map(reg => {
+      reg = this.translationService.getGermanMapping().region[reg];
+      return parseInt(Object.keys(regions).find(key => regions[key] === reg), 10);
+    });
+
+    const recipe = new Recipe(id, this.title, this.preparationTime, categoryKeys, regionKeys,
       this.ingredients, this.instructions, [], '');
 
     // @ts-ignore
