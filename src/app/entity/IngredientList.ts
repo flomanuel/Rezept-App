@@ -1,11 +1,10 @@
 import {Ingredient} from './ingredient.class';
-import {Title} from './title.class';
 
 export class IngredientList {
   public ingredients?: Ingredient[] = [];
-  private _title: Title;
+  private _title: string;
 
-  constructor(public title: Title) {
+  constructor(public title: string) {
     this._title = title;
   }
 

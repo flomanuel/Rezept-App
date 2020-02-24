@@ -1,0 +1,91 @@
+/*************************************
+imports
+container element
+wrapper element
+gallery elements
+buttons
+**************************************/
+
+/*************************************
+imports
+**************************************/
+@import "../../../../styles.less";
+
+/*************************************
+container element
+**************************************/
+.image-gallery-container {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+/*************************************
+wrapper element
+**************************************/
+.image-gallery-wrapper {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  transition: margin-left 170ms ease-in;
+}
+
+/*************************************
+gallery elements
+**************************************/
+.image-gallery__element {
+  overflow: hidden;
+  position: relative;
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+  }
+}
+
+/*************************************
+buttons
+**************************************/
+.sliderButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+
+  &--left {
+    left: 10px;
+  }
+
+  &--right {
+    right: 10px;
+  }
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    border: 3px solid @mainColors_white;
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+  }
+
+  &--left:before {
+    border-style: solid none none solid;
+  }
+
+  &--right:before {
+    border-style: none solid solid none;
+  }
+}

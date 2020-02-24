@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
 import { DataService } from '../../../services/data.service';
-import { Tag } from '../../../entity/Tag';
+import { Recipe } from '../../../entity/recipe';
+import { TypesMappingService } from '../../../services/types-mapping.service';
 
 @Component({
   selector: 'app-header-bar',
@@ -13,19 +14,26 @@ export class HeaderBarComponent implements OnInit {
   @Output() defaultIngredientsEvent = new EventEmitter<boolean>();
   @Output() fridgeStatusEvent = new EventEmitter<boolean>();
 
-  @Input() suggestions: Tag[];
+  @Input() suggestions: string[];
   @Input() fridgeFlag: boolean;
   @Input() fridgeLink: boolean;
   @Input() shoppingListButton: boolean;
   @Input() defaultIngredientsButton: boolean;
   @Input() opacity = 1;
+  @Input() width = 'initial';
+  @Input() background = true;
+  @Input() allowElementsBehind = false;
+  @Input() currentRecipe: Recipe;
+  @Input() ingredientsListButton = false;
+  @Input() ingredientsListButtonState = false;
 
   private suggestionContainerActive = false;
   private searchValue = '';
   private defaultIngredientsStatus = false;
   private fridgeContentStatus = false;
+  recipeAddedToList = false;
 
-  constructor(private location: Location, private dataService: DataService) {
+  constructor(private location: Location, private dataService: DataService, private typesMapper: TypesMappingService) {
   }
 
   ngOnInit() {
@@ -47,7 +55,7 @@ export class HeaderBarComponent implements OnInit {
     }
   }
 
-  addSuggestion(tag: Tag): void {
+  addSuggestion(tag: string): void {
     this.suggestions.push(tag);
     this.searchValue = '';
     this.toggleSuggestionsContainer();
@@ -61,5 +69,12 @@ export class HeaderBarComponent implements OnInit {
   toggleFridgeStatus(): void {
     this.fridgeContentStatus = !this.fridgeContentStatus;
     this.fridgeStatusEvent.emit(this.fridgeContentStatus);
+  }
+
+  addRecipeToShoppingList() {
+    if (this.currentRecipe) {
+      this.dataService.addRecipe(this.currentRecipe);
+      this.recipeAddedToList = true;
+    }
   }
 }

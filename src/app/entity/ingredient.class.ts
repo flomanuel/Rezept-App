@@ -1,6 +1,6 @@
 export class Ingredient {
 
-  constructor(private label: string, private amount: number, private suffix: string,
-              private additionalInfo: number = 0, private customTitle: string = '') {
+  constructor(public label: string, public amount: number, public volumeUnit: string, public id: number,
+              public additionalInfo: number = 0, public customTitle: string = '', public done?: boolean) {
   }
 }
