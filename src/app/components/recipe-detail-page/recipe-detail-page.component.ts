@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Recipe } from '../../entity/recipe';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Database } from '../../../config';
@@ -13,7 +13,7 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './recipe-detail-page.component.html',
   styleUrls: ['./recipe-detail-page.component.less'],
 })
-export class RecipeDetailPageComponent implements OnInit {
+export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
   // @Input() 'recipe': Recipe[];
 
@@ -36,6 +36,10 @@ export class RecipeDetailPageComponent implements OnInit {
         this.recipe = snapshots[0];
       });
     });
+  }
+
+  ngOnDestroy() {
+    document.body.style.margin = '8px';
   }
 
   getNewRecipe() {

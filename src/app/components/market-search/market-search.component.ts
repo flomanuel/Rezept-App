@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import Tile from 'ol/layer/Tile';
@@ -11,7 +11,7 @@ import * as proj from 'ol/proj';
   templateUrl: './market-search.component.html',
   styleUrls: ['./market-search.component.less']
 })
-export class MarketSearchComponent implements OnInit {
+export class MarketSearchComponent implements OnInit, OnDestroy {
 
   constructor() {
   }
@@ -39,6 +39,10 @@ export class MarketSearchComponent implements OnInit {
   ngOnInit() {
     document.body.style.margin = '0';
     this.InitMap();
+  }
+
+  ngOnDestroy() {
+    document.body.style.margin = '8px';
   }
 
   InitMap() {
