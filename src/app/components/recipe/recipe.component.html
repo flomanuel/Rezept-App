@@ -6,34 +6,80 @@
   <div class="col-12" id="titleAndPreparationTimeContainer">
     <div id="titleContainer" class="col-12">
       <label for="title" class="col-12">Titel</label>
-      <input class="col-12" placeholder="Titel des Rezepts..." type="text" name="title" id="title" [(ngModel)]="title">
+      <input class="col-12" placeholder="Titel des Rezepts..." type="text" name="title" id="title" [(ngModel)]="title"
+             #titleField='ngModel' required>
+      <div class="field-error" *ngIf="titleField.invalid && (titleField.dirty || titleField.touched)">
+        <div *ngIf="titleField.errors.required">
+          <p>Ihr Rezept muss über einen Titel verfügen!</p>
+        </div>
+      </div>
     </div>
 
     <div id="preparationTimeContainer" class="col-12">
       <label for="preparationTime">Vorbereitungszeit (in Minuten)</label>
       <input placeholder="Vorbereitungszeit..." type="number" name="preparationTime" id="preparationTime"
-             [(ngModel)]="preparationTime">
+             [(ngModel)]="preparationTime" #preparationTimeField="ngModel" required>
+      <div class="field-error"
+           *ngIf="preparationTimeField.invalid && (preparationTimeField.dirty || preparationTimeField.touched)">
+        <div *ngIf="preparationTimeField.errors.required">
+          <p>Bitte geben Sie die Vorbereitungszeit Ihres Rezeptes an</p>
+        </div>
+      </div>
     </div>
   </div>
 
   <div id="categoryAndRegionContainer" class="col-12">
-    <div>
-      <label for="category">Kategorie</label>
-      <select multiple [(ngModel)]="categories" name="category" id="category">
-        <option value="{{ item }}" *ngFor="let item of fileCategories">{{ item }}</option>
-      </select>
+    <div id="categoryContainer">
+      <div>
+        <button (click)="openModal('categories');">Kategorien wählen</button>
+        <app-multiselect-modal (optionsSelected)="selectCategories($event)"
+                               [id]="'categories'"
+                               [title]="'Wählen Sie die Kategorie(n) für Ihr Rezept aus'"
+                               [options]="fileCategories"></app-multiselect-modal>
+        <div class="modal-error" *ngIf="!categoriesWereSelected">
+          <div>
+            <p>Sie müssen mindestens eine Kategorie für ihr Rezept angeben</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="categories.length > 0">
+        <p class="selectedContainer">Ihre ausgewählten Kategorien</p>
+        <ul>
+          <li *ngFor="let category of categories">{{ category }}</li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <label for="region">Region</label>
-      <select multiple [(ngModel)]="regions" name="region" id="region">
-        <option value="{{ item }}" *ngFor="let item of fileRegions">{{ item }}</option>
-      </select>
+    <div id="regionContainer">
+      <div>
+        <button (click)="openModal('regions');">Regionen wählen</button>
+        <app-multiselect-modal (optionsSelected)="selectRegions($event)"
+                               [id]="'regions'"
+                               [title]="'Wählen Sie die Region(en) für Ihr Rezept aus'"
+                               [options]="fileRegions"></app-multiselect-modal>
+        <div class="modal-error" *ngIf="!regionsWereSelected">
+          <div>
+            <p>Sie müssen mindestens eine Region für ihr Rezept auswählen</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="regions.length > 0">
+        <p class="selectedContainer">Ihre ausgewählten Regionen</p>
+        <ul>
+          <li *ngFor="let region of regions">{{ region }}</li>
+        </ul>
+      </div>
     </div>
   </div>
 
   <div id="desciptionContainer">
     <label for="desciption">Beschreibung</label>
-    <textarea name="description" id="desciption" [(ngModel)]="description" cols="40" rows="2"></textarea>
+    <textarea name="description" id="desciption" [(ngModel)]="description" #descriptionField='ngModel' cols="40"
+              rows="2" required></textarea>
+    <div class="field-error" *ngIf="descriptionField.invalid && (descriptionField.dirty || descriptionField.touched)">
+      <div *ngIf="descriptionField.errors.required">
+        <p>Bitte geben Sie zu Ihrem Rezept eine kurze Beschreibung an</p>
+      </div>
+    </div>
   </div>
 
   <div id="ingredientsContainer" class="col-12">
@@ -43,10 +89,18 @@
 
   <div id="instructionsContainer" class="col-12">
     <label for="instructions">Anweisungen</label>
-    <textarea [(ngModel)]="instructions" name="instructions" id="instructions" cols="40" rows="10"></textarea>
+    <textarea [(ngModel)]="instructions" #instructionsField='ngModel' name="instructions" id="instructions" cols="40"
+              rows="10" required></textarea>
+    <div class="field-error"
+         *ngIf="instructionsField.invalid && (instructionsField.dirty || instructionsField.touched)">
+      <div *ngIf="instructionsField.errors.required">
+        <p>Bitte fügen Sie Anweisungen zu Ihrem Rezept hinzu, sodass man es zubereiten kann</p>
+      </div>
+    </div>
   </div>
 
   <div id="submitContainer" class="col-12">
-    <button [disabled]="!validRecipe()" (click)="saveRecipe()">Anlegen</button>
+    <button (click)="saveRecipe()">Anlegen</button>
+    <app-info-modal [title]="infoModalTitle" [id]="'info-modal'" [message]="infoModalMessage"></app-info-modal>
   </div>
 </form>

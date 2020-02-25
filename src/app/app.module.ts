@@ -30,6 +30,8 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
 import {
   CookingStepsDetailPageComponent,
 } from './components/_recipe-detail-page/cooking-steps-detail-page/cooking-steps-detail-page.component';
+import { MultiselectModalComponent } from './components/multiselect-modal/multiselect-modal.component';
+import { InfoModalComponent } from './components/info-modal/info-modal.component';
 
 const appRoutes: Routes = [
   {
@@ -106,6 +108,8 @@ const appRoutes: Routes = [
     ImageGalleryComponent,
     PopupComponent,
     CookingStepsDetailPageComponent,
+    MultiselectModalComponent,
+    InfoModalComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
