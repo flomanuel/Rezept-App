@@ -1,0 +1,17 @@
+<div class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>{{ title }}</h2>
+    </div>
+    <ul class="selection">
+      <li class="selection-element" *ngFor="let option of options"
+          (click)="removeOption(option) ? null: addOption(option);"
+      [class.selected]="selectedOptions.indexOf(option) >= 0">
+        {{ option }}
+      </li>
+    </ul>
+    <div class="modal-footer">
+      <button (click)="closeModal()">Speichern</button>
+    </div>
+  </div>
+</div>
