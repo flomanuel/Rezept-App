@@ -22,8 +22,10 @@
 
   <div class="information-components--wrapper">
     <table class="information-components__recipe-list" *ngIf="recipe.ingredients.length >= 1">
-      <thead class="recipe-list__title">N fehlende Zutaten</thead>
-      <tr *ngFor="let ingredient of recipe.ingredients">
+      <thead class="recipe-list__title" [class.noMissingRecipes]="dataService.recipeMissingIngredients < 1">
+      {{dataService.recipeMissingIngredients}} fehlende Zutaten
+      </thead>
+      <tr *ngFor="let ingredient of recipe.ingredients" [class.inFridge]="dataService.isIngredientInFridge(ingredient)">
         <td *ngIf="ingredient.customTitle">{{ingredient.customTitle}}</td>
         <td [class.additionalInfo]="ingredient.additionalInfo != 0"
             (click)="showIngredientInfo(ingredient.additionalInfo)" *ngIf="!ingredient.customTitle">

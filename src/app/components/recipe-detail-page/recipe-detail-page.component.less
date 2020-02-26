@@ -116,8 +116,15 @@ information-components
     font-weight: 700;
     font-size: 0.875rem;
     line-height: 124%;
-    color: red;
     text-decoration: underline;
+
+    &:not(.noMissingRecipes) {
+      color: red;
+    }
+
+    &.noMissingRecipes {
+      color: @colourButtonShoppingList;
+    }
 
     &:before {
       content: '';
@@ -136,6 +143,11 @@ information-components
       background-position: center;
       background-size: contain;
     }
+  }
+
+  tr:not(.inFridge) {
+    color: red;
+    font-weight: 700;
   }
 
   tr + tr > td {

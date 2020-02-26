@@ -7,6 +7,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { IngredientInfoService } from '../../services/ingredient-info.service';
 import { TranslationService } from '../../services/translation.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -26,6 +27,7 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
               private localStorageService: LocalStorageService,
               private ingredientInfoService: IngredientInfoService,
               private translationService: TranslationService,
+              private dataService: DataService,
               private router: Router) {
   }
 
