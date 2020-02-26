@@ -8,6 +8,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { IngredientInfoService } from '../../services/ingredient-info.service';
 import { TranslationService } from '../../services/translation.service';
 import { DataService } from '../../services/data.service';
+import { Ingredient } from '../../entity/ingredient.class';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -18,6 +19,7 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
   // @Input() 'recipe': Recipe[];
 
+  recipeMissingIngredients = 0;
   private recipe: Recipe;
   private cookingSteps = false;
 
@@ -42,6 +44,19 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     document.body.style.margin = '8px';
+  }
+
+
+  isIngredientInFridge(ingredient: Ingredient): boolean {
+    this.recipeMissingIngredients++;
+    let ingredientAvailable = false;
+    this.dataService.fridgeIngredients.forEach(fridgeIngredient => {
+      if (!ingredientAvailable && fridgeIngredient.id === ingredient.id) {
+        this.recipeMissingIngredients--;
+        ingredientAvailable = true;
+      }
+    });
+    return ingredientAvailable;
   }
 
   getNewRecipe() {

@@ -17,7 +17,6 @@ export class DataService {
   privateShoppingList: Ingredient[] = [];
   recipeShoppingLists: IngredientList[] = [];
   allIngredientsFilteredShoppingList: Ingredient[] = [];
-  recipeMissingIngredients = 0;
   sharingString: string;
 
   constructor(private translationService: TranslationService) {
@@ -121,18 +120,6 @@ export class DataService {
     });
 
     return ingredientIsInList;
-  }
-
-  isIngredientInFridge(ingredient: Ingredient): boolean {
-    this.recipeMissingIngredients++;
-    let ingredientAvailable = false;
-    this.fridgeIngredients.forEach(fridgeIngredient => {
-      if (!ingredientAvailable && fridgeIngredient.id === ingredient.id) {
-        this.recipeMissingIngredients--;
-        ingredientAvailable = true;
-      }
-    });
-    return ingredientAvailable;
   }
 
   private getAllIngredientsFromRecipes() {
