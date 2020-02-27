@@ -116,8 +116,15 @@ information-components
     font-weight: 700;
     font-size: 0.875rem;
     line-height: 124%;
-    color: red;
     text-decoration: underline;
+
+    &:not(.noMissingRecipes) {
+      color: red;
+    }
+
+    &.noMissingRecipes {
+      color: @colourButtonShoppingList;
+    }
 
     &:before {
       content: '';
@@ -138,16 +145,23 @@ information-components
     }
   }
 
+  tr:not(.inFridge) {
+    color: red;
+    font-weight: 700;
+  }
+
   tr + tr > td {
     padding-top: 10px;
   }
 
   td {
+    display: inline-table;
     .mainFontFamily();
     font-style: normal;
     font-weight: 400;
     font-size: 1rem;
     line-height: 124%;
+    width: 45%;
 
     &:first-child {
       text-align: left;
@@ -158,7 +172,6 @@ information-components
     }
 
     &.additionalInfo {
-      display: inline-table;
       cursor: pointer;
 
       &:not(:hover):after {
@@ -170,6 +183,7 @@ information-components
         display: inline-block;
         width: 1.4rem;
         height: 1.4rem;
+        margin-right: -1.4rem;
         vertical-align: bottom;
 
         background-image: url("../../../assets/icons/information-button.svg");
@@ -178,7 +192,6 @@ information-components
         background-size: contain;
       }
     }
-
   }
 }
 

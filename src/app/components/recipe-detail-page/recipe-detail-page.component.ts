@@ -1,31 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Recipe } from '../../entity/recipe';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Database } from '../../../config';
 import { TypesMappingService } from '../../services/types-mapping.service';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IngredientInfoService } from '../../services/ingredient-info.service';
 import { TranslationService } from '../../services/translation.service';
+import { DataService } from '../../services/data.service';
+import { Ingredient } from '../../entity/ingredient.class';
 
 @Component({
   selector: 'app-recipedetailpage',
   templateUrl: './recipe-detail-page.component.html',
   styleUrls: ['./recipe-detail-page.component.less'],
 })
-export class RecipeDetailPageComponent implements OnInit {
+export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
-  // @Input() 'recipe': Recipe[];
-
+  private recipeMissingIngredients = 0;
   private recipe: Recipe;
-  private cookingSteps = false;
-
 
   constructor(private db: AngularFirestore,
               private typesMapper: TypesMappingService,
               private localStorageService: LocalStorageService,
               private ingredientInfoService: IngredientInfoService,
               private translationService: TranslationService,
+              private dataService: DataService,
               private router: Router) {
   }
 
@@ -36,6 +36,24 @@ export class RecipeDetailPageComponent implements OnInit {
         this.recipe = snapshots[0];
       });
     });
+  }
+
+  ngOnDestroy() {
+    document.body.style.margin = '8px';
+  }
+
+
+  isIngredientInFridge(ingredient: Ingredient): boolean {
+    let ingredientAvailable = false;
+    this.dataService.fridgeIngredients.forEach(fridgeIngredient => {
+      if (!ingredientAvailable && fridgeIngredient.id === ingredient.id) {
+        ingredientAvailable = true;
+      }
+    });
+    if (!ingredientAvailable) {
+      this.recipeMissingIngredients++;
+    }
+    return ingredientAvailable;
   }
 
   getNewRecipe() {
