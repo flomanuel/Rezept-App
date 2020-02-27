@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Database } from '../../../config';
 import { TypesMappingService } from '../../services/types-mapping.service';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IngredientInfoService } from '../../services/ingredient-info.service';
 import { TranslationService } from '../../services/translation.service';
 import { DataService } from '../../services/data.service';
@@ -17,12 +17,8 @@ import { Ingredient } from '../../entity/ingredient.class';
 })
 export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
-  // @Input() 'recipe': Recipe[];
-
-  recipeMissingIngredients = 0;
+  private recipeMissingIngredients = 0;
   private recipe: Recipe;
-  private cookingSteps = false;
-
 
   constructor(private db: AngularFirestore,
               private typesMapper: TypesMappingService,
@@ -48,14 +44,15 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
 
   isIngredientInFridge(ingredient: Ingredient): boolean {
-    this.recipeMissingIngredients++;
     let ingredientAvailable = false;
     this.dataService.fridgeIngredients.forEach(fridgeIngredient => {
       if (!ingredientAvailable && fridgeIngredient.id === ingredient.id) {
-        this.recipeMissingIngredients--;
         ingredientAvailable = true;
       }
     });
+    if (!ingredientAvailable) {
+      this.recipeMissingIngredients++;
+    }
     return ingredientAvailable;
   }
 

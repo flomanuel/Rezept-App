@@ -155,11 +155,13 @@ information-components
   }
 
   td {
+    display: inline-table;
     .mainFontFamily();
     font-style: normal;
     font-weight: 400;
     font-size: 1rem;
     line-height: 124%;
+    width: 45%;
 
     &:first-child {
       text-align: left;
@@ -170,7 +172,6 @@ information-components
     }
 
     &.additionalInfo {
-      display: inline-table;
       cursor: pointer;
 
       &:not(:hover):after {
@@ -182,6 +183,7 @@ information-components
         display: inline-block;
         width: 1.4rem;
         height: 1.4rem;
+        margin-right: -1.4rem;
         vertical-align: bottom;
 
         background-image: url("../../../assets/icons/information-button.svg");
@@ -190,7 +192,6 @@ information-components
         background-size: contain;
       }
     }
-
   }
 }
 
