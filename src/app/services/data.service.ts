@@ -11,7 +11,6 @@ import { TranslationService } from './translation.service';
 export class DataService {
   public tagList: any[] = [];
   searchResult: Recipe[] = [];
-
   selectedRecepies: Recipe[] = [];
   fridgeIngredients: Ingredient[] = [];
   privateShoppingList: Ingredient[] = [];
@@ -20,7 +19,11 @@ export class DataService {
   sharingString: string;
 
   constructor(private translationService: TranslationService) {
-    this.tagList.push(translationService.translate(ingredients['1']));
+    for (const index in ingredients) {
+      if (index in ingredients) {
+        this.tagList.push([index, translationService.translate(ingredients[index])]);
+      }
+    }
 
     this.searchResult.push(new Recipe(
       Math.floor(Math.random() * 9000),
@@ -37,7 +40,7 @@ export class DataService {
   getTagsBySearchString(searchValue: string) {
     if (searchValue && searchValue !== '') {
       return this.tagList.filter(
-        title => title.toLowerCase().includes(searchValue.toLowerCase()));
+        title => title[1].toLowerCase().includes(searchValue.toLowerCase()));
     }
     return [];
   }

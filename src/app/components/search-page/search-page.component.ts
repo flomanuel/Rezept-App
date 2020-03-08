@@ -3,6 +3,7 @@ import { DataService } from '../../services/data.service';
 import { Recipe } from '../../entity/recipe';
 import { regions } from '../../types';
 import { TranslationService } from '../../services/translation.service';
+import { TypesMappingService } from '../../services/types-mapping.service';
 
 @Component({
   selector: 'app-search-page',
@@ -10,12 +11,12 @@ import { TranslationService } from '../../services/translation.service';
   styleUrls: ['./search-page.component.less'],
 })
 export class SearchPageComponent implements OnInit {
-  private suggestionsList: string[] = [];
+  private suggestionsList: { id: number, name: string }[] = [];
   private tabElements: string[] = [];
   private selectedFilterTabElements: string[] = [];
   private defaultIngredientsStatus = false;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private translationService: TranslationService, private typesMapper: TypesMappingService) {
     this.tabElements.push(regions['1']);
     this.tabElements.push(regions['2']);
     this.tabElements.push(regions['3']);
@@ -24,9 +25,9 @@ export class SearchPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  removeFilterParam(tag: string, storage: string[]): boolean {
-    if (storage && tag) {
-      const index = storage.indexOf(tag);
+  removeFilterParam(id: number, storage: { id: number, name: string }[]): boolean {
+    if (storage && id) {
+      const index = storage.indexOf(id);
       if (index >= 0) {
         storage.splice(index, 1);
         return true;

@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { DataService } from '../../../services/data.service';
 import { Recipe } from '../../../entity/recipe';
 import { TypesMappingService } from '../../../services/types-mapping.service';
+import { ingredients } from '../../../types';
+import { TranslationService } from '../../../services/translation.service';
 
 @Component({
   selector: 'app-header-bar',
@@ -14,7 +16,7 @@ export class HeaderBarComponent implements OnInit {
   @Output() defaultIngredientsEvent = new EventEmitter<boolean>();
   @Output() fridgeStatusEvent = new EventEmitter<boolean>();
 
-  @Input() suggestions: string[];
+  @Input() suggestions: { id: number, name: string }[];
   @Input() fridgeFlag: boolean;
   @Input() fridgeLink: boolean;
   @Input() shoppingListButton: boolean;
@@ -31,9 +33,10 @@ export class HeaderBarComponent implements OnInit {
   private searchValue = '';
   private defaultIngredientsStatus = false;
   private fridgeContentStatus = false;
+  private ingredients = ingredients;
   recipeAddedToList = false;
 
-  constructor(private location: Location, private dataService: DataService, private typesMapper: TypesMappingService) {
+  constructor(private location: Location, private dataService: DataService, private typesMapper: TypesMappingService, private translationService: TranslationService) {
   }
 
   ngOnInit() {
@@ -55,8 +58,8 @@ export class HeaderBarComponent implements OnInit {
     }
   }
 
-  addSuggestion(tag: string): void {
-    this.suggestions.push(tag);
+  addSuggestion(ingredient: { id: number, name: string }) {
+    this.suggestions.push(ingredient);
     this.searchValue = '';
     this.toggleSuggestionsContainer();
   }
