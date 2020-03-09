@@ -1,14 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Tag} from '../entity/Tag';
-import {Ingredient} from '../entity/ingredient.class';
-import {Id} from '../entity/id.class';
-import {Title} from '../entity/title.class';
-import {PreparationTime} from '../entity/preparation-time.class';
-import {Instructions} from '../entity/instructions.class';
-import {Recipe} from '../entity/recipe';
-import {Video} from '../entity/video.class';
-import {IngredientList} from '../entity/IngredientList';
-import {VolumeUnit} from '../types';
+import { Injectable } from '@angular/core';
+import { Ingredient } from '../entity/ingredient.class';
+import { Recipe } from '../entity/recipe';
+import { IngredientList } from '../entity/IngredientList';
+import { ingredients, VolumeUnit } from '../types';
+import { TranslationService } from './translation.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,33 +19,30 @@ export class DataService {
   allIngredientsFilteredShoppingList: Ingredient[] = [];
   sharingString: string;
 
-  constructor() {
-    this.tagList.push(Title.create('Pfeffer'));
-    this.tagList.push(Title.create('Salz'));
-    this.tagList.push(Title.create('Pepperoni'));
-    this.tagList.push(Title.create('Salami'));
+  constructor(private translationService: TranslationService) {
+    this.tagList.push(translationService.translate(ingredients['1']));
 
     this.searchResult.push(new Recipe(
-      Id.fromNumber(Id.generate()),
-      Title.create('Pizza'),
-      PreparationTime.create(130),
+      Math.floor(Math.random() * 9000),
+      'Pizza',
+      130,
       [],
       [],
-      [new Ingredient('Test', 2, VolumeUnit.GRAMM, 0)],
-      Instructions.create(''),
+      [new Ingredient('Test', 2, VolumeUnit.GRAMM, 1, 0)],
+      '',
       [],
-      Video.create('')));
+      ''));
   }
 
   getTagsBySearchString(searchValue: string) {
     if (searchValue && searchValue !== '') {
       return this.tagList.filter(
-        title => title.title.toLowerCase().includes(searchValue.toLowerCase()));
+        title => title.toLowerCase().includes(searchValue.toLowerCase()));
     }
     return [];
   }
 
-  searchRecipesByParams(params: Tag[]): Recipe[] {
+  searchRecipesByParams(params: string[]): Recipe[] {
     if (params.length > 0) {
       return this.searchResult;
     }

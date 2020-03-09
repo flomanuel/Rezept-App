@@ -23,9 +23,6 @@ export class PopupComponent implements OnInit {
   @Input() message!: string;
   @Input() status: PopupType = PopupType.INFO;
 
-  constructor() {
-  }
-
   ngOnInit() {
     if (this.status === PopupType.INFO) {
       // @ts-ignore
@@ -39,7 +36,7 @@ export class PopupComponent implements OnInit {
 
     if (this.status === PopupType.DANGER) {
       // @ts-ignore
-      document.querySelector('.wrapper').style.backgroundColor = '#cc0e09';
+      document.querySelector('.wrapper').style.backgroundColor = '#bf4647';
     }
   }
 }

@@ -12,7 +12,7 @@ export class IngredientInfoService {
 
   getInfoById(id: number): Promise<AngularFirestoreCollection> {
     return new Promise<any>((resolve) => {
-      const collection = this.db.collection(Database.ADDITIONAL_INFO_COLLECTION, ref => ref.where('id', '==', id));
+      const collection = this.db.collection(Database.ADDITIONAL_INFO, ref => ref.where('id', '==', id));
       resolve(collection);
     });
   }

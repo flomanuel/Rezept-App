@@ -18,7 +18,7 @@
       <tr class="clear-row">Keine Rezepte ausgewählt.</tr>
     </table>
     <div *ngFor="let recipeShoppingList of recipeFilteredShoppingLists">
-      <h4>{{recipeShoppingList.title.title}}</h4>
+      <h4>{{recipeShoppingList.title}}</h4>
       <table>
         <tr [class.item-checked]="ingredient.done" *ngFor="let ingredient of recipeShoppingList.ingredients"
             (click)="toggleIngredient(ingredient)">
@@ -36,7 +36,7 @@
       <tr class="clear-row" *ngIf="allIngredientsFilteredShoppingList.length === 0">Keine Rezepte ausgewählt.</tr>
       <tr [class.item-checked]="ingredient.done" *ngFor="let ingredient of allIngredientsFilteredShoppingList"
           (click)="toggleIngredient(ingredient)">
-        <td>{{ingredient.label}}</td>
+        <td>{{ingredient.customTitle}}</td>
         <td class="td-second">{{ingredient.amount}}</td>
         <td class="td-second">{{ingredient.volumeUnit}}</td>
       </tr>

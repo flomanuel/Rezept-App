@@ -15,22 +15,6 @@ export interface FireBaseQueryResult {
   video: string; // link to video
 }
 
-export enum Categories {
-  SOUP = 'soup',
-  FISH = 'fish',
-  MEAT = 'meat',
-  VEGETARIAN = 'vegetarian',
-  VEGAN = 'vegan',
-}
-
-export enum Regions {
-  ASIAN = 'asian',
-  TURKISH = 'turkish',
-  GERMAN = 'german',
-  AMERICAN = 'american',
-  ITALIAN = 'italian'
-}
-
 export enum VolumeUnit {
   STUECK = 'Stk',
 
@@ -41,7 +25,10 @@ export enum VolumeUnit {
   LITER = 'l',
 
   TEELOEFFEL = 'TL',
-  ESSLOEFFEL = 'EL'
+  ESSLOEFFEL = 'EL',
+
+  TASSE = 'Tasse',
+  TASSEN = 'Tassen',
 }
 
 export enum PopupType {
@@ -64,4 +51,8 @@ export const regions = {
   3: 'italian',
   4: 'american',
   5: 'asian',
+};
+
+export const ingredients = {
+  1: 'lentils',
 };

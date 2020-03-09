@@ -1,0 +1,14 @@
+<app-header-bar [ingredientsListButton]="true" [currentRecipe]="recipe"></app-header-bar>
+
+<div class="headline">
+  <h1 class="headline__title" *ngIf="recipe.title">{{recipe.title}}</h1>
+  <p class="headline__cookingTime" *ngIf="recipe.preparationTime">
+    {{calculatePreparationTime('h')}} h
+    {{calculatePreparationTime('m')}} min
+  </p>
+</div>
+
+<ol class="cooking-steps">
+  <li *ngFor="let step of recipe.steps">{{step}}</li>
+</ol>
+

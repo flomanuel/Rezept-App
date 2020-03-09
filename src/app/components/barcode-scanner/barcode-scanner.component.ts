@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import Quagga from 'quagga';
 import { Router } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './barcode-scanner.component.html',
   styleUrls: ['./barcode-scanner.component.less'],
 })
-export class BarcodeScannerComponent implements OnInit {
+export class BarcodeScannerComponent implements OnInit, OnDestroy {
   barcode = '';
   readerType = 'ean_8_reader';
   readerStatus = false;
@@ -16,6 +16,10 @@ export class BarcodeScannerComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    document.body.style.margin = '8px';
   }
 
   startScanner(reader: string = '') {

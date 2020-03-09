@@ -8,10 +8,11 @@
 
 @mainColors_darkGrey: #757575;
 @mainColors_lightGrey: #C4C4C4;
+@mainColors_white: #ffffff;
 
 /** font mixins **/
-.mainFontFamily {
-  font-family: Arial, 'sans-serif';
+.mainFontFamily() {
+  font-family: "Roboto", Arial, 'sans-serif';
 }
 
 /** widths **/
@@ -21,19 +22,3 @@
 @width_min-md: 601px;
 @width_max-sm: 600px;
 @width_min-sm: 1px;
-
-.grid-container {
-  display: grid;
-
-  &:not(.noExtraColumns) {
-    grid-template-columns: 100px auto 100px;
-  }
-
-  &:not(.noRows) {
-    grid-template-rows: repeat(3, 33%);
-  }
-
-  &.noExtraColumns {
-    grid-template-columns: auto;
-  }
-}

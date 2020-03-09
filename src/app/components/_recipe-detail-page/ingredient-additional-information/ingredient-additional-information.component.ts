@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IngredientInfoService } from '../../services/ingredient-info.service';
+import { IngredientInfoService } from '../../../services/ingredient-info.service';
 import { ActivatedRoute } from '@angular/router';
-import { IngredientAdditionalInfoClass } from '../../entity/ingredient.additional-info.class';
+import { IngredientAdditionalInfoClass } from '../../../entity/ingredient.additional-info.class';
 
 @Component({
   selector: 'app-ingredient-additional-information',
@@ -16,13 +16,13 @@ export class IngredientAdditionalInformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getRouteParams.paramMap.subscribe(params => {
-      this.id = parseInt(params.get('id'), 10);
+    this.getRouteParams.queryParams.subscribe(params => {
+      this.id =  parseInt(params.id, 10);
     });
     if (typeof this.id === 'number') {
-      this._ingredientInfoService.getInfoById(this.id).then( (collection) => {
-      collection.valueChanges().subscribe((snapshots: IngredientAdditionalInfoClass[]) => {
-        this.info = snapshots;
+      this._ingredientInfoService.getInfoById(this.id).then((collection) => {
+        collection.valueChanges().subscribe((snapshots: IngredientAdditionalInfoClass[]) => {
+          this.info = snapshots;
         });
       });
     }
