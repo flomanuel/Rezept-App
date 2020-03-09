@@ -17,7 +17,7 @@ import { Ingredient } from '../../entity/ingredient.class';
 })
 export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
-  private recipeMissingIngredients = 0;
+  private missingIngredients = 0;
   private recipe: Recipe;
 
   constructor(private db: AngularFirestore,
@@ -34,6 +34,11 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
     this.getNewRecipe().then((collection) => {
       collection.valueChanges().subscribe((snapshots: Recipe[]) => {
         this.recipe = snapshots[0];
+        this.recipe.ingredients.forEach((ingredient) => {
+          if (!this.isIngredientInFridge(ingredient)) {
+            this.missingIngredients++;
+          }
+        });
       });
     });
   }
@@ -42,7 +47,6 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
     document.body.style.margin = '8px';
   }
 
-
   isIngredientInFridge(ingredient: Ingredient): boolean {
     let ingredientAvailable = false;
     this.dataService.fridgeIngredients.forEach(fridgeIngredient => {
@@ -50,9 +54,6 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
         ingredientAvailable = true;
       }
     });
-    if (!ingredientAvailable) {
-      this.recipeMissingIngredients++;
-    }
     return ingredientAvailable;
   }
 
