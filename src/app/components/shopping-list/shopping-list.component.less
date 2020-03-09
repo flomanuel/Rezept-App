@@ -1,4 +1,7 @@
+@import "../../../styles.less";
+
 table {
+  .mainFontFamily();
   border-collapse: collapse;
   width: 100%;
 }
@@ -10,6 +13,7 @@ table {
 }
 
 tr {
+  .mainFontFamily();
   cursor: pointer;
   position: relative;
   padding: 12px 8px 12px 40px;
@@ -28,6 +32,7 @@ tr {
 }
 
 th, td {
+  .mainFontFamily();
   width: 10%;
   padding: 8px;
   text-align: left;
@@ -35,6 +40,7 @@ th, td {
 }
 
 input[type=text] {
+  .mainFontFamily();
   margin: 0;
   border: none;
   border-radius: 0;
@@ -46,6 +52,7 @@ input[type=text] {
 }
 
 button[type=submit] {
+  .mainFontFamily();
   background-color: grey;
   border: none;
   color: white;
@@ -80,6 +87,7 @@ button[type=submit] {
   cursor: pointer;
   color: white;
 }
+
 .filter-button-recipe:hover {
   background-color: lightgray;
 }
@@ -97,3 +105,15 @@ button[type=submit] {
   margin-top: 30px;
 }
 
+
+h2 {
+  .mainFontFamily();
+}
+
+h3 {
+  .mainFontFamily();
+}
+
+h4 {
+  .mainFontFamily();
+}
