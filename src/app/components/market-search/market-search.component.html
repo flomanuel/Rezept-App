@@ -1,18 +1,34 @@
+<app-header-bar [background]="false" [position]="'absolute'"></app-header-bar>
+<!--<div>-->
+<!--  <button type="button" data-toggle="modal" class="button"-->
+<!--          (click)="zeigePosition()">Reload-->
+<!--  </button>-->
+<!--  &lt;!&ndash;  <p>{{geoLocation.latitude}}</p>&ndash;&gt;-->
+<!--</div>-->
+<!--<div *ngFor="let market of markets">-->
+<!--  <button type="button" data-toggle="modal" class="button"-->
+<!--          (click)="setCenter(stringToFloat(market.lon) , stringToFloat(market.lat))">Zur eigenen Position-->
+<!--  </button>-->
+<!--</div>-->
 
-<button type="button" data-toggle="modal" class="button"
-        (click)="getResponse()">Reload
-</button>
-<div *ngFor="let market of markets">
-<button type="button" data-toggle="modal" class="button"
-        (click)="setCenter(stringToFloat(market.lon) , stringToFloat(market.lat))">Zur eigenen Position
-</button>
-
-<!--  <h2>{{market.place_id}} - [{{market.lat}} {{market.lon}}]</h2>-->
-<!--  <h2>{{market.boundingbox}}]</h2>-->
-</div>
 
 <div id="map" class="map"></div>
 
-<div id="popup" title="popup"></div>
-<a class="overlay" id="testOverlay" >Test</a>
+<div>
+  <button type="button" data-toggle="modal" class="button"
+          (click)="setCenter(geoLocation.longitude , geoLocation.latitude)">Zur eigenen Position
+  </button>
+</div>
+
+<div *ngIf="markets" id="market1" class="markets">
+  <div *ngFor="let market of markets">
+    <table>
+      <tr>
+        <th>{{market.extratags.opening_hours}} </th>
+        <th>
+          Distanz: {{distance(stringToFloat(market.lat), stringToFloat(market.lon), geoLocation.latitude, geoLocation.longitude)}} km </th>
+      </tr>
+    </table>
+  </div>
+</div>
 
