@@ -109,6 +109,7 @@ const appRoutes: Routes = [
     CookingStepsDetailPageComponent,
     MultiselectModalComponent,
     InfoModalComponent,
+    SettingsComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
