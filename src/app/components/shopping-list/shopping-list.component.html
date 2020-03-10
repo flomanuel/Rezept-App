@@ -57,9 +57,16 @@
     </table>
   </div>
 
-  <div *ngIf="recipeFilter" align="center">
-    <a href="https://api.whatsapp.com/send?text={{sharingString}}" target="_blank">
-      <img class="sharing-button" src="../../../assets/icons/whatsapp_share.svg" width="50px" alt="Whatsapp">
-    </a>
+  <div class="sharing-button">
+    <div *ngIf="recipeFilter" align="center">
+      <a href="https://api.whatsapp.com/send?text={{sharingString}}" target="_blank">
+        <img src="../../../assets/icons/whatsapp_share.svg" width="50px" alt="Whatsapp">
+      </a>
+    </div>
+    <div align="center" style="margin-top: 10px">
+      <a routerLink="/markets">
+        <img src="../../../assets/icons/markets-around.svg" alt="Markets">
+      </a>
+    </div>
   </div>
 </div>
