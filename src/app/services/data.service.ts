@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Ingredient } from '../entity/ingredient.class';
-import { Recipe } from '../entity/recipe';
-import { IngredientList } from '../entity/IngredientList';
-import { ingredients, VolumeUnit } from '../types';
-import { TranslationService } from './translation.service';
+import {Injectable} from '@angular/core';
+import {Ingredient} from '../entity/ingredient.class';
+import {Recipe} from '../entity/recipe';
+import {IngredientList} from '../entity/IngredientList';
+import {categories, ingredients, regions, VolumeUnit} from '../types';
+import {TranslationService} from './translation.service';
+import {LocalStorageService} from './local-storage.service';
+import {localStorageKeys} from '../../config';
+
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +15,15 @@ export class DataService {
   public tagList: any[] = [];
   searchResult: Recipe[] = [];
 
-  selectedRecepies: Recipe[] = [];
   fridgeIngredients: Ingredient[] = [];
-  privateShoppingList: Ingredient[] = [];
   recipeShoppingLists: IngredientList[] = [];
   allIngredientsFilteredShoppingList: Ingredient[] = [];
+  localStorageService: LocalStorageService;
   sharingString: string;
 
-  constructor(private translationService: TranslationService) {
+  constructor(private translationService: TranslationService, localStorageService: LocalStorageService) {
     this.tagList.push(translationService.translate(ingredients['1']));
+    this.localStorageService = localStorageService;
 
     this.searchResult.push(new Recipe(
       Math.floor(Math.random() * 9000),
@@ -50,7 +53,7 @@ export class DataService {
   }
 
   addRecipe(recipe: Recipe) {
-    this.selectedRecepies.push(recipe);
+    this.localStorageService.addRecipeToSelectedRecipies(recipe);
     this.recipeShoppingLists.push(this.getIngredientsListForRecipe(recipe));
     this.allIngredientsFilteredShoppingList = this.getAllIngredientsFromRecipes();
     this.sharingString = this.createSharingStringFromIngredients();
@@ -65,7 +68,7 @@ export class DataService {
   }
 
   getPrivateShoppingList() {
-    return this.privateShoppingList;
+    return this.localStorageService.getPrivateShoppingList();
   }
 
   getAllIngredientsFilteredShoppingList() {
@@ -77,7 +80,7 @@ export class DataService {
   }
 
   addItemToPrivateShoppingList(privateIngredient: Ingredient) {
-    this.privateShoppingList.push(privateIngredient);
+    this.localStorageService.addIngredientToPrivateShoppingList(privateIngredient);
   }
 
   deleteIngredientFromList(ingredient: Ingredient, ingredientsList: Ingredient[]) {
@@ -91,13 +94,7 @@ export class DataService {
   }
 
   deleteIngredientFromPrivateShoppingList(ingredient: Ingredient) {
-    const temporaryList: Ingredient[] = [];
-    this.privateShoppingList.forEach(ingredientInList => {
-      if (ingredientInList.label !== ingredient.label) {
-        temporaryList.push(ingredientInList);
-      }
-    });
-    this.privateShoppingList = temporaryList;
+    this.localStorageService.deleteIngredientFromPrivateShoppingList(ingredient);
   }
 
 
@@ -123,10 +120,11 @@ export class DataService {
   }
 
   private getAllIngredientsFromRecipes() {
+    const selectedRecipes = this.localStorageService.getSelectedRecipes();
     const availableIngredients: Ingredient[] = this.fridgeIngredients;
     let allIngredients: Ingredient[] = [];
 
-    this.selectedRecepies.forEach(recipe => {
+    selectedRecipes.forEach(recipe => {
       recipe.ingredients.forEach(ingredient => {
         if (this.ingredientIsInList(ingredient, allIngredients)) {
           allIngredients = this.sumIngredientsAmountAndDeleteFromListIfFridgeIsSufficient(allIngredients, ingredient, availableIngredients);
@@ -142,8 +140,8 @@ export class DataService {
     return allIngredients;
   }
 
-  // tslint:disable-next-line:max-line-length
-  private sumIngredientsAmountAndDeleteFromListIfFridgeIsSufficient(allIngredients: Ingredient[], ingredient: Ingredient, availableIngredients: Ingredient[]) {
+  private sumIngredientsAmountAndDeleteFromListIfFridgeIsSufficient(allIngredients: Ingredient[], ingredient: Ingredient,
+                                                                    availableIngredients: Ingredient[]) {
     allIngredients.forEach(ingredientInList => {
       if (ingredientInList.label === ingredient.label) {
         ingredientInList.amount += ingredient.amount;
@@ -174,6 +172,7 @@ export class DataService {
 
   public createSharingStringFromIngredients() {
     let sharingString = '';
+    const privateShoppingList = this.localStorageService.getPrivateShoppingList();
 
     sharingString += 'Einkaufszettel: \n';
     this.allIngredientsFilteredShoppingList.forEach(ingredient => {
@@ -182,11 +181,11 @@ export class DataService {
         sharingString += ', \n';
       }
     });
-    if (this.privateShoppingList.length > 0) {
+    if (privateShoppingList.length > 0) {
       sharingString += ' \n--- \nZusätzliche Produkte: \n';
-      this.privateShoppingList.forEach(ingredient => {
+      privateShoppingList.forEach(ingredient => {
         sharingString += ingredient.label;
-        if (this.privateShoppingList.indexOf(ingredient) !== this.privateShoppingList.length - 1) {
+        if (privateShoppingList.indexOf(ingredient) !== privateShoppingList.length - 1) {
           sharingString += ', \n';
         }
       });
@@ -195,6 +194,17 @@ export class DataService {
 
     this.sharingString = encodeURIComponent(sharingString);
     return encodeURIComponent(sharingString);
+  }
+
+  toggleIngredient(localeStorageKey: localStorageKeys, ingredient: Ingredient) {
+    const ingredientList = this.localStorageService.getItem(localeStorageKey);
+    const index = ingredientList.map(actualIngredient => {
+        return actualIngredient.label;
+    }).indexOf(ingredient.label);
+    const ingredientInList = ingredientList[index];
+    ingredientInList.done = !ingredientInList.done;
+    ingredientList[index] = ingredientInList;
+    this.localStorageService.setItem(localeStorageKey, ingredientList);
   }
 
 }

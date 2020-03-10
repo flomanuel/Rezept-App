@@ -1,6 +1,7 @@
-import { Recipe } from '../entity/recipe';
-import { Injectable } from '@angular/core';
-import { localStorageKeys } from '../../config';
+import {Recipe} from '../entity/recipe';
+import {Injectable} from '@angular/core';
+import {localStorageKeys} from '../../config';
+import {Ingredient} from '../entity/ingredient.class';
 
 @Injectable({
   providedIn: 'root',
@@ -40,5 +41,37 @@ export class LocalStorageService {
   isRecipeFavoured(id: number): boolean {
     const favouriteRecipes = this.getItem(localStorageKeys.FAVOURITE_RECIPES);
     return favouriteRecipes.includes(id);
+  }
+
+  getSelectedRecipes(): Recipe[] {
+    return this.getItem(localStorageKeys.SELECTED_RECIPES);
+  }
+
+  addRecipeToSelectedRecipies(recipe: Recipe) {
+    const selectedRecipes = this.getSelectedRecipes();
+    selectedRecipes.push(recipe);
+    this.setItem(localStorageKeys.SELECTED_RECIPES, selectedRecipes);
+  }
+
+  getPrivateShoppingList(): Ingredient[] {
+    return this.getItem(localStorageKeys.PRIVATE_SHOPPING_LIST);
+  }
+
+  addIngredientToPrivateShoppingList(ingredient: Ingredient) {
+    const privateShoppingList = this.getPrivateShoppingList();
+    privateShoppingList.push(ingredient);
+    this.setItem(localStorageKeys.PRIVATE_SHOPPING_LIST, privateShoppingList);
+  }
+
+  deleteIngredientFromPrivateShoppingList(ingredient: Ingredient) {
+    let privateShoppingList = this.getPrivateShoppingList();
+    const temporaryList = [];
+    privateShoppingList.forEach(ingredientInList => {
+      if (ingredientInList.label !== ingredient.label) {
+        temporaryList.push(ingredientInList);
+      }
+    });
+    privateShoppingList = temporaryList;
+    this.setItem(localStorageKeys.PRIVATE_SHOPPING_LIST, privateShoppingList);
   }
 }
