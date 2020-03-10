@@ -18,19 +18,17 @@ import { RecipeDetailPageComponent } from './components/recipe-detail-page/recip
 import { BarcodeScannerComponent } from './components/barcode-scanner/barcode-scanner.component';
 import { OpenFoodFactsDetailpageComponent } from './components/open-food-facts-detailpage/open-food-facts-detailpage.component';
 import { MarketSearchComponent } from './components/market-search/market-search.component';
-import {
-  IngredientAdditionalInformationComponent,
-} from './components/_recipe-detail-page/ingredient-additional-information/ingredient-additional-information.component';
+import { IngredientAdditionalInformationComponent } from './components/_recipe-detail-page/ingredient-additional-information/ingredient-additional-information.component';
 import { LoadingAnimationComponent } from './components/_shared/loading-animation/loading-animation.component';
 import { PopupComponent } from './components/_shared/popup/popup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageGalleryComponent } from './components/_shared/image-gallery/image-gallery.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
-import {
-  CookingStepsDetailPageComponent,
-} from './components/_recipe-detail-page/cooking-steps-detail-page/cooking-steps-detail-page.component';
+import { CookingStepsDetailPageComponent } from './components/_recipe-detail-page/cooking-steps-detail-page/cooking-steps-detail-page.component';
 import { MultiselectModalComponent } from './components/multiselect-modal/multiselect-modal.component';
 import { InfoModalComponent } from './components/info-modal/info-modal.component';
+import { FavoriteRecipeListComponent } from './components/favorite-recipe-list/favorite-recipe-list.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 const appRoutes: Routes = [
   {
@@ -74,8 +72,12 @@ const appRoutes: Routes = [
     component: IngredientAdditionalInformationComponent,
   },
   {
-    path: 'shopping_list',
+    path: 'shopping-list',
     component: ShoppingListComponent,
+  },
+  {
+    path: 'my-favorite-recipes',
+    component: FavoriteRecipeListComponent,
   },
   {
     // this should always be the last entry since otherwise all paths get mapped to the homepage
@@ -108,8 +110,10 @@ const appRoutes: Routes = [
     CookingStepsDetailPageComponent,
     MultiselectModalComponent,
     InfoModalComponent,
+    FavoriteRecipeListComponent,
   ],
   imports: [
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     BrowserModule,

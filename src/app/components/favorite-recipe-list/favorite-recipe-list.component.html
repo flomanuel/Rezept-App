@@ -1,0 +1,22 @@
+<div>
+  <ul class="favored-recipes">
+    <li *ngFor="let favoriteRecipe of favoriteRecipes">
+      <div class="card">
+        <div class="card-image">
+          <img src="{{ favoriteRecipe.images[0] }}" alt="src/assets/fallbackImage.svg">
+        </div>
+        <div class="card-header">
+          <div class="card-title">
+            <p>{{ favoriteRecipe.title }}</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>Vorbereitungszeit {{ favoriteRecipe.preparationTime }}min</p>
+        </div>
+        <div class="card-footer">
+          <button>Zum Rezept</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
