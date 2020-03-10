@@ -27,6 +27,7 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
 import { CookingStepsDetailPageComponent } from './components/_recipe-detail-page/cooking-steps-detail-page/cooking-steps-detail-page.component';
 import { MultiselectModalComponent } from './components/multiselect-modal/multiselect-modal.component';
 import { InfoModalComponent } from './components/info-modal/info-modal.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { FavoriteRecipeListComponent } from './components/favorite-recipe-list/favorite-recipe-list.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
@@ -76,6 +77,10 @@ const appRoutes: Routes = [
     component: ShoppingListComponent,
   },
   {
+    path: 'settings',
+    component: SettingsComponent,
+  },
+  {
     path: 'my-favorite-recipes',
     component: FavoriteRecipeListComponent,
   },
@@ -110,6 +115,7 @@ const appRoutes: Routes = [
     CookingStepsDetailPageComponent,
     MultiselectModalComponent,
     InfoModalComponent,
+    SettingsComponent,
     FavoriteRecipeListComponent,
   ],
   imports: [
