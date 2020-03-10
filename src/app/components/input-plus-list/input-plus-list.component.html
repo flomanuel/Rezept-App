@@ -1,8 +1,36 @@
 <div class="input-plus-list">
 
-  <div #inputs class="inputs"> <!-- New BasicIngredientComponent will dynamically append here -->
-  </div>
+  <ul class="inputs">
+    <li *ngFor="let item of items; let i = index">
+      <div class="ingredient-container">
+        <div class="remove-btn-container">
+          <button class="removeBtn" (click)="removeInput(i)">X</button>
+        </div>
+        <div class="ingredient-name-container">
+          <label>
+            <input id="ingredientName" placeholder="Name der Zutat..." type="text" name="ingredientName"
+                   [(ngModel)]="item.label">
+          </label>
+        </div>
 
-  <button *ngIf="showRemoveBtn" id="removeBtn" class="newInputBtn" (click)="removeInput()">-</button>
+        <div class="ingredient-amount-container">
+          <label>
+            <input id="ingredientAmount" placeholder="Menge..." type="number" name="amountOfIngredient"
+                   [(ngModel)]="item.amount">
+          </label>
+        </div>
+
+        <div class="ingredient-volume-unit-container">
+          <label>
+            <select id="ingredientVolumeUnit" [(ngModel)]="item.volumeUnit" name="volumeUnit">
+              <option value="" disabled selected>Bitte wählen</option>
+              <option value="{{ volumeUnit }}" *ngFor="let volumeUnit of fileVolumeUnits">{{ volumeUnit }}</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </li>
+  </ul>
+
   <button id="addBtn" class="newInputBtn" (click)="newInput()">+</button>
 </div>
