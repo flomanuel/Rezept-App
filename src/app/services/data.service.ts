@@ -34,7 +34,8 @@ export class DataService {
       [new Ingredient('Test', 2, VolumeUnit.GRAMM, 1, 0)],
       '',
       [],
-      ''));
+      '',
+      [1]));
   }
 
   getTagsBySearchString(searchValue: string) {
