@@ -28,6 +28,7 @@ import { CookingStepsDetailPageComponent } from './components/_recipe-detail-pag
 import { MultiselectModalComponent } from './components/multiselect-modal/multiselect-modal.component';
 import { InfoModalComponent } from './components/info-modal/info-modal.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 const appRoutes: Routes = [
   {
@@ -118,6 +119,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     BrowserAnimationsModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent],

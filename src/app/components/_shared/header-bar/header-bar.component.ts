@@ -14,9 +14,10 @@ import { TranslationService } from '../../../services/translation.service';
 export class HeaderBarComponent implements OnInit {
 
   @Output() defaultIngredientsEvent = new EventEmitter<boolean>();
+  @Output() ingredientListChange = new EventEmitter<boolean>();
   @Output() fridgeStatusEvent = new EventEmitter<boolean>();
 
-  @Input() suggestions: { id: number, name: string }[];
+  @Input() ingredientIdList: number[];
   @Input() fridgeFlag: boolean;
   @Input() fridgeLink: boolean;
   @Input() shoppingListButton: boolean;
@@ -36,7 +37,8 @@ export class HeaderBarComponent implements OnInit {
   private ingredients = ingredients;
   recipeAddedToList = false;
 
-  constructor(private location: Location, private dataService: DataService, private typesMapper: TypesMappingService, private translationService: TranslationService) {
+  constructor(private location: Location, private dataService: DataService, private typesMapper: TypesMappingService,
+              private translationService: TranslationService) {
   }
 
   ngOnInit() {
@@ -58,10 +60,11 @@ export class HeaderBarComponent implements OnInit {
     }
   }
 
-  addSuggestion(ingredient: { id: number, name: string }) {
-    this.suggestions.push(ingredient);
+  addSuggestion(ingredient: number) {
+    this.ingredientIdList.push(ingredient);
     this.searchValue = '';
     this.toggleSuggestionsContainer();
+    this.ingredientListChange.emit(true);
   }
 
   toggleIngredientsStatus(): void {

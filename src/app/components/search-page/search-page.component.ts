@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { Recipe } from '../../entity/recipe';
-import { regions } from '../../types';
+import { regions, ingredients, categories } from '../../types';
 import { TranslationService } from '../../services/translation.service';
 import { TypesMappingService } from '../../services/types-mapping.service';
+import { FirebaseService } from '../../services/firebase.service';
+import { Recipe } from '../../entity/recipe';
 
 @Component({
   selector: 'app-search-page',
@@ -11,37 +12,71 @@ import { TypesMappingService } from '../../services/types-mapping.service';
   styleUrls: ['./search-page.component.less'],
 })
 export class SearchPageComponent implements OnInit {
-  private suggestionsList: { id: number, name: string }[] = [];
-  private tabElements: string[] = [];
-  private selectedFilterTabElements: string[] = [];
+  private ingredientIds: number[] = [];
+  private tabElements = { regionsIds: [], categoriesIds: [] };
+  private selectedFilterTabElements: number[] = [];
   private defaultIngredientsStatus = false;
+  private ingredients = ingredients;
+  private searchResult: Recipe[] = [];
 
-  constructor(private dataService: DataService, private translationService: TranslationService, private typesMapper: TypesMappingService) {
-    this.tabElements.push(regions['1']);
-    this.tabElements.push(regions['2']);
-    this.tabElements.push(regions['3']);
+  constructor(private firebaseService: FirebaseService, private dataService: DataService, private translationService: TranslationService) {
+    for (const index in regions) {
+      if (index in regions) {
+        this.tabElements.regionsIds.push(index);
+      }
+    }
+
+    for (const index in categories) {
+      if (index in categories) {
+        this.tabElements.categoriesIds.push(index);
+      }
+    }
+
   }
 
   ngOnInit() {
   }
 
-  removeFilterParam(id: number, storage: { id: number, name: string }[]): boolean {
-    if (storage && id) {
-      const index = storage.indexOf(id);
+  toggleFilterParam(id: number): boolean {
+    if (this.ingredientIds && id) {
+      const index = this.ingredientIds.indexOf(id);
       if (index >= 0) {
-        storage.splice(index, 1);
+        this.ingredientIds.splice(index, 1);
         return true;
       }
       return false;
     }
   }
 
-  get searchResult(): Recipe[] {
-    const searchParams = this.suggestionsList.concat(this.selectedFilterTabElements);
-    return this.dataService.searchRecipesByParams(searchParams);
+  searchRecipesForIngredients() {
+    const filteredIds = this.ingredientIds.reduce((result: number[], currentValue: number) => {
+      return result.includes(currentValue) ? result : [...result, currentValue];
+    }, []);
+
+    this.firebaseService.searchRecipesByIngredients(filteredIds).then((collection) => {
+        collection.valueChanges().subscribe((recipes: Recipe[]) => {
+            console.log(recipes);
+            if (filteredIds.length > 1) {
+              this.searchResult = recipes.reduce((result: Recipe[], currentRecipe: Recipe) => {
+                if (
+                  currentRecipe.ingredientsIdList.every(id => {
+                    filteredIds.includes(id);
+                  })
+                ) {
+                  return [...result, currentRecipe];
+                }
+                return result;
+              }, []);
+            } else {
+              this.searchResult = recipes;
+            }
+          },
+        );
+      },
+    );
   }
 
-  onTabSelection($event: string[]): void {
+  onTabSelection($event: number[]): void {
     this.selectedFilterTabElements = $event;
   }
 

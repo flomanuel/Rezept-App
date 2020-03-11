@@ -9,7 +9,7 @@ import { TranslationService } from './translation.service';
   providedIn: 'root',
 })
 export class DataService {
-  public tagList: any[] = [];
+  public tagList: number[] = [];
   searchResult: Recipe[] = [];
   selectedRecepies: Recipe[] = [];
   fridgeIngredients: Ingredient[] = [];
@@ -21,7 +21,7 @@ export class DataService {
   constructor(private translationService: TranslationService) {
     for (const index in ingredients) {
       if (index in ingredients) {
-        this.tagList.push([index, translationService.translate(ingredients[index])]);
+        this.tagList.push(parseInt(index, 10));
       }
     }
 
@@ -40,14 +40,7 @@ export class DataService {
   getTagsBySearchString(searchValue: string) {
     if (searchValue && searchValue !== '') {
       return this.tagList.filter(
-        title => title[1].toLowerCase().includes(searchValue.toLowerCase()));
-    }
-    return [];
-  }
-
-  searchRecipesByParams(params: string[]): Recipe[] {
-    if (params.length > 0) {
-      return this.searchResult;
+        id => this.translationService.translate(ingredients[id]).toLowerCase().includes(searchValue.toLowerCase()));
     }
     return [];
   }
