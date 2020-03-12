@@ -12,17 +12,17 @@ export class IngredientAdditionalInformationComponent implements OnInit {
   private id: number;
   private info: IngredientAdditionalInfoClass[];
 
-  constructor(public _ingredientInfoService: IngredientInfoService, private getRouteParams: ActivatedRoute) {
+  constructor(public ingredientInfoService: IngredientInfoService, private getRouteParams: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.getRouteParams.queryParams.subscribe(params => {
-      this.id =  parseInt(params.id, 10);
+    this.getRouteParams.params.subscribe(params => {
+      this.id = parseInt(params.id, 10);
     });
     if (typeof this.id === 'number') {
-      this._ingredientInfoService.getInfoById(this.id).then((collection) => {
-        collection.valueChanges().subscribe((snapshots: IngredientAdditionalInfoClass[]) => {
-          this.info = snapshots;
+      this.ingredientInfoService.getInfoById(this.id).then((collection) => {
+        collection.valueChanges().subscribe((ingredientAdditionalInfo: IngredientAdditionalInfoClass[]) => {
+          this.info = ingredientAdditionalInfo;
         });
       });
     }

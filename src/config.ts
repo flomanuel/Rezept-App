@@ -5,7 +5,8 @@ export enum Database {
 
 export enum DatabaseFields {
   ID = 'id',
-  INGREDIENTS_ID_LIST = 'ingredientsIdList'
+  INGREDIENTS_ID_LIST = 'ingredientsIdList',
+  INGREDIENT_ADDITIONAL_INFO___ID = 'id'
 }
 
 export enum localStorageKeys {

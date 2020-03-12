@@ -54,5 +54,6 @@ export const regions = {
 };
 
 export const ingredients = {
+  0: 'roulade',
   1: 'lentils',
 };
