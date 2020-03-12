@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Ingredient} from '../entity/ingredient.class';
 import {Recipe} from '../entity/recipe';
 import {IngredientList} from '../entity/IngredientList';
-import {categories, ingredients, regions, VolumeUnit} from '../types';
+import {ingredients, VolumeUnit} from '../types';
 import {TranslationService} from './translation.service';
 import {LocalStorageService} from './local-storage.service';
 import {localStorageKeys} from '../../config';
@@ -61,6 +61,7 @@ export class DataService {
 
   addFridgeIngredient(ingredient: Ingredient) {
     this.fridgeIngredients.push(ingredient);
+    this.allIngredientsFilteredShoppingList = this.getAllIngredientsFromRecipes();
   }
 
   getRecipeFilteredShoppingLists() {
@@ -199,7 +200,7 @@ export class DataService {
   toggleIngredient(localeStorageKey: localStorageKeys, ingredient: Ingredient) {
     const ingredientList = this.localStorageService.getItem(localeStorageKey);
     const index = ingredientList.map(actualIngredient => {
-        return actualIngredient.label;
+      return actualIngredient.label;
     }).indexOf(ingredient.label);
     const ingredientInList = ingredientList[index];
     ingredientInList.done = !ingredientInList.done;
