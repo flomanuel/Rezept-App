@@ -1,8 +1,8 @@
 <app-header-bar></app-header-bar>
 <div class="shopping-list">
+  <h2>Einkaufsliste</h2>
   <div>
-    <h2>Einkaufsliste</h2>
-    <form>
+    <form *ngIf="recipeFilter">
       <label>
         <input placeholder="Zutat hinzufügen" type="text" name="name" [(ngModel)]="privateIngredient.label">
       </label>
@@ -20,8 +20,7 @@
     <div *ngFor="let recipeShoppingList of recipeFilteredShoppingLists">
       <h4>{{recipeShoppingList.title}}</h4>
       <table>
-        <tr [class.item-checked]="ingredient.done" *ngFor="let ingredient of recipeShoppingList.ingredients"
-            (click)="toggleIngredient(localStorageKey.SELECTED_RECIPES ,ingredient)">
+        <tr *ngFor="let ingredient of recipeShoppingList.ingredients">
           <td>{{ingredient.customTitle}}</td>
           <td class="td-second">{{ingredient.amount}}</td>
           <td class="td-second">{{ingredient.volumeUnit}}</td>
@@ -43,7 +42,7 @@
     </table>
   </div>
 
-  <div>
+  <div *ngIf="recipeFilter">
     <h4>Zuätzliche Produkte</h4>
     <table>
       <tr class="clear-row" *ngIf="privateShoppingList.length === 0">Keine zuätzlichen Produkte eingegeben.</tr>
