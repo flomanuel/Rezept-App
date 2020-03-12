@@ -1,34 +1,27 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { BasicIngredientComponent } from './basic-ingredient/basic-ingredient.component';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { VolumeUnit } from '../../types';
+import { Ingredient } from '../../entity/ingredient.class';
 
 @Component({
   selector: 'app-input-plus-list',
   templateUrl: './input-plus-list.component.html',
   styleUrls: ['./input-plus-list.component.less'],
 })
-export class InputPlusListComponent implements OnInit {
-  @ViewChild('inputs', { static: false, read: ViewContainerRef }) inputs: ViewContainerRef;
-  private showRemoveBtn = false;
+export class InputPlusListComponent {
+  private readonly fileVolumeUnits: string[] = Object.values(VolumeUnit);
+  @Input() items!: Ingredient[];
+  @Output() onItems: EventEmitter<Ingredient[]> = new EventEmitter<Ingredient[]>();
 
-  ngOnInit(): void {
+  constructor() {
   }
 
-  constructor(private readonly resolver: ComponentFactoryResolver) {
+  newInput(): void {
+    this.onItems.emit(this.items);
+    this.items.push(new Ingredient('', 0, '', 0));
   }
 
-  // Inserts a new BasicIngredientComponent to current inputs for more ingredients
-  newInput() {
-    const child = this.resolver.resolveComponentFactory(BasicIngredientComponent);
-    this.inputs.createComponent(child);
-    if (this.inputs.length > 0) {
-      this.showRemoveBtn = true;
-    }
-  }
-
-  removeInput() {
-    this.inputs.detach(this.inputs.length - 1);
-    if (this.inputs.length === 0) {
-      this.showRemoveBtn = false;
-    }
+  removeInput(index: number): void {
+    this.items.splice(index, 1);
+    this.onItems.emit(this.items);
   }
 }
