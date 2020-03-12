@@ -27,7 +27,7 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
   private nominatimURL = 'https://nominatim.openstreetmap.org/?adressdetails=1' +
     '&q=[suche]' +
     '&format=json' +
-    '&limit=5' +
+    '&limit=[limit]' +
     '&viewbox=[top],[right],[bottom],[left]' +
     '&bounded=1' +
     '&extratags=1';
@@ -69,32 +69,8 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
       }
       this.findMarkets();
     });
-    // {
-    //  next(position: Position) {
-    //    console.log('Current Position: ', position);
-    //    console.log(this.geoLocation);
-    //  },
-    //  error(msg) {
-    //    console.log('Error Getting Location: ', msg);
-    //  }
-    // );
-    // return this.geoLocation;
   }
 
-  // Promise<Coordinates> {
-
-  // let coords: Coordinates;
-  // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition((position) => {
-  //     coords = position.coords;
-  //   });
-  // } else {
-  //   console.log('Ihr Browser unterstützt keine Geolocation.');
-  // }
-  // return new Promise<Coordinates>((resolve) => {
-  //   resolve(coords);
-  // });
-  // }
 
   zeigePosition() {
     console.log('Ihre Koordinaten sind: Breite: ' + this.geoLocation.latitude + ' Länge: ' + this.geoLocation.longitude);
@@ -108,6 +84,7 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     document.body.style.margin = '8px';
+    this.locationsSubscription.unsubscribe();
   }
 
   InitMap() {
@@ -141,24 +118,15 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
 
   getResponse() {
     let url = this.nominatimURL;
-    const coords = this.GetBoundingBox(this.geoLocation.longitude, this.geoLocation.latitude, 0.9);
+    const coords = this.GetBoundingBox(this.geoLocation.longitude, this.geoLocation.latitude, 1);
     url = url.replace('[suche]', '[supermarket]');
+    url = url.replace('[limit]', '5');
     url = url.replace('[top]', (coords.top).toString());
     url = url.replace('[right]', (coords.right).toString());
     url = url.replace('[bottom]', (coords.bottom).toString());
     url = url.replace('[left]', (coords.left).toString());
 
-    // console.log('Top: ' + (coords.top).toString());
-    // console.log('Left: ' + (coords.left).toString());
-    // console.log('Bottom: ' + (coords.bottom).toString());
-    // console.log('Right: ' + (coords.right).toString());
-    // console.log('Distanz zwischen Top/Left und Bottom/Right: '
-    // + this.distance(coords.left, coords.top, coords.right, coords.bottom).toString());
-    // console.log('Distanz zwischen Top/Left und Bottom/Left: '
-    // + this.distance(coords.left, coords.top, coords.left, coords.bottom).toString());
-
-
-    console.log(url);
+    // console.log(url);
 
     if (this.markets) {
       this.markets.length = 0;
@@ -170,8 +138,12 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
         for (const mark of this.markets) {
           mark.distance = this.distance(mark.lat, mark.lon, this.geoLocation.latitude, this.geoLocation.longitude);
         }
-        this.markets.sort((a, b) => a.distance - b.distance
-        );
+        this.markets.sort((a, b) => a.distance - b.distance);
+        let index = 0;
+        for (const mark of this.markets) {
+          index++;
+          mark.index = index;
+        }
         this.setMarker();
       });
   }

@@ -23,8 +23,10 @@
   <div *ngFor="let market of markets" (click)="setCenter(stringToFloat(market.lon), stringToFloat(market.lat))">
     <table>
       <tr>
-        <th>{{market.display_name.substring(0, market.display_name.indexOf(','))}}</th> <!--Namen des Supermarkt ausschneiden-->
-        <th *ngIf="market.extratags.opening_hours.indexOf(';')>0; else keinSimekolon">
+        <th>{{market.index}}.</th>
+        <!--Namen des Supermarkt ausschneiden-->
+        <th>{{market.display_name.substring(0, market.display_name.indexOf(','))}}</th>
+        <th *ngIf="market.extratags.opening_hours?.indexOf(';') > 0; else keinSimekolon">
           {{market.extratags.opening_hours.substring(0, market.extratags.opening_hours.indexOf(';'))}} </th>
         <ng-template #keinSimekolon>
           <th>{{market.extratags.opening_hours}}</th>

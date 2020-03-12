@@ -4,6 +4,7 @@ export interface Market {
   lon: string;
   address: any;
   display_name: string;
+  index: number;
   distance: number;
   extratags: Extratags;
 }
