@@ -41,4 +41,25 @@ export class LocalStorageService {
     const favouriteRecipes = this.getItem(localStorageKeys.FAVOURITE_RECIPES);
     return favouriteRecipes.includes(id);
   }
+
+  addToDefaultIngredients(id: number) {
+    const defaultIngredients = this.getItem(localStorageKeys.DEFAULT_INGREDIENTS);
+    defaultIngredients.push(id);
+    this.setItem(localStorageKeys.DEFAULT_INGREDIENTS, defaultIngredients);
+  }
+
+  removeFromDefaultIngredients(id: number) {
+    if (this.getItem(localStorageKeys.DEFAULT_INGREDIENTS) !== null) {
+      const defaultIngredients = this.getItem(localStorageKeys.DEFAULT_INGREDIENTS);
+      const index = defaultIngredients.indexOf(id);
+      if (index >= 0) {
+        defaultIngredients.splice(index, 1);
+      }
+      this.setItem(localStorageKeys.DEFAULT_INGREDIENTS, defaultIngredients);
+    }
+  }
+
+  reset() {
+    // Todo
+  }
 }

@@ -33,7 +33,7 @@
     </span>
   </button>
   <button class="button_setting_list">
-    <span (click)="reset()" class="list_item_settings">
+    <span (click)="showReset()" class="list_item_settings">
       <i class="material-icons icon">
         restore_page
       </i>
@@ -56,6 +56,16 @@
 
 
 <div *ngIf="showOverallSettings || showImprint || showDefaultIngredientsSetting">
+  <div *ngIf="addNewDefaultIngredient" class="button_setting_list">
+    <div class="list_item_settings">
+      <input (keydown)="onInput()" (keydown.enter)="addDefaultIngredient()" [(ngModel)]="defaultIngredientInput"
+             style="width: 75%;"
+             type="text">
+      <button (click)="addDefaultIngredient()"
+              style="background: none; border-width: 1px; border-color: black; border-style: solid; width: 25%;">+
+      </button>
+    </div>
+  </div>
   <div *ngFor="let setting of setupData.settings">
     <button class="button_setting_list">
       <span *ngIf="showImprint">
@@ -72,12 +82,35 @@
   <p style="color:white;">
     Zurücksetzen
   </p>
-  <div id="overlay_box">
+  <div class="overlay_box">
     <p>Wollen sie die App wirklich zurücksetzen?</p>
 
     <div>
-      <button (click)="showOverlay = false;" class="overlay_box_button"> Ja</button>
+      <button (click)="showOverlay = false; reset();" class="overlay_box_button"> Ja</button>
       <button (click)="showOverlay = false;" class="overlay_box_button"> Nein</button>
     </div>
   </div>
 </div>
+
+<div *ngIf="showDefaultIngredientsMenu">
+
+  <p style="color:white;">
+    Zurücksetzen
+  </p>
+  <div class="overlay_box">
+    <p>Wollen sie diese Zutat von ihrer Liste löschen?</p>
+    <p>{{ingredientAt}}</p>
+    <div>
+      <button (click)="showDefaultIngredientsMenu = false; removeDefaultIngredient(ingredientAt)"
+              class="overlay_box_button"> Ja
+      </button>
+      <button (click)="showDefaultIngredientsMenu = false;" class="overlay_box_button"> Nein</button>
+    </div>
+  </div>
+</div>
+
+<footer *ngIf="showAlreadyInDefaultIngredientsListError">
+  <div class="footer-error-popup">
+    Die eingegebene Zutat ist entweder schon in der Liste vorhanden oder keine gültige Zutat.
+  </div>
+</footer>
