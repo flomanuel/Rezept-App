@@ -21,7 +21,7 @@
       <h4>{{recipeShoppingList.title}}</h4>
       <table>
         <tr [class.item-checked]="ingredient.done" *ngFor="let ingredient of recipeShoppingList.ingredients"
-            (click)="toggleIngredient('selected-recipes' ,ingredient)">
+            (click)="toggleIngredient(localStorageKey.SELECTED_RECIPES ,ingredient)">
           <td>{{ingredient.customTitle}}</td>
           <td class="td-second">{{ingredient.amount}}</td>
           <td class="td-second">{{ingredient.volumeUnit}}</td>
@@ -35,7 +35,7 @@
     <table>
       <tr class="clear-row" *ngIf="allIngredientsFilteredShoppingList.length === 0">Keine Rezepte ausgewählt.</tr>
       <tr [class.item-checked]="ingredient.done" *ngFor="let ingredient of allIngredientsFilteredShoppingList"
-          (click)="toggleIngredient('selected-recipes', ingredient)">
+          (click)="toggleIngredient(localStorageKey.SELECTED_RECIPES, ingredient)">
         <td>{{ingredient.customTitle}}</td>
         <td class="td-second">{{ingredient.amount}}</td>
         <td class="td-second">{{ingredient.volumeUnit}}</td>
@@ -48,7 +48,7 @@
     <table>
       <tr class="clear-row" *ngIf="privateShoppingList.length === 0">Keine zuätzlichen Produkte eingegeben.</tr>
       <tr [class.item-checked]="ingredient.done" *ngFor="let ingredient of privateShoppingList"
-          (click)="toggleIngredient('private-shopping-list', ingredient)">
+          (click)="toggleIngredient(localStorageKey.PRIVATE_SHOPPING_LIST, ingredient)">
         <td>{{ingredient.label}}</td>
         <td class="td-third">
           <i (click)="deleteItem(ingredient)" class="material-icons">delete</i>

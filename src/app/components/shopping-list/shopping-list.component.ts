@@ -16,6 +16,7 @@ export class ShoppingListComponent implements OnInit {
   privateIngredient: Ingredient;
   recipeFilter: boolean;
   localStorageService: LocalStorageService;
+  localStorageKey = localStorageKeys;
 
   constructor(private dataService: DataService, localStorageService: LocalStorageService) {
     this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, 0);
