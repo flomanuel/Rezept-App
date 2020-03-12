@@ -1,5 +1,5 @@
 <app-header-bar></app-header-bar>
-<app-loading-animation *ngIf="loading"></app-loading-animation>
+<app-loading-animation *ngIf="favoriteRecipes.length === 0"></app-loading-animation>
 <div class="header" *ngIf="favoriteRecipes.length !== 0">
   <h2>Ihre favorisierten Rezepte</h2>
   <input id="searchField" [(ngModel)]="searchStr" (keyup)="searchFavorites()"

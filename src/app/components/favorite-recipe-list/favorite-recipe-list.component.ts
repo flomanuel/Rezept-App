@@ -13,7 +13,6 @@ export class FavoriteRecipeListComponent implements OnInit {
   private favoriteRecipes: Recipe[] = [];
   private searchStr = '';
   private filteredRecipes: Recipe[] = [];
-  private loading = true;
 
   constructor(
     private readonly firebaseService: FirebaseService,
