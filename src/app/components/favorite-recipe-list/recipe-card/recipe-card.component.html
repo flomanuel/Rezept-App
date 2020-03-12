@@ -1,0 +1,24 @@
+<div *ngIf="recipe != undefined" class="card">
+  <div class="card-image">
+    <img *ngIf="recipe.images.length > 0" src="{{ recipe.images[0] }}">
+    <img *ngIf="recipe.images.length == 0" src="src/assets/fallbackImage.svg">
+    <div class="allergens">
+      <span>Allergene: {{ recipe.allergens.join(', ') }}</span>
+    </div>
+  </div>
+  <div class="card-header">
+    <div class="card-title">
+      <p>{{ recipe.title }}</p>
+    </div>
+  </div>
+  <div class="card-body">
+    <p class="recipe-regions">
+      Region(en): {{ getMappedAndTranslatedRegionsFromRecipe(recipe.region).join(', ') }}</p>
+    <p class="recipe-categories">
+      Kategorie(n): {{ getMappedAndTranslatedCategoriesFromRecipe(recipe.category).join(', ') }}</p>
+    <p>Vorbereitungszeit {{ recipe.preparationTime }}min</p>
+  </div>
+  <div class="card-footer">
+    <button id="toRecipeBtn" routerLink="/recipe-detail-page/{{ recipe.id }}">Zum Rezept</button>
+  </div>
+</div>

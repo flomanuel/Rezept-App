@@ -10,24 +10,38 @@ import { localStorageKeys } from '../../../config';
   styleUrls: ['./favorite-recipe-list.component.less'],
 })
 export class FavoriteRecipeListComponent implements OnInit {
-  private favoriteRecipes: Recipe[];
+  private favoriteRecipes: Recipe[] = [];
+  private searchStr = '';
+  private filteredRecipes: Recipe[] = [];
+  private loading = true;
 
-  constructor(private readonly firebaseService: FirebaseService, private readonly localStorageService: LocalStorageService) {
+  constructor(
+    private readonly firebaseService: FirebaseService,
+    private readonly localStorageService: LocalStorageService,
+  ) {
   }
 
   ngOnInit() {
     this.getFavoredRecipesFromFirebase();
   }
 
+  searchFavorites(): void {
+    this.filteredRecipes = this.favoriteRecipes.filter(recipe => recipe.title.includes(this.searchStr));
+  }
+
   private getFavoredRecipesFromFirebase(): void {
     const favoredRecipeIds = this.localStorageService.getItem(localStorageKeys.FAVOURITE_RECIPES);
-    favoredRecipeIds.forEach(id => {
-      this.firebaseService.getRecipeWithId(id).then(collection => {
-        collection.valueChanges().subscribe((snapshot: Recipe[]) => {
-          console.log(snapshot);
-          this.favoriteRecipes = snapshot;
+
+    if (favoredRecipeIds.length > 0) {
+      favoredRecipeIds.forEach(id => {
+        this.firebaseService.getRecipeWithId(id).then(collection => {
+          collection.valueChanges().subscribe((snapshot: Recipe[]) => {
+            if (!this.favoriteRecipes.includes(snapshot[0])) {
+              this.favoriteRecipes.push(snapshot[0]);
+            }
+          });
         });
       });
-    });
+    }
   }
 }

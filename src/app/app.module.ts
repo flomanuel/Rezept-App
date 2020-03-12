@@ -30,10 +30,11 @@ import { InfoModalComponent } from './components/info-modal/info-modal.component
 import { SettingsComponent } from './components/settings/settings.component';
 import { FavoriteRecipeListComponent } from './components/favorite-recipe-list/favorite-recipe-list.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { RecipeCardComponent } from './components/favorite-recipe-list/recipe-card/recipe-card.component';
 
 const appRoutes: Routes = [
   {
-    path: 'new_recipe',
+    path: 'new-recipe',
     component: RecipeComponent,
   },
   {
@@ -61,7 +62,7 @@ const appRoutes: Routes = [
     component: MarketSearchComponent,
   },
   {
-    path: 'recipe-detail-page',
+    path: 'recipe-detail-page/:id',
     component: RecipeDetailPageComponent,
   },
   {
@@ -117,6 +118,7 @@ const appRoutes: Routes = [
     InfoModalComponent,
     SettingsComponent,
     FavoriteRecipeListComponent,
+    RecipeCardComponent,
   ],
   imports: [
     AngularFireAuthModule,
