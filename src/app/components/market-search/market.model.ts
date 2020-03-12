@@ -3,13 +3,14 @@ export interface Market {
   lat: string;
   lon: string;
   address: any;
+  display_name: string;
+  distance: number;
   extratags: Extratags;
 }
 
 export interface Extratags {
-  level: any;
-  indoor: any;
-  wheelchair: any;
-  opening_hours: any;
-
+  level: string;
+  indoor: string;
+  wheelchair: string;
+  opening_hours: string;
 }

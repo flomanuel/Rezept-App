@@ -14,19 +14,25 @@
 
 <div id="map" class="map"></div>
 
-<div>
-  <button type="button" data-toggle="modal" class="button"
-          (click)="setCenter(geoLocation.longitude , geoLocation.latitude)">Zur eigenen Position
-  </button>
+<div data-toggle="modal" class="gpsButton"
+     (click)="setCenter(geoLocation.longitude , geoLocation.latitude)">
+  <i class="material-icons">gps_fixed</i>
 </div>
 
-<div *ngIf="markets" id="market1" class="markets">
-  <div *ngFor="let market of markets">
+<div *ngIf="markets" id="markets" class="markets">
+  <div *ngFor="let market of markets" (click)="setCenter(stringToFloat(market.lon), stringToFloat(market.lat))">
     <table>
       <tr>
-        <th>{{market.extratags.opening_hours}} </th>
+        <th>{{market.display_name.substring(0, market.display_name.indexOf(','))}}</th> <!--Namen des Supermarkt ausschneiden-->
+        <th *ngIf="market.extratags.opening_hours.indexOf(';')>0; else keinSimekolon">
+          {{market.extratags.opening_hours.substring(0, market.extratags.opening_hours.indexOf(';'))}} </th>
+        <ng-template #keinSimekolon>
+          <th>{{market.extratags.opening_hours}}</th>
+        </ng-template>
         <th>
-          Distanz: {{distance(stringToFloat(market.lat), stringToFloat(market.lon), geoLocation.latitude, geoLocation.longitude)}} km </th>
+          Distanz: {{distance(stringToFloat(market.lat), stringToFloat(market.lon), geoLocation.latitude, geoLocation.longitude)}}
+          km
+        </th>
       </tr>
     </table>
   </div>

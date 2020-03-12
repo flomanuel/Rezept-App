@@ -67,7 +67,7 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
         this.setCenter(this.geoLocation.longitude, this.geoLocation.latitude);
         this.bFistGeoLocation = false;
       }
-      this.findMarkets(this.geoLocation.longitude, this.geoLocation.latitude);
+      this.findMarkets();
     });
     // {
     //  next(position: Position) {
@@ -128,14 +128,14 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
 
   }
 
-  setCenter(longitude: number, latitude: number) {
+  setCenter(longitude: number, latitude: number, zoom: number = 18) {
     console.log('Ihre Koordinaten werden auf: Breite: ' + latitude + ' Länge: ' + longitude + ' gesetzt');
     const view = this.map.getView();
     view.setCenter(proj.fromLonLat([longitude, latitude]));
-    view.setZoom(18);
+    view.setZoom(zoom);
   }
 
-  findMarkets(longitude: number, latitude: number) {
+  findMarkets() {
     this.getResponse();
   }
 
@@ -167,6 +167,11 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
     this.jsonRequestService.getMarket(url)
       .subscribe((market) => {
         this.markets = market;
+        for (const mark of this.markets) {
+          mark.distance = this.distance(mark.lat, mark.lon, this.geoLocation.latitude, this.geoLocation.longitude);
+        }
+        this.markets.sort((a, b) => a.distance - b.distance
+        );
         this.setMarker();
       });
   }
@@ -182,13 +187,13 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
       this.map.getOverlays().removeAt(i);
     }
   }
+
   setMarker() {
     this.deleteAllMarker();
 
     // Eigene Position anzeigen
     const elementPos = document.createElement('div');
-    elementPos.innerHTML = '<img src="https://firebasestorage.googleapis.com/v0/b/rezept-app-458e9.appspot.com/o/' +
-      'marker%20eigene%20pos.png?alt=media&token=df6461ab-4377-429e-bce4-891d762bf65a" />';
+    elementPos.innerHTML = '<img src="../../../assets/objects/marker/marker_pos.png" alt="markericon"/>';
     const markerPos = new Overlay({
       position: proj.fromLonLat([this.geoLocation.longitude, this.geoLocation.latitude]),
       positioning: OverlayPositioning.CENTER_CENTER,
@@ -199,10 +204,11 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
 
     // Neue/Aktualisierte Overlays/Marker hinzufügen
     if (this.markets) {
-       for (const markets of this.markets) {
+      let index = 0;
+      for (const markets of this.markets) {
+        index++;
         const element = document.createElement('div');
-        element.innerHTML = '<img src="https://firebasestorage.googleapis.com/v0/b/rezept-app-458e9.appspot.com/o/' +
-          'Map%20Marker%20Store2.png?alt=media&token=edd316a4-b295-4c75-afb3-e9dfcc6855f9" />';
+        element.innerHTML = '<img src="../../../assets/objects/marker/marker_' + index + '.png" alt="markericon"/>';
         const marker = new Overlay({
           position: proj.fromLonLat([this.stringToFloat(markets.lon), this.stringToFloat(markets.lat)]),
           positioning: OverlayPositioning.CENTER_CENTER,
