@@ -31,6 +31,7 @@ import { MultiselectModalComponent } from './components/multiselect-modal/multis
 import { InfoModalComponent } from './components/info-modal/info-modal.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { InitialSetupComponent } from './components/initial-setup/initial-setup.component';
 
 const appRoutes: Routes = [
   {
@@ -113,6 +114,7 @@ const appRoutes: Routes = [
     MultiselectModalComponent,
     InfoModalComponent,
     SettingsComponent,
+    InitialSetupComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
