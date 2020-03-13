@@ -1,54 +1,41 @@
-import {Injectable} from '@angular/core';
-import {Ingredient} from '../entity/ingredient.class';
-import {Recipe} from '../entity/recipe';
-import {IngredientList} from '../entity/IngredientList';
-import {ingredients, VolumeUnit} from '../types';
-import {TranslationService} from './translation.service';
-import {LocalStorageService} from './local-storage.service';
-import {localStorageKeys} from '../../config';
-
+import { Injectable } from '@angular/core';
+import { Ingredient } from '../entity/ingredient.class';
+import { Recipe } from '../entity/recipe';
+import { IngredientList } from '../entity/IngredientList';
+import { ingredients } from '../types';
+import { TranslationService } from './translation.service';
+import { FirebaseService } from './firebase.service';
+import { LocalStorageService } from './local-storage.service';
+import { localStorageKeys } from '../../config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  public tagList: any[] = [];
+  public tagList: number[] = [];
   searchResult: Recipe[] = [];
-
   fridgeIngredients: Ingredient[] = [];
   recipeShoppingLists: IngredientList[] = [];
   localStorageService: LocalStorageService;
   sharingString: string;
+  public activeSearch = false;
 
-  constructor(private translationService: TranslationService, localStorageService: LocalStorageService) {
-    this.tagList.push(translationService.translate(ingredients['1']));
+
+  constructor(private translationService: TranslationService, private firebaseService: FirebaseService,
+              localStorageService: LocalStorageService) {
     this.localStorageService = localStorageService;
-
-    this.searchResult.push(new Recipe(
-      Math.floor(Math.random() * 9000),
-      'Pizza',
-      130,
-      [],
-      [],
-      [new Ingredient('Test', 2, VolumeUnit.GRAMM, 1, 0)],
-      '',
-      [],
-      ''));
-
+    for (const index in ingredients) {
+      if (index in ingredients) {
+        this.tagList.push(parseInt(index, 10));
+      }
+    }
     this.updateShoppingLists();
   }
 
   getTagsBySearchString(searchValue: string) {
     if (searchValue && searchValue !== '') {
       return this.tagList.filter(
-        title => title.toLowerCase().includes(searchValue.toLowerCase()));
-    }
-    return [];
-  }
-
-  searchRecipesByParams(params: string[]): Recipe[] {
-    if (params.length > 0) {
-      return this.searchResult;
+        id => this.translationService.translate(ingredients[id]).toLowerCase().includes(searchValue.toLowerCase()));
     }
     return [];
   }
@@ -203,6 +190,41 @@ export class DataService {
 
     this.sharingString = encodeURIComponent(sharingString);
     return encodeURIComponent(sharingString);
+  }
+
+  public searchRecipesForIngredients(ingredientIds) {
+    this.activeSearch = true;
+    if (ingredientIds.length > 0) {
+
+      const filteredIds = ingredientIds.reduce((result: number[], currentValue: number) => {
+        return result.includes(currentValue) ? result : [...result, currentValue];
+      }, []);
+
+      this.firebaseService.searchRecipesByIngredients(filteredIds).then((collection) => {
+          collection.valueChanges().subscribe((recipes: Recipe[]) => {
+              if (filteredIds.length > 1) {
+                this.searchResult = recipes.reduce((result: Recipe[], currentRecipe: Recipe) => {
+                  if (
+                    currentRecipe.ingredientsIdList.every(id => {
+                      filteredIds.includes(id);
+                    })
+                  ) {
+                    return [...result, currentRecipe];
+                  }
+                  return result;
+                }, []);
+              } else {
+                this.searchResult = recipes;
+              }
+              this.activeSearch = false;
+            },
+          );
+        },
+      );
+    } else {
+      this.searchResult = [];
+      this.activeSearch = false;
+    }
   }
 
   toggleIngredient(localeStorageKey: localStorageKeys, ingredient: Ingredient) {

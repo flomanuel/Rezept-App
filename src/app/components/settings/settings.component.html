@@ -1,0 +1,83 @@
+<app-header-bar *ngIf="!showImprint && !showDefaultIngredientsSetting && !showOverallSettings"></app-header-bar>
+<div class="back_button"><p
+  *ngIf="showImprint || showDefaultIngredientsSetting || showOverallSettings">
+  <i (click)="goBack();"
+     class="material-icons back">
+  </i>
+  <i (click)="popIngredientsWindowUp()"
+     *ngIf="showDefaultIngredientsSetting"
+     id="add-default-ingredients-icon">
+  </i>
+</div>
+<div *ngIf="!showOverallSettings && !showImprint && !showDefaultIngredientsSetting">
+  <button class="button_setting_list">
+    <span (click)="openSettings()"
+          class="list_item_settings">
+      <i class="material-icons icon">
+        settings
+      </i>
+      <span class="icon_text">
+    Allgemeine Einstellung
+  </span>
+    </span>
+  </button>
+  <button class="button_setting_list">
+    <span (click)="openDefaultIngredientsSettings()"
+          class="list_item_settings">
+      <i class="material-icons icon">
+        local_dining
+      </i>
+      <span class="icon_text">
+    Standardzutaten
+  </span>
+    </span>
+  </button>
+  <button class="button_setting_list">
+    <span (click)="reset()" class="list_item_settings">
+      <i class="material-icons icon">
+        restore_page
+      </i>
+      <span class="icon_text ">
+    Zurücksetzen
+  </span>
+    </span>
+  </button>
+  <button class="button_setting_list">
+    <span (click)="openImprint()" class="list_item_settings">
+      <i class="material-icons icon">
+        contact_mail
+      </i>
+      <span class="icon_text">
+    Impressum
+  </span>
+    </span>
+  </button>
+</div>
+
+
+<div *ngIf="showOverallSettings || showImprint || showDefaultIngredientsSetting">
+  <div *ngFor="let setting of setupData.settings">
+    <button class="button_setting_list">
+      <span *ngIf="showImprint">
+        <i class="material-icons">
+          {{setting.icon}}
+        </i>
+      </span>
+      <span (click)="setting.function()" class="list_item_settings">{{setting.text}}</span>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="showOverlay" id="overlay">
+  <p style="color:white;">
+    Zurücksetzen
+  </p>
+  <div id="overlay_box">
+    <p>Wollen sie die App wirklich zurücksetzen?</p>
+
+    <div>
+      <button (click)="showOverlay = false;" class="overlay_box_button"> Ja</button>
+      <button (click)="showOverlay = false;" class="overlay_box_button"> Nein</button>
+    </div>
+  </div>
+</div>

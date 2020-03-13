@@ -13,7 +13,6 @@ import { ModalService } from '../../services/modal.service';
   styleUrls: ['./recipe.component.less'],
 })
 export class RecipeComponent {
-  @ViewChild(InputPlusListComponent, { static: false }) private childReference: InputPlusListComponent;
 
   private fileCategories: string[] = [];
   private fileRegions: string[] = [];
@@ -50,6 +49,7 @@ export class RecipeComponent {
 
   validRecipe(): boolean {
     return this.title &&
+      this.ingredients.length > 0 &&
       this.regions.length > 0 &&
       this.description &&
       this.preparationTime &&
@@ -76,21 +76,9 @@ export class RecipeComponent {
       return;
     }
 
-    for (let i = 0; i < this.childReference.inputs.length; i++) {
-      // @ts-ignore
-      const { label, amount, suffix } = this.childReference.inputs.get(i)._view.nodes[1].instance;
-      this.ingredients.push(new Ingredient(label, amount, suffix, 0));
-    }
-
-    if (this.ingredients.length === 0) {
-      this.infoModalTitle = 'Fehler beim Speichern des Rezeptes!';
-      this.infoModalMessage = 'Bitte geben Sie die Zutaten zu Ihrem Rezept an.';
-      this.modalService.openModal('info-modal');
-      return;
-    }
-
     const id = Math.floor(Math.random() * 9000);
 
+    // Because we only save keys
     const categoryKeys = this.categories.map(cat => {
       cat = this.translationService.getGermanMapping().category[cat];
       return parseInt(Object.keys(categories).find(key => categories[key] === cat), 10);
@@ -108,16 +96,20 @@ export class RecipeComponent {
     document.querySelector('#recipeForm').reset();
     this.categories = [];
     this.regions = [];
+    this.ingredients = [];
 
     this.localStorageService.addToRecipes(recipe);
     this.recipeSaved = true;
     setInterval(() => {
       this.recipeSaved = false;
-      window.location.reload(); // Is needed because ingredients wont be reset...
     }, 3000);
   }
 
   openModal(id: string) {
     this.modalService.openModal(id);
+  }
+
+  onIngredients(event: Ingredient[]) {
+    this.ingredients = event;
   }
 }

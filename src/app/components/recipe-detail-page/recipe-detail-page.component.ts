@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Recipe } from '../../entity/recipe';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Database } from '../../../config';
 import { TypesMappingService } from '../../services/types-mapping.service';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IngredientInfoService } from '../../services/ingredient-info.service';
 import { TranslationService } from '../../services/translation.service';
 import { DataService } from '../../services/data.service';
 import { Ingredient } from '../../entity/ingredient.class';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -17,7 +17,7 @@ import { Ingredient } from '../../entity/ingredient.class';
 })
 export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
-  private recipeMissingIngredients = 0;
+  private missingIngredients = 0;
   private recipe: Recipe;
 
   constructor(private db: AngularFirestore,
@@ -26,14 +26,19 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
               private ingredientInfoService: IngredientInfoService,
               private translationService: TranslationService,
               private dataService: DataService,
-              private router: Router) {
+              private firebaseService: FirebaseService,
+              private router: Router,
+              private routerParams: ActivatedRoute) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     document.body.style.margin = '0';
-    this.getNewRecipe().then((collection) => {
-      collection.valueChanges().subscribe((snapshots: Recipe[]) => {
-        this.recipe = snapshots[0];
+
+    await this.routerParams.params.subscribe(params => {
+      this.firebaseService.getRecipeWithId(parseInt(params.id, 10)).then(collection => {
+        collection.valueChanges().subscribe(recipe => {
+          this.recipe = recipe[0];
+        });
       });
     });
   }
@@ -42,7 +47,6 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
     document.body.style.margin = '8px';
   }
 
-
   isIngredientInFridge(ingredient: Ingredient): boolean {
     let ingredientAvailable = false;
     this.dataService.fridgeIngredients.forEach(fridgeIngredient => {
@@ -50,17 +54,7 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
         ingredientAvailable = true;
       }
     });
-    if (!ingredientAvailable) {
-      this.recipeMissingIngredients++;
-    }
     return ingredientAvailable;
-  }
-
-  getNewRecipe() {
-    return new Promise<any>((resolve) => {
-      const collection = this.db.collection(Database.RECIPES, ref => ref.where('title', '==', 'Suppe1'));
-      resolve(collection);
-    });
   }
 
   toggleFavouriteRecipe() {
@@ -94,11 +88,7 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
   showIngredientInfo(infoID: number) {
     if (infoID > 0) {
-      this.router.navigate(['ingredient-information'], {
-          queryParams: {
-            id: infoID,
-          },
-        },
+      this.router.navigate(['ingredient-information/' + infoID],
       );
     }
   }

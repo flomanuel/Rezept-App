@@ -13,6 +13,7 @@ export class Recipe {
               public instructions: string,
               public images: string[],
               public video: string,
+              public ingredientsIdList?: number[],
               public allergens?: string[],
               public steps?: RecipeStep[],
               public tools?: string[],

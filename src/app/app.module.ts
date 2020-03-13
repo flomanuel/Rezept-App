@@ -10,7 +10,6 @@ import { RecipeComponent } from './components/recipe/recipe.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { InputPlusListComponent } from './components/input-plus-list/input-plus-list.component';
-import { BasicIngredientComponent } from './components/input-plus-list/basic-ingredient/basic-ingredient.component';
 import { SearchPageComponent } from './components/search-page/search-page.component';
 import { RecipeListElementComponent } from './components/recipe-list-element/recipe-list-element.component';
 import { SearchPageFilterTabComponent } from './components/search-page-filter-tab/search-page-filter-tab.component';
@@ -19,19 +18,19 @@ import { RecipeDetailPageComponent } from './components/recipe-detail-page/recip
 import { BarcodeScannerComponent } from './components/barcode-scanner/barcode-scanner.component';
 import { OpenFoodFactsDetailpageComponent } from './components/open-food-facts-detailpage/open-food-facts-detailpage.component';
 import { MarketSearchComponent } from './components/market-search/market-search.component';
-import {
-  IngredientAdditionalInformationComponent,
-} from './components/_recipe-detail-page/ingredient-additional-information/ingredient-additional-information.component';
+// tslint:disable-next-line:max-line-length
+import { IngredientAdditionalInformationComponent } from './components/_recipe-detail-page/ingredient-additional-information/ingredient-additional-information.component';
 import { LoadingAnimationComponent } from './components/_shared/loading-animation/loading-animation.component';
 import { PopupComponent } from './components/_shared/popup/popup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageGalleryComponent } from './components/_shared/image-gallery/image-gallery.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
-import {
-  CookingStepsDetailPageComponent,
-} from './components/_recipe-detail-page/cooking-steps-detail-page/cooking-steps-detail-page.component';
+// tslint:disable-next-line:max-line-length
+import { CookingStepsDetailPageComponent } from './components/_recipe-detail-page/cooking-steps-detail-page/cooking-steps-detail-page.component';
 import { MultiselectModalComponent } from './components/multiselect-modal/multiselect-modal.component';
 import { InfoModalComponent } from './components/info-modal/info-modal.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 const appRoutes: Routes = [
   {
@@ -63,7 +62,7 @@ const appRoutes: Routes = [
     component: MarketSearchComponent,
   },
   {
-    path: 'recipe-detail-page',
+    path: 'recipe-detail-page/:id',
     component: RecipeDetailPageComponent,
   },
   {
@@ -71,12 +70,16 @@ const appRoutes: Routes = [
     component: CookingStepsDetailPageComponent,
   },
   {
-    path: 'ingredient-information',
+    path: 'ingredient-information/:id',
     component: IngredientAdditionalInformationComponent,
   },
   {
     path: 'shopping_list',
     component: ShoppingListComponent,
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
   },
   {
     // this should always be the last entry since otherwise all paths get mapped to the homepage
@@ -92,7 +95,6 @@ const appRoutes: Routes = [
     AppComponent,
     HomePageComponent,
     InputPlusListComponent,
-    BasicIngredientComponent,
     HomePageComponent,
     SearchPageComponent,
     RecipeListElementComponent,
@@ -110,6 +112,7 @@ const appRoutes: Routes = [
     CookingStepsDetailPageComponent,
     MultiselectModalComponent,
     InfoModalComponent,
+    SettingsComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -118,12 +121,10 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     BrowserAnimationsModule,
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [
-    BasicIngredientComponent,
-  ],
 })
 export class AppModule {
 }

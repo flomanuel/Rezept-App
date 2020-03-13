@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { Recipe } from '../../entity/recipe';
-import { regions } from '../../types';
+import { regions, ingredients, categories } from '../../types';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -10,37 +9,40 @@ import { TranslationService } from '../../services/translation.service';
   styleUrls: ['./search-page.component.less'],
 })
 export class SearchPageComponent implements OnInit {
-  private suggestionsList: string[] = [];
-  private tabElements: string[] = [];
-  private selectedFilterTabElements: string[] = [];
+  private ingredientIds: number[] = [];
+  private tabElements = { regionsIds: [], categoriesIds: [] };
+  private selectedFilterTabElements: number[] = [];
   private defaultIngredientsStatus = false;
+  private ingredients = ingredients;
 
-  constructor(private dataService: DataService) {
-    this.tabElements.push(regions['1']);
-    this.tabElements.push(regions['2']);
-    this.tabElements.push(regions['3']);
+  constructor(private dataService: DataService, private translationService: TranslationService) {
+    for (const index in regions) {
+      if (index in regions) {
+        this.tabElements.regionsIds.push(index);
+      }
+    }
+
+    for (const index in categories) {
+      if (index in categories) {
+        this.tabElements.categoriesIds.push(index);
+      }
+    }
+
   }
 
   ngOnInit() {
   }
 
-  removeFilterParam(tag: string, storage: string[]): boolean {
-    if (storage && tag) {
-      const index = storage.indexOf(tag);
+  removeRecipeId(id: number) {
+    if (typeof this.ingredientIds !== 'undefined' && typeof id !== 'undefined') {
+      const index = this.ingredientIds.indexOf(id);
       if (index >= 0) {
-        storage.splice(index, 1);
-        return true;
+        this.ingredientIds.splice(index, 1);
       }
-      return false;
     }
   }
 
-  get searchResult(): Recipe[] {
-    const searchParams = this.suggestionsList.concat(this.selectedFilterTabElements);
-    return this.dataService.searchRecipesByParams(searchParams);
-  }
-
-  onTabSelection($event: string[]): void {
+  onTabSelection($event: number[]): void {
     this.selectedFilterTabElements = $event;
   }
 

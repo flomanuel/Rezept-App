@@ -84,7 +84,7 @@
 
   <div id="ingredientsContainer" class="col-12">
     <label class="col-12">Zutaten</label>
-    <app-input-plus-list></app-input-plus-list>
+    <app-input-plus-list [items]="ingredients" (onItems)="onIngredients($event)"></app-input-plus-list>
   </div>
 
   <div id="instructionsContainer" class="col-12">
