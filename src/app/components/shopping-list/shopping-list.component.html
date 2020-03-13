@@ -48,7 +48,7 @@
       <tr class="clear-row" *ngIf="privateShoppingList.length === 0">Keine zuätzlichen Produkte eingegeben.</tr>
       <tr [class.item-checked]="ingredient.done" *ngFor="let ingredient of privateShoppingList"
           (click)="toggleIngredient(localStorageKey.PRIVATE_SHOPPING_LIST, ingredient)">
-        <td>{{ingredient.label}}</td>
+        <td>{{ingredient.customTitle}}</td>
         <td class="td-third">
           <i (click)="deleteItem(ingredient)" class="material-icons">delete</i>
         </td>

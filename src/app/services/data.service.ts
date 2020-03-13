@@ -75,7 +75,7 @@ export class DataService {
   deleteIngredientFromList(ingredient: Ingredient, ingredientsList: Ingredient[]) {
     const temporaryList: Ingredient[] = [];
     ingredientsList.forEach(ingredientInList => {
-      if (ingredientInList.label !== ingredient.label) {
+      if (ingredientInList.customTitle !== ingredient.customTitle) {
         temporaryList.push(ingredientInList);
       }
     });
@@ -107,7 +107,7 @@ export class DataService {
   ingredientIsInList(ingredient: Ingredient, ingredientList: Ingredient[]): boolean {
     let ingredientIsInList = false;
     ingredientList.forEach(ingredientInList => {
-      if (ingredientInList.label === ingredient.label) {
+      if (ingredientInList.customTitle === ingredient.customTitle) {
         ingredientIsInList = true;
       }
     });
@@ -139,10 +139,10 @@ export class DataService {
   private sumIngredientsAmountAndDeleteFromListIfFridgeIsSufficient(allIngredients: Ingredient[], ingredient: Ingredient,
                                                                     availableIngredients: Ingredient[]) {
     allIngredients.forEach(ingredientInList => {
-      if (ingredientInList.label === ingredient.label) {
+      if (ingredientInList.customTitle === ingredient.customTitle) {
         ingredientInList.amount += ingredient.amount;
         availableIngredients.forEach(availableIngredient => {
-          if (availableIngredient.label === ingredientInList.label) {
+          if (availableIngredient.customTitle === ingredientInList.customTitle) {
             ingredientInList.amount -= availableIngredient.amount;
             if (ingredientInList.amount <= 0) {
               allIngredients = this.deleteIngredientFromList(ingredientInList, allIngredients);
@@ -156,7 +156,7 @@ export class DataService {
 
   private pushIngredientInListIfNeeded(availableIngredients: Ingredient[], ingredient: Ingredient, allIngredients: Ingredient[]) {
     availableIngredients.forEach(availableIngredient => {
-      if (availableIngredient.label === ingredient.label) {
+      if (availableIngredient.customTitle === ingredient.customTitle) {
         let amount = availableIngredient.amount;
         amount -= ingredient.amount;
         if (amount > 0) {
@@ -172,7 +172,7 @@ export class DataService {
 
     sharingString += 'Einkaufszettel: \n';
     this.getAllIngredientsFilteredShoppingList().forEach(ingredient => {
-      sharingString += ingredient.label + ' ' + ingredient.amount + ' ' + ingredient.volumeUnit;
+      sharingString += ingredient.customTitle + ' ' + ingredient.amount + ' ' + ingredient.volumeUnit;
       if (this.getAllIngredientsFilteredShoppingList().indexOf(ingredient) !== this.getAllIngredientsFilteredShoppingList().length - 1) {
         sharingString += ', \n';
       }
@@ -180,7 +180,7 @@ export class DataService {
     if (privateShoppingList.length > 0) {
       sharingString += ' \n--- \nZusätzliche Produkte: \n';
       privateShoppingList.forEach(ingredient => {
-        sharingString += ingredient.label;
+        sharingString += ingredient.customTitle;
         if (privateShoppingList.indexOf(ingredient) !== privateShoppingList.length - 1) {
           sharingString += ', \n';
         }
@@ -234,7 +234,7 @@ export class DataService {
       const ingredientList = this.localStorageService.getItem(localeStorageKey);
       const index = ingredientList.map(actualIngredient => {
         return actualIngredient.label;
-      }).indexOf(ingredient.label);
+      }).indexOf(ingredient.customTitle);
       const ingredientInList = ingredientList[index];
       ingredientInList.done = !ingredientInList.done;
       ingredientList[index] = ingredientInList;
