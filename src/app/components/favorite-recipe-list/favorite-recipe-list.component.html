@@ -22,4 +22,4 @@
 <div class="header" *ngIf="!localStorageService.has(localStorageKeys.FAVORITE_RECIPES)">
   <h3>Sie haben noch keine Favoriten hinzugefügt</h3>
 </div>
-<app-action-modal *ngIf="wantsToRemove" [message]="removeMessage" (eventEmitter)="onRemove($event)"></app-action-modal>
+<app-action-modal *ngIf="wantsToRemove" [color]="'#8a8cff'" [message]="removeMessage" (eventEmitter)="onRemove($event)"></app-action-modal>

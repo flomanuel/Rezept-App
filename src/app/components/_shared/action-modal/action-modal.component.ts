@@ -8,6 +8,7 @@ import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output }
 export class ActionModalComponent implements OnInit, OnDestroy {
   private readonly element: any;
   @Input() message!: string;
+  @Input() color: string;
   @Output() eventEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private readonly el: ElementRef) {
@@ -15,6 +16,8 @@ export class ActionModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.element.querySelector('#no').style.backgroundColor = this.color;
+    this.element.querySelector('#yes').style.backgroundColor = this.color;
   }
 
   ngOnDestroy(): void {
