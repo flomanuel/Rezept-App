@@ -188,8 +188,6 @@ export class SettingsComponent implements OnInit {
   }
 
   onInput() {
-    const suggestion = this.dataService.searchRecipesByParams(this.defaultIngredientInput);
-    console.log(suggestion);
-    return suggestion;
+    // Todo suggest an ingredient?
   }
 }
