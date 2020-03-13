@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Recipe } from '../../../entity/recipe';
 import { categories, regions } from '../../../types';
 import { TranslationService } from '../../../services/translation.service';
@@ -10,6 +10,7 @@ import { TranslationService } from '../../../services/translation.service';
 })
 export class RecipeCardComponent implements OnInit {
   @Input() recipe!: Recipe;
+  @Output() recipeIdToDelete: EventEmitter<Recipe> = new EventEmitter<Recipe>();
 
   constructor(private readonly translationService: TranslationService) {
   }
@@ -31,5 +32,9 @@ export class RecipeCardComponent implements OnInit {
       newRegions.push(translated);
       return newRegions;
     }, []);
+  }
+
+  onRemove(recipe: Recipe) {
+    this.recipeIdToDelete.emit(recipe);
   }
 }

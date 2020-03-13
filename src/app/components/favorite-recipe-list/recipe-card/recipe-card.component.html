@@ -9,6 +9,9 @@
   <div class="card-header">
     <div class="card-title">
       <p>{{ recipe.title }}</p>
+      <div class="favorite-icon" (click)="onRemove(recipe)">
+        <i class="material-icons icon">favorite</i>
+      </div>
     </div>
   </div>
   <div class="card-body">

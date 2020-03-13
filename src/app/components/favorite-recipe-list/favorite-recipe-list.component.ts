@@ -13,6 +13,10 @@ export class FavoriteRecipeListComponent implements OnInit {
   private favoriteRecipes: Recipe[] = [];
   private searchStr = '';
   private filteredRecipes: Recipe[] = [];
+  private removeMessage = '';
+  private recipeToRemove: Recipe;
+  private wantsToRemove = false;
+  localStorageKeys: any = localStorageKeys;
 
   constructor(
     private readonly firebaseService: FirebaseService,
@@ -42,5 +46,24 @@ export class FavoriteRecipeListComponent implements OnInit {
         });
       });
     }
+  }
+
+  setRemoveMessageAndOpenModal(recipe: Recipe): void {
+    this.recipeToRemove = recipe;
+    this.removeMessage = `Sind Sie sicher dass Sie das Rezept "${recipe.title}" aus Ihren Favoriten entfernen möchten?`;
+    this.wantsToRemove = true;
+  }
+
+  onRemove(willRemove: boolean): void {
+    if (willRemove) {
+      this.favoriteRecipes = this.favoriteRecipes.filter(recipe => recipe.id !== this.recipeToRemove.id);
+      if (this.favoriteRecipes.length === 0) {
+        this.localStorageService.removeItem(localStorageKeys.FAVOURITE_RECIPES);
+      } else {
+        this.localStorageService.setItem(localStorageKeys.FAVOURITE_RECIPES, this.favoriteRecipes.map(recipe => recipe.id));
+      }
+    }
+
+    this.wantsToRemove = false;
   }
 }

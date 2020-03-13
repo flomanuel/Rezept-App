@@ -20,6 +20,14 @@ export class LocalStorageService {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
+  removeItem(key: string): void {
+    localStorage.removeItem(key);
+  }
+
+  has(key: string): boolean {
+    return localStorage.getItem(key) !== null;
+  }
+
   addToFavouriteRecipes(id: number) {
     const favouriteRecipes = this.getItem(localStorageKeys.FAVOURITE_RECIPES);
     favouriteRecipes.push(id);

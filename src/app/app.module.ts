@@ -31,6 +31,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { FavoriteRecipeListComponent } from './components/favorite-recipe-list/favorite-recipe-list.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { RecipeCardComponent } from './components/favorite-recipe-list/recipe-card/recipe-card.component';
+import { ActionModalComponent } from './components/_shared/action-modal/action-modal.component';
 
 const appRoutes: Routes = [
   {
@@ -119,6 +120,7 @@ const appRoutes: Routes = [
     SettingsComponent,
     FavoriteRecipeListComponent,
     RecipeCardComponent,
+    ActionModalComponent,
   ],
   imports: [
     AngularFireAuthModule,

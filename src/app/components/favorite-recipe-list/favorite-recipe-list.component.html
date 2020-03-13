@@ -1,5 +1,5 @@
 <app-header-bar></app-header-bar>
-<app-loading-animation *ngIf="favoriteRecipes.length === 0"></app-loading-animation>
+<app-loading-animation *ngIf="localStorageService.has(localStorageKeys.FAVOURITE_RECIPES) && favoriteRecipes.length === 0"></app-loading-animation>
 <div class="header" *ngIf="favoriteRecipes.length !== 0">
   <h2>Ihre favorisierten Rezepte</h2>
   <input id="searchField" [(ngModel)]="searchStr" (keyup)="searchFavorites()"
@@ -8,7 +8,7 @@
 <div *ngIf="!searchStr">
   <ul class="favored-recipes">
     <li *ngFor="let favoriteRecipe of favoriteRecipes">
-      <app-recipe-card [recipe]="favoriteRecipe"></app-recipe-card>
+      <app-recipe-card (recipeIdToDelete)="setRemoveMessageAndOpenModal($event)" [recipe]="favoriteRecipe"></app-recipe-card>
     </li>
   </ul>
 </div>
@@ -19,6 +19,7 @@
     </li>
   </ul>
 </div>
-<div class="header" *ngIf="filteredRecipes.length === 0 && favoriteRecipes.length === 0">
+<div class="header" *ngIf="!localStorageService.has(localStorageKeys.FAVOURITE_RECIPES)">
   <h3>Sie haben noch keine Favoriten hinzugefügt</h3>
 </div>
+<app-action-modal *ngIf="wantsToRemove" [message]="removeMessage" (eventEmitter)="onRemove($event)"></app-action-modal>
