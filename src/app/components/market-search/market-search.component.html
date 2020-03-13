@@ -1,42 +1,39 @@
-<app-header-bar [background]="false" [position]="'absolute'"></app-header-bar>
-<!--<div>-->
-<!--  <button type="button" data-toggle="modal" class="button"-->
-<!--          (click)="zeigePosition()">Reload-->
-<!--  </button>-->
-<!--  &lt;!&ndash;  <p>{{geoLocation.latitude}}</p>&ndash;&gt;-->
-<!--</div>-->
-<!--<div *ngFor="let market of markets">-->
-<!--  <button type="button" data-toggle="modal" class="button"-->
-<!--          (click)="setCenter(stringToFloat(market.lon) , stringToFloat(market.lat))">Zur eigenen Position-->
-<!--  </button>-->
-<!--</div>-->
-
-
+<!--<app-header-bar [background]="false" [position]="'absolute'"></app-header-bar>-->
+<!--<div class="wrapper">-->
 <div id="map" class="map"></div>
-
 <div data-toggle="modal" class="gpsButton"
      (click)="setCenter(geoLocation.longitude , geoLocation.latitude)">
   <i class="material-icons">gps_fixed</i>
 </div>
-
-<div *ngIf="markets" id="markets" class="markets">
-  <div *ngFor="let market of markets" (click)="setCenter(stringToFloat(market.lon), stringToFloat(market.lat))">
-    <table>
-      <tr>
-        <th>{{market.index}}.</th>
-        <!--Namen des Supermarkt ausschneiden-->
-        <th>{{market.display_name.substring(0, market.display_name.indexOf(','))}}</th>
-        <th *ngIf="market.extratags.opening_hours?.indexOf(';') > 0; else keinSimekolon">
-          {{market.extratags.opening_hours.substring(0, market.extratags.opening_hours.indexOf(';'))}} </th>
-        <ng-template #keinSimekolon>
-          <th>{{market.extratags.opening_hours}}</th>
-        </ng-template>
-        <th>
-          Distanz: {{distance(stringToFloat(market.lat), stringToFloat(market.lon), geoLocation.latitude, geoLocation.longitude)}}
-          km
-        </th>
-      </tr>
+<input type="checkbox" id="check">
+<label for="check">
+  <i class="material-icons" id="open_menu">keyboard_arrow_up</i>
+  <i class="material-icons" id="close_menu">keyboard_arrow_down</i>
+</label>
+<div class="sidebar">
+  <div class="tab">
+    <table id="maerkte">
+      <div *ngIf="markets" id="markets" class="markets">
+        <div *ngFor="let market of markets" (click)="setCenter(stringToFloat(market.lon), stringToFloat(market.lat))">
+          <tr>
+            <td id="market_index">{{market.index}}</td>
+            <!--Namen des Supermarkt ausschneiden-->
+            <td id="market_name">{{market.display_name.substring(0, market.display_name.indexOf(','))}}</td>
+            <td id="market_opening" *ngIf="market.extratags.opening_hours?.indexOf(';') > 0; else keinSimekolon">
+              {{market.extratags.opening_hours.substring(0, market.extratags.opening_hours.indexOf(';'))}} </td>
+            <ng-template #keinSimekolon>
+              <td id="market_opening2">{{market.extratags.opening_hours}}</td>
+            </ng-template>
+            <td id="market_distance">
+              Distanz: {{round(distance(stringToFloat(market.lat), stringToFloat(market.lon), geoLocation.latitude, geoLocation.longitude))}}
+              km
+            </td>
+          </tr>
+        </div>
+      </div>
     </table>
   </div>
 </div>
+
+
 

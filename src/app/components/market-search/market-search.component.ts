@@ -153,6 +153,10 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
     return parseFloat(str);
   }
 
+  round(zahl: number): number {
+    return Math.round(zahl * 100) / 100;
+  }
+
   deleteAllMarker() {
     // Alte Overlays/Marker Löschen
     const overlays = this.map.getOverlays();
