@@ -39,6 +39,7 @@ export class TranslationService {
         italian: 'Italienisch',
       },
       ingredient: {
+        roulade: 'Rouladen',
         lentils: 'Linsen',
       },
     };

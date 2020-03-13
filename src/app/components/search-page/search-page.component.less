@@ -1,5 +1,6 @@
 /*************************************
 imports
+background
 content area
   - suggestions container
   - tag list
@@ -10,6 +11,20 @@ content area
 imports
 **************************************/
 @import "../../../../src/styles.less";
+
+/*************************************
+background
+**************************************/
+.recipe-list__background {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 45vw;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: -1;
+}
 
 /*************************************
 content area
