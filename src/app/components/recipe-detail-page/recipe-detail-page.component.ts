@@ -53,6 +53,10 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
     document.body.style.margin = '8px';
   }
 
+  isIngredientAvailable(ingredient: Ingredient): boolean {
+    return this.isIngredientInFridge(ingredient) && this.isIngredientDefaultIngredient(ingredient);
+  }
+
   isIngredientInFridge(ingredient: Ingredient): boolean {
     let ingredientAvailable = false;
     this.dataService.fridgeIngredients.forEach(fridgeIngredient => {
@@ -61,6 +65,10 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
       }
     });
     return ingredientAvailable;
+  }
+
+  isIngredientDefaultIngredient(ingredient: Ingredient): boolean {
+    return false;
   }
 
   toggleFavouriteRecipe() {

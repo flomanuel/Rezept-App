@@ -24,7 +24,7 @@
       <thead class="recipe-list__title" [class.noMissingRecipes]="missingIngredients < 1">
       {{missingIngredients}} fehlende Zutaten
       </thead>
-      <tr *ngFor="let ingredient of recipe.ingredients" [class.inFridge]="isIngredientInFridge(ingredient)">
+      <tr *ngFor="let ingredient of recipe.ingredients" [class.inFridge]="isIngredientAvailable(ingredient)">
         <td *ngIf="ingredient.customTitle; else defaultIngredientTitle">{{ingredient.customTitle}}</td>
         <ng-template #defaultIngredientTitle>
           <td [class.additionalInfo]="ingredient.additionalInfo"
