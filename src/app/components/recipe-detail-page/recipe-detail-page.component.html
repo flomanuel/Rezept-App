@@ -1,4 +1,5 @@
-<div class="wrapper" *ngIf="recipe">
+<div *ngIf="recipe">
+  <div class="ingredient-added-popup" *ngIf="ingredientAddedPrivateShoppingList">Zutat wurde zur Einkaufsliste hinzugefügt.</div>
   <app-header-bar
     [shoppingListButton]="true" [width]="'calc(100% - 16px)'"
     [background]="false" [allowElementsBehind]="true" [currentRecipe]="recipe">
@@ -24,16 +25,21 @@
       <thead class="recipe-list__title" [class.noMissingRecipes]="missingIngredients < 1">
       {{missingIngredients}} fehlende Zutaten
       </thead>
-      <tr *ngFor="let ingredient of recipe.ingredients" [class.inFridge]="isIngredientAvailable(ingredient)">
-        <td *ngIf="ingredient.customTitle; else defaultIngredientTitle">{{ingredient.customTitle}}</td>
+      <tr *ngFor="let ingredient of recipe.ingredients"
+          [class.available]="isIngredientAvailable(ingredient)">
+        <td class="information-components__recipe-list--title"
+            *ngIf="ingredient.customTitle; else defaultIngredientTitle"
+            (click)="addIngredientToPrivateShoppingList(ingredient)">
+          {{ingredient.customTitle}}
+        </td>
         <ng-template #defaultIngredientTitle>
-          <td [class.additionalInfo]="ingredient.additionalInfo"
-              (click)="showIngredientInfo(ingredient.id)">
+          <td class="information-components__recipe-list--title" [class.additionalInfo]="ingredient.additionalInfo"
+              (click)="addIngredientToPrivateShoppingList(ingredient)">
             {{translationService.translate(typesMapper.getRecipeNameById(ingredient.id))}}
           </td>
         </ng-template>
         <td [class.additionalInfo]="ingredient.additionalInfo"
-            (click)="showIngredientInfo(ingredient.id)">
+            (click)="showIngredientInfo(ingredient.additionalInfo, ingredient.id)">
           <span *ngIf="ingredient.amount !== 0">{{ingredient.amount}}</span>{{ingredient.volumeUnit}}
         </td>
       </tr>

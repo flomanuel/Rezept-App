@@ -19,6 +19,7 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
   private missingIngredients = 0;
   private recipe: Recipe;
+  private ingredientAddedPrivateShoppingList = false;
 
   constructor(private db: AngularFirestore,
               private typesMapper: TypesMappingService,
@@ -40,7 +41,7 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
           this.recipe = recipe[0];
 
           this.recipe.ingredients.forEach((ingredient) => {
-            if (!this.isIngredientInFridge(ingredient)) {
+            if (!this.isIngredientAvailable(ingredient)) {
               this.missingIngredients++;
             }
           });
@@ -54,7 +55,7 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
   }
 
   isIngredientAvailable(ingredient: Ingredient): boolean {
-    return this.isIngredientInFridge(ingredient) && this.isIngredientDefaultIngredient(ingredient);
+    return this.isIngredientInFridge(ingredient) || this.isIngredientDefaultIngredient(ingredient);
   }
 
   isIngredientInFridge(ingredient: Ingredient): boolean {
@@ -100,10 +101,21 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  showIngredientInfo(infoID: number) {
-    if (infoID > 0) {
+  showIngredientInfo(additionalInfo: boolean, infoID: number) {
+    if (additionalInfo && infoID) {
       this.router.navigate(['ingredient-information/' + infoID],
       );
+    }
+  }
+
+  addIngredientToPrivateShoppingList(ingredient: Ingredient) {
+    this.localStorageService.addIngredientToPrivateShoppingList(ingredient);
+    if (!this.ingredientAddedPrivateShoppingList) {
+      this.ingredientAddedPrivateShoppingList = true;
+
+      setTimeout(() => {
+        this.ingredientAddedPrivateShoppingList = false;
+      }, 1750);
     }
   }
 }
