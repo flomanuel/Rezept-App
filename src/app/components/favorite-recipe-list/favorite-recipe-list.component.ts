@@ -29,11 +29,11 @@ export class FavoriteRecipeListComponent implements OnInit {
   }
 
   searchFavorites(): void {
-    this.filteredRecipes = this.favoriteRecipes.filter(recipe => recipe.title.includes(this.searchStr));
+    this.filteredRecipes = this.favoriteRecipes.filter(recipe => recipe.title.toLowerCase().includes(this.searchStr.toLowerCase()));
   }
 
   private getFavoredRecipesFromFirebase(): void {
-    const favoredRecipeIds = this.localStorageService.getItem(localStorageKeys.FAVOURITE_RECIPES);
+    const favoredRecipeIds = this.localStorageService.getItem(localStorageKeys.FAVORITE_RECIPES);
 
     if (favoredRecipeIds.length > 0) {
       favoredRecipeIds.forEach(id => {
@@ -58,9 +58,9 @@ export class FavoriteRecipeListComponent implements OnInit {
     if (willRemove) {
       this.favoriteRecipes = this.favoriteRecipes.filter(recipe => recipe.id !== this.recipeToRemove.id);
       if (this.favoriteRecipes.length === 0) {
-        this.localStorageService.removeItem(localStorageKeys.FAVOURITE_RECIPES);
+        this.localStorageService.removeItem(localStorageKeys.FAVORITE_RECIPES);
       } else {
-        this.localStorageService.setItem(localStorageKeys.FAVOURITE_RECIPES, this.favoriteRecipes.map(recipe => recipe.id));
+        this.localStorageService.setItem(localStorageKeys.FAVORITE_RECIPES, this.favoriteRecipes.map(recipe => recipe.id));
       }
     }
 

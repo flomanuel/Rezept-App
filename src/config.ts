@@ -5,5 +5,5 @@ export enum Database {
 
 export enum localStorageKeys {
   CREATED_RECIPES = 'created-recipes',
-  FAVOURITE_RECIPES = 'favourite-recipes',
+  FAVORITE_RECIPES = 'favorite-recipes',
 }

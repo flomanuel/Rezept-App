@@ -29,24 +29,24 @@ export class LocalStorageService {
   }
 
   addToFavouriteRecipes(id: number) {
-    const favouriteRecipes = this.getItem(localStorageKeys.FAVOURITE_RECIPES);
+    const favouriteRecipes = this.getItem(localStorageKeys.FAVORITE_RECIPES);
     favouriteRecipes.push(id);
-    this.setItem(localStorageKeys.FAVOURITE_RECIPES, favouriteRecipes);
+    this.setItem(localStorageKeys.FAVORITE_RECIPES, favouriteRecipes);
   }
 
   removeFromFavouriteRecipes(id: number) {
-    if (this.getItem(localStorageKeys.FAVOURITE_RECIPES) !== null) {
-      const favouriteRecipes = this.getItem(localStorageKeys.FAVOURITE_RECIPES);
+    if (this.getItem(localStorageKeys.FAVORITE_RECIPES) !== null) {
+      const favouriteRecipes = this.getItem(localStorageKeys.FAVORITE_RECIPES);
       const index = favouriteRecipes.indexOf(id);
       if (index >= 0) {
         favouriteRecipes.splice(index, 1);
       }
-      this.setItem(localStorageKeys.FAVOURITE_RECIPES, favouriteRecipes);
+      this.setItem(localStorageKeys.FAVORITE_RECIPES, favouriteRecipes);
     }
   }
 
   isRecipeFavoured(id: number): boolean {
-    const favouriteRecipes = this.getItem(localStorageKeys.FAVOURITE_RECIPES);
+    const favouriteRecipes = this.getItem(localStorageKeys.FAVORITE_RECIPES);
     return favouriteRecipes.includes(id);
   }
 }
