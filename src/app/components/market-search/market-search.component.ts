@@ -24,6 +24,8 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
   }
 
   public geoLocation: Coordinates;
+  public limit = 5;
+  public radius = 0.9;
   private nominatimURL = 'https://nominatim.openstreetmap.org/?adressdetails=1' +
     '&q=[suche]' +
     '&format=json' +
@@ -106,7 +108,6 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
   }
 
   setCenter(longitude: number, latitude: number, zoom: number = 18) {
-    console.log('Ihre Koordinaten werden auf: Breite: ' + latitude + ' Länge: ' + longitude + ' gesetzt');
     const view = this.map.getView();
     view.setCenter(proj.fromLonLat([longitude, latitude]));
     view.setZoom(zoom);
@@ -118,9 +119,9 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
 
   getResponse() {
     let url = this.nominatimURL;
-    const coords = this.GetBoundingBox(this.geoLocation.longitude, this.geoLocation.latitude, 1);
+    const coords = this.GetBoundingBox(this.geoLocation.longitude, this.geoLocation.latitude, this.radius);
     url = url.replace('[suche]', '[supermarket]');
-    url = url.replace('[limit]', '5');
+    url = url.replace('[limit]', this.limit.toString());
     url = url.replace('[top]', (coords.top).toString());
     url = url.replace('[right]', (coords.right).toString());
     url = url.replace('[bottom]', (coords.bottom).toString());
