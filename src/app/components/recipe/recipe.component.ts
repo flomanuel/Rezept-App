@@ -1,6 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslationService } from '../../services/translation.service';
-import { InputPlusListComponent } from '../input-plus-list/input-plus-list.component';
 import { Ingredient } from '../../entity/ingredient.class';
 import { categories, regions } from '../../types';
 import { LocalStorageService } from '../../services/local-storage.service';
