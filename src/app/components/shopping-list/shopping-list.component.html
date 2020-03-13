@@ -4,7 +4,7 @@
   <div>
     <form *ngIf="recipeFilter">
       <label>
-        <input placeholder="Zutat hinzufügen" type="text" name="name" [(ngModel)]="privateIngredient.label">
+        <input placeholder="Zutat hinzufügen" type="text" name="name" [(ngModel)]="privateIngredient.customTitle">
       </label>
       <button type="submit" (click)="addNewPrivateIngredient()">Add</button>
     </form>
