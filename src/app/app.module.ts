@@ -30,11 +30,14 @@ import { CookingStepsDetailPageComponent } from './components/_recipe-detail-pag
 import { MultiselectModalComponent } from './components/multiselect-modal/multiselect-modal.component';
 import { InfoModalComponent } from './components/info-modal/info-modal.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { FavoriteRecipeListComponent } from './components/favorite-recipe-list/favorite-recipe-list.component';
+import { RecipeCardComponent } from './components/favorite-recipe-list/recipe-card/recipe-card.component';
+import { ActionModalComponent } from './components/_shared/action-modal/action-modal.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 const appRoutes: Routes = [
   {
-    path: 'new_recipe',
+    path: 'new-recipe',
     component: RecipeComponent,
   },
   {
@@ -74,12 +77,16 @@ const appRoutes: Routes = [
     component: IngredientAdditionalInformationComponent,
   },
   {
-    path: 'shopping_list',
+    path: 'shopping-list',
     component: ShoppingListComponent,
   },
   {
     path: 'settings',
     component: SettingsComponent,
+  },
+  {
+    path: 'my-favorite-recipes',
+    component: FavoriteRecipeListComponent,
   },
   {
     // this should always be the last entry since otherwise all paths get mapped to the homepage
@@ -113,6 +120,9 @@ const appRoutes: Routes = [
     MultiselectModalComponent,
     InfoModalComponent,
     SettingsComponent,
+    FavoriteRecipeListComponent,
+    RecipeCardComponent,
+    ActionModalComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
