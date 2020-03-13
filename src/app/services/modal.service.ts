@@ -23,4 +23,8 @@ export class ModalService {
     const modal = this.modals.find(x => x.id === id);
     modal.closeModal();
   }
+
+  get(id: string) {
+    return this.modals.find(x => x.id === id);
+  }
 }

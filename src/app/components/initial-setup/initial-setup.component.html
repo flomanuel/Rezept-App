@@ -1,1 +1,2 @@
-<p>initial-setup works!</p>
+<app-greeting-modal *ngIf="showGreet" (choiceEmitter)="willSetBasicIngredients($event)"></app-greeting-modal>
+<app-ingredient-setup-modal *ngIf="setBasics"></app-ingredient-setup-modal>

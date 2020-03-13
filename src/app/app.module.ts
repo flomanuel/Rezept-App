@@ -35,6 +35,8 @@ import { RecipeCardComponent } from './components/favorite-recipe-list/recipe-ca
 import { ActionModalComponent } from './components/_shared/action-modal/action-modal.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { InitialSetupComponent } from './components/initial-setup/initial-setup.component';
+import { GreetingModalComponent } from './components/initial-setup/modals/greeting-modal/greeting-modal.component';
+import { IngredientSetupModalComponent } from './components/initial-setup/modals/ingredient-setup-modal/ingredient-setup-modal.component';
 
 const appRoutes: Routes = [
   {
@@ -125,6 +127,8 @@ const appRoutes: Routes = [
     RecipeCardComponent,
     ActionModalComponent,
     InitialSetupComponent,
+    GreetingModalComponent,
+    IngredientSetupModalComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
