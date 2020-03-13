@@ -25,14 +25,16 @@
       {{missingIngredients}} fehlende Zutaten
       </thead>
       <tr *ngFor="let ingredient of recipe.ingredients" [class.inFridge]="isIngredientInFridge(ingredient)">
-        <td *ngIf="ingredient.customTitle">{{ingredient.customTitle}}</td>
-        <td [class.additionalInfo]="ingredient.additionalInfo"
-            (click)="showIngredientInfo(ingredient.id)" *ngIf="!ingredient.customTitle">
-          {{translationService.translate(typesMapper.getRecipeNameById(ingredient.id))}}
-        </td>
+        <td *ngIf="ingredient.customTitle; else defaultIngredientTitle">{{ingredient.customTitle}}</td>
+        <ng-template #defaultIngredientTitle>
+          <td [class.additionalInfo]="ingredient.additionalInfo"
+              (click)="showIngredientInfo(ingredient.id)">
+            {{translationService.translate(typesMapper.getRecipeNameById(ingredient.id))}}
+          </td>
+        </ng-template>
         <td [class.additionalInfo]="ingredient.additionalInfo"
             (click)="showIngredientInfo(ingredient.id)">
-          {{ingredient.amount}} {{typesMapper.getVolumeUnitByParam(ingredient.volumeUnit)}}
+          <span *ngIf="ingredient.amount !== 0">{{ingredient.amount}}</span>{{ingredient.volumeUnit}}
         </td>
       </tr>
     </table>
