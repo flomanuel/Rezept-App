@@ -38,6 +38,12 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
       this.firebaseService.getRecipeWithId(parseInt(params.id, 10)).then(collection => {
         collection.valueChanges().subscribe(recipe => {
           this.recipe = recipe[0];
+
+          this.recipe.ingredients.forEach((ingredient) => {
+            if (!this.isIngredientInFridge(ingredient)) {
+              this.missingIngredients++;
+            }
+          });
         });
       });
     });
