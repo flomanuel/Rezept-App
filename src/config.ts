@@ -13,5 +13,5 @@ export enum localStorageKeys {
   CREATED_RECIPES = 'created-recipes',
   FAVORITE_RECIPES = 'favorite-recipes',
   INITIAL_SETUP = 'initial-setup',
-  INITIAL_SETUP_STEP = 'initial-setup-step',
+  USER_BASIC_INGREDIENTS = 'user-basic-ingredients',
 }

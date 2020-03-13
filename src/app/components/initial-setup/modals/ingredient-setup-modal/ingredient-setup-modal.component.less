@@ -1,5 +1,7 @@
+@import "../../../../../styles.less";
+
 .modal {
-  font-family: "Roboto", Arial, 'sans-serif';
+  .mainFontFamily();
   position: fixed;
   z-index: 9999;
   left: 0;
@@ -44,6 +46,23 @@
       &:hover {
         cursor: pointer;
       }
+    }
+  }
+}
+
+.ingredient-items {
+  list-style-type: none;
+  padding: 0;
+
+  .ingredient-item {
+    padding: .2rem;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      text-decoration: line-through;
+      color: rebeccapurple;
+      cursor: pointer;
     }
   }
 }

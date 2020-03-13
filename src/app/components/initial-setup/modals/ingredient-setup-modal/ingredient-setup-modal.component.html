@@ -2,20 +2,21 @@
   <div class="modal-content">
     <div class="modal-header">
       <h3>Fügen Sie hier Ihre Zutaten hinzu</h3>
+      <span>Klicken Sie auf eine hinzugefügte Zutat um diese zu entfernen</span>
     </div>
     <div class="modal-body">
       <div class="input-field">
-        <input type="text" placeholder="Zutat...">
-        <button>+</button>
+        <input [(ngModel)]="newIngredient" type="text" placeholder="Zutat...">
+        <button (click)="addIngredient()">+</button>
       </div>
       <div>
-        <ul>
-          <li></li>
+        <ul class="ingredient-items">
+          <li class="ingredient-item" (click)="removeIngredient(ingredient.label)" *ngFor="let ingredient of ingredients">{{ ingredient.label }}</li>
         </ul>
       </div>
     </div>
     <div class="modal-footer">
-      <button>Speichern</button>
+      <button (click)="save()">Speichern</button>
     </div>
   </div>
 </div>
