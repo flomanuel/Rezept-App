@@ -29,6 +29,11 @@ export enum VolumeUnit {
 
   TASSE = 'Tasse',
   TASSEN = 'Tassen',
+
+  DOSE = 'Dose',
+  BUND = 'Bund',
+  ETWAS = 'etwas',
+  NACHBEDARF = 'n.B.'
 }
 
 export enum PopupType {
@@ -54,6 +59,47 @@ export const regions = {
 };
 
 export const ingredients = {
-  0: 'roulade',
-  1: 'lentils',
+  0: 'Rindfleisch',
+  1: 'Zwiebel',
+  2: 'Gewürzgurke',
+  3: 'Möhre',
+  4: 'Senf',
+  5: 'Paprikapulver, edelsüß',
+  6: 'Zitronensaft',
+  7: 'Salz',
+  8: 'Lorbeerblatt',
+  9: 'Wasser',
+  10: 'Majoran, getrocknet',
+  11: 'Sellerie, getrocknet',
+  12: 'Margarine',
+  13: 'Tomatenmark',
+  14: 'Corned Beef',
+  15: 'Kartoffel',
+  16: 'Rote Bete',
+  17: 'Piment, gemahlen',
+  18: 'Gurkenflüssigkeit',
+  19: 'Ei',
+  20: 'Matjesfilet',
+  21: 'Pfeffer',
+  22: 'Bismarckhering',
+  23: 'Rollmops',
+  24: 'Olivenöl',
+  25: 'Hackfleisch, gemischt',
+  26: 'Knoblauch',
+  27: 'Petersilie',
+  28: 'Tomaten',
+  29: 'Rotwein',
+  30: 'Milch',
+  31: 'Butter',
+  32: 'Mehl',
+  33: 'Muskat',
+  34: 'Lasagneplatte(n)',
+  35: 'Gouda',
+  36: 'Butterflocken',
+  37: 'Champignons',
+  38: 'Zucchini',
+  39: 'Öl',
+  40: 'Brühe, gekörnt',
+  41: 'Oregano',
+  42: 'Sahne'
 };
