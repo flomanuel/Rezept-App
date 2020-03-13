@@ -233,7 +233,7 @@ export class DataService {
     } else {
       const ingredientList = this.localStorageService.getItem(localeStorageKey);
       const index = ingredientList.map(actualIngredient => {
-        return actualIngredient.label;
+        return actualIngredient.customTitle;
       }).indexOf(ingredient.customTitle);
       const ingredientInList = ingredientList[index];
       ingredientInList.done = !ingredientInList.done;
