@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LoadingAnimationComponent implements OnInit {
 
-  @Input() 'description' = 'Bitte haben Sie einen Monent Geduld, die Suche läuft.';
+  @Input() 'description' = 'Bitte haben Sie einen Moment Geduld, die Suche läuft.';
 
   constructor() {
   }
