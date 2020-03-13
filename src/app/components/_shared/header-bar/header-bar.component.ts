@@ -78,7 +78,7 @@ export class HeaderBarComponent implements OnInit {
   }
 
   addRecipeToShoppingList() {
-    if (this.currentRecipe) {
+    if (this.currentRecipe && !this.recipeAddedToList) {
       this.dataService.addRecipe(this.currentRecipe);
       this.recipeAddedToList = true;
     }
