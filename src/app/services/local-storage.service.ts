@@ -92,7 +92,7 @@ export class LocalStorageService {
     const newIngredientsList = [];
     const oldIngredients = this.getAllIngredientsFilteredShoppingList();
     ingredientList.forEach(ingredient => {
-      let equalOldIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, 0);
+      let equalOldIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1);
       let hasEqual = false;
       oldIngredients.forEach(ingredientInList => {
         if (ingredientInList.label === ingredient.label) {
