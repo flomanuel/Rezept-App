@@ -2,49 +2,36 @@ import { Injectable } from '@angular/core';
 import { Ingredient } from '../entity/ingredient.class';
 import { Recipe } from '../entity/recipe';
 import { IngredientList } from '../entity/IngredientList';
-import { ingredients, VolumeUnit } from '../types';
+import { ingredients } from '../types';
 import { TranslationService } from './translation.service';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  public tagList: any[] = [];
+  public tagList: number[] = [];
   searchResult: Recipe[] = [];
-
   selectedRecepies: Recipe[] = [];
   fridgeIngredients: Ingredient[] = [];
   privateShoppingList: Ingredient[] = [];
   recipeShoppingLists: IngredientList[] = [];
   allIngredientsFilteredShoppingList: Ingredient[] = [];
   sharingString: string;
+  public activeSearch = false;
 
-  constructor(private translationService: TranslationService) {
-    this.tagList.push(translationService.translate(ingredients['1']));
-
-    this.searchResult.push(new Recipe(
-      Math.floor(Math.random() * 9000),
-      'Pizza',
-      130,
-      [],
-      [],
-      [new Ingredient('Test', 2, VolumeUnit.GRAMM, 1, 0)],
-      '',
-      [],
-      ''));
+  constructor(private translationService: TranslationService, private firebaseService: FirebaseService) {
+    for (const index in ingredients) {
+      if (index in ingredients) {
+        this.tagList.push(parseInt(index, 10));
+      }
+    }
   }
 
   getTagsBySearchString(searchValue: string) {
     if (searchValue && searchValue !== '') {
       return this.tagList.filter(
-        title => title.toLowerCase().includes(searchValue.toLowerCase()));
-    }
-    return [];
-  }
-
-  searchRecipesByParams(params: string[]): Recipe[] {
-    if (params.length > 0) {
-      return this.searchResult;
+        id => this.translationService.translate(ingredients[id]).toLowerCase().includes(searchValue.toLowerCase()));
     }
     return [];
   }
@@ -197,4 +184,38 @@ export class DataService {
     return encodeURIComponent(sharingString);
   }
 
+  public searchRecipesForIngredients(ingredientIds) {
+    this.activeSearch = true;
+    if (ingredientIds.length > 0) {
+
+      const filteredIds = ingredientIds.reduce((result: number[], currentValue: number) => {
+        return result.includes(currentValue) ? result : [...result, currentValue];
+      }, []);
+
+      this.firebaseService.searchRecipesByIngredients(filteredIds).then((collection) => {
+          collection.valueChanges().subscribe((recipes: Recipe[]) => {
+              if (filteredIds.length > 1) {
+                this.searchResult = recipes.reduce((result: Recipe[], currentRecipe: Recipe) => {
+                  if (
+                    currentRecipe.ingredientsIdList.every(id => {
+                      filteredIds.includes(id);
+                    })
+                  ) {
+                    return [...result, currentRecipe];
+                  }
+                  return result;
+                }, []);
+              } else {
+                this.searchResult = recipes;
+              }
+              this.activeSearch = false;
+            },
+          );
+        },
+      );
+    } else {
+      this.searchResult = [];
+      this.activeSearch = false;
+    }
+  }
 }

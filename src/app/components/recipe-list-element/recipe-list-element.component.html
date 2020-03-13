@@ -1,4 +1,4 @@
-<div class="listElement listElement--recipe">
+<a class="listElement listElement--recipe" [routerLink]="['/recipe-detail-page', recipe.id]">
   <div class="listElement__content">
     <p class="listElement__content__title">
       {{recipe.title}}
@@ -11,8 +11,8 @@
       </span>
     </p>
   </div>
-  <div class="listElement__image">
-    <img alt="{{recipe.title}}" *ngIf="recipe.images[0]" [src]="recipe.images[0].link">
+  <div class="listElement__image" [class.fallback]="!recipe.images[0]">
+    <img alt="{{recipe.title}}" *ngIf="recipe.images[0]" [src]="recipe.images[0]">
     <img alt="{{recipe.title}}" *ngIf="!recipe.images[0]" src="{{fallbackImagePath}}">
   </div>
-</div>
+</a>

@@ -14,7 +14,7 @@ export class ShoppingListComponent implements OnInit {
   recipeFilter: boolean;
 
   constructor(private dataService: DataService) {
-    this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, 0);
+    this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1);
     this.recipeFilter = true;
   }
 
@@ -37,7 +37,7 @@ export class ShoppingListComponent implements OnInit {
   addNewPrivateIngredient() {
     if (this.privateIngredient.label !== '') {
       this.dataService.addItemToPrivateShoppingList(this.privateIngredient);
-      this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, 0);
+      this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1);
       this.createSharingString();
     }
   }
