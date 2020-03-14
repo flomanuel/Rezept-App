@@ -2,18 +2,18 @@
   <div class="filter-tab__title" (click)="showTabElements = !showTabElements">Filter</div>
   <div class="filter-tab__elementContainer filter-tab__elementContainer--regions" *ngIf="showTabElements">
     <p class="filter-tab__elementContainer__element filter-tab__elementContainer__element--regions"
-       *ngFor="let regionId of tabElements.regionsIds"
+       *ngFor="let regionId of tabElements.regionIds"
        (click)="deselectTabElement(regionId, 'region') ? null: selectTabElement(regionId, 'region');"
-       [class.selected]="selectedTabElements.regionsIds.indexOf(regionId) >= 0">
+       [class.selected]="selectedTabElements.regionIds.indexOf(regionId) >= 0">
       {{translationService.translate(regions[regionId])}}
     </p>
   </div>
 
   <div class="filter-tab__elementContainer filter-tab__elementContainer--categories" *ngIf="showTabElements">
     <p class="filter-tab__elementContainer__element"
-       *ngFor="let categoryId of tabElements.categoriesIds"
+       *ngFor="let categoryId of tabElements.categoryIds"
        (click)="deselectTabElement(categoryId, 'category') ? null: selectTabElement(categoryId, 'category');"
-       [class.selected]="selectedTabElements.categoriesIds.indexOf(categoryId) >= 0">
+       [class.selected]="selectedTabElements.categoryIds.indexOf(categoryId) >= 0">
       {{translationService.translate(categories[categoryId])}}
     </p>
   </div>
