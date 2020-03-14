@@ -103,3 +103,5 @@ export const ingredients = {
   41: 'oregano',
   42: 'cream',
 };
+
+export type RecipeIdListTypes = 'ingredients' | 'regions' | 'categories';

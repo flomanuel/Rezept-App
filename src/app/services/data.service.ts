@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Ingredient } from '../entity/ingredient.class';
 import { Recipe } from '../entity/recipe';
 import { IngredientList } from '../entity/IngredientList';
-import { ingredients } from '../types';
+import { RecipeIdListTypes, ingredients } from '../types';
 import { TranslationService } from './translation.service';
 import { FirebaseService } from './firebase.service';
 import { LocalStorageService } from './local-storage.service';
@@ -196,23 +196,14 @@ export class DataService {
     this.activeSearch = true;
     if (ingredientIds.length > 0) {
 
-      const filteredIds = ingredientIds.reduce((result: number[], currentValue: number) => {
+      const filteredIngredientIds = ingredientIds.reduce((result: number[], currentValue: number) => {
         return result.includes(currentValue) ? result : [...result, currentValue];
       }, []);
 
-      this.firebaseService.searchRecipesByIngredients(filteredIds).then((collection) => {
+      this.firebaseService.searchRecipesByIngredients(filteredIngredientIds).then((collection) => {
           collection.valueChanges().subscribe((recipes: Recipe[]) => {
-              if (filteredIds.length > 1) {
-                this.searchResult = recipes.reduce((result: Recipe[], currentRecipe: Recipe) => {
-                  if (
-                    currentRecipe.ingredientsIdList.every(id => {
-                      filteredIds.includes(id);
-                    })
-                  ) {
-                    return [...result, currentRecipe];
-                  }
-                  return result;
-                }, []);
+              if (filteredIngredientIds.length > 1) {
+                this.filterSearchResultByIdList(recipes, filteredIngredientIds, 'ingredients');
               } else {
                 this.searchResult = recipes;
               }
@@ -242,4 +233,35 @@ export class DataService {
     }
   }
 
+  private filterSearchResultByIdList(recipes: Recipe[], filteredIds: number[], type: RecipeIdListTypes) {
+    this.searchResult = recipes.reduce((result: Recipe[], currentRecipe: Recipe) => {
+      let idList: number[];
+      switch (type) {
+        case 'ingredients':
+          idList = currentRecipe.ingredientsIdList;
+          break;
+        case 'regions':
+          idList = currentRecipe.region;
+          break;
+        case 'categories':
+          idList = currentRecipe.category;
+          break;
+        default:
+          idList = [];
+      }
+
+      let allFilteredIdsInRecipe = true;
+      filteredIds.forEach((idFromIdList) => {
+        if (!idList.includes(idFromIdList)) {
+          allFilteredIdsInRecipe = false;
+        }
+      });
+
+      if (allFilteredIdsInRecipe) {
+        return [...result, currentRecipe];
+      } else {
+        return result;
+      }
+    }, []);
+  }
 }
