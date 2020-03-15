@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Ingredient } from '../entity/ingredient.class';
 import { Recipe } from '../entity/recipe';
 import { IngredientList } from '../entity/IngredientList';
-import { RecipeIdListTypes, ingredients } from '../types';
+import { ingredients } from '../types';
 import { TranslationService } from './translation.service';
 import { FirebaseService } from './firebase.service';
 import { LocalStorageService } from './local-storage.service';
@@ -13,13 +13,10 @@ import { localStorageKeys } from '../../config';
 })
 export class DataService {
   public tagList: number[] = [];
-  searchResult: Recipe[] = [];
   fridgeIngredients: Ingredient[] = [];
   recipeShoppingLists: IngredientList[] = [];
   localStorageService: LocalStorageService;
   sharingString: string;
-  public activeSearch = false;
-
 
   constructor(private translationService: TranslationService, private firebaseService: FirebaseService,
               localStorageService: LocalStorageService) {
@@ -192,31 +189,6 @@ export class DataService {
     return encodeURIComponent(sharingString);
   }
 
-  public searchRecipesForIngredients(ingredientIds) {
-    this.activeSearch = true;
-    if (ingredientIds.length > 0) {
-
-      const filteredIngredientIds = ingredientIds.reduce((result: number[], currentValue: number) => {
-        return result.includes(currentValue) ? result : [...result, currentValue];
-      }, []);
-
-      this.firebaseService.searchRecipesByIngredients(filteredIngredientIds).then((collection) => {
-          collection.valueChanges().subscribe((recipes: Recipe[]) => {
-              if (filteredIngredientIds.length > 1) {
-                this.filterSearchResultByIdList(recipes, filteredIngredientIds, 'ingredients');
-              } else {
-                this.searchResult = recipes;
-              }
-              this.activeSearch = false;
-            },
-          );
-        },
-      );
-    } else {
-      this.searchResult = [];
-      this.activeSearch = false;
-    }
-  }
 
   toggleIngredient(localeStorageKey: localStorageKeys, ingredient: Ingredient) {
     if (localeStorageKey === localStorageKeys.SELECTED_RECIPES) {
@@ -231,37 +203,5 @@ export class DataService {
       ingredientList[index] = ingredientInList;
       this.localStorageService.setItem(localeStorageKey, ingredientList);
     }
-  }
-
-  private filterSearchResultByIdList(recipes: Recipe[], filteredIds: number[], type: RecipeIdListTypes) {
-    this.searchResult = recipes.reduce((result: Recipe[], currentRecipe: Recipe) => {
-      let idList: number[];
-      switch (type) {
-        case 'ingredients':
-          idList = currentRecipe.ingredientsIdList;
-          break;
-        case 'regions':
-          idList = currentRecipe.region;
-          break;
-        case 'categories':
-          idList = currentRecipe.category;
-          break;
-        default:
-          idList = [];
-      }
-
-      let allFilteredIdsInRecipe = true;
-      filteredIds.forEach((idFromIdList) => {
-        if (!idList.includes(idFromIdList)) {
-          allFilteredIdsInRecipe = false;
-        }
-      });
-
-      if (allFilteredIdsInRecipe) {
-        return [...result, currentRecipe];
-      } else {
-        return result;
-      }
-    }, []);
   }
 }
