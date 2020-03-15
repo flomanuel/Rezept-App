@@ -72,9 +72,11 @@ export class HeaderBarComponent implements OnInit {
     this.defaultIngredientsEvent.emit(this.defaultIngredientsStatus);
   }
 
-  toggleFridgeStatus(): void {
+  toggleFridgeStatus(emitEvent: boolean = false): void {
     this.fridgeContentStatus = !this.fridgeContentStatus;
-    this.fridgeStatusEvent.emit(this.fridgeContentStatus);
+    if (emitEvent) {
+      this.fridgeStatusEvent.emit(this.fridgeContentStatus);
+    }
   }
 
   addRecipeToShoppingList() {

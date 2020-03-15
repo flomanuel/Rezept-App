@@ -3,8 +3,9 @@
                   [fridgeFlag]="true"
                   [shoppingListButton]="true"
                   [defaultIngredientsButton]="true"
-                  (defaultIngredientsEvent)="onDefaultIngredientsChange($event)"
                   (ingredientListChange)="firebaseService.searchRecipesByParams(this.ingredientIds)"
+                  (defaultIngredientsEvent)="onDefaultIngredientsChange($event)"
+                  (fridgeStatusEvent)="onFridgeStatusChange($event)"
   ></app-header-bar>
   <div id="contentArea" class="grid-container noExtraColumns noRows">
     <div class="tag-list" *ngIf="ingredientIds.length > 0">

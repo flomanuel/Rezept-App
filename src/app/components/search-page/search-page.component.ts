@@ -12,7 +12,6 @@ import { FirebaseService } from '../../services/firebase.service';
 export class SearchPageComponent implements OnInit {
   private ingredientIds: number[] = [];
   private tabElements = { regionIds: [], categoryIds: [] };
-  private defaultIngredientsStatus = false;
   private ingredients = ingredients;
 
   constructor(private dataService: DataService, private translationService: TranslationService, private firebaseService: FirebaseService) {
@@ -41,6 +40,14 @@ export class SearchPageComponent implements OnInit {
   }
 
   onDefaultIngredientsChange($event: boolean) {
-    this.defaultIngredientsStatus = $event;
+  }
+
+  onFridgeStatusChange($event: boolean) {
+    if ($event) {
+      const idList: number[] = this.dataService.getIdListFromIngredients(this.dataService.fridgeIngredients);
+      this.firebaseService.filterSearchResultByIdList(idList, 'ingredients');
+    } else {
+      this.firebaseService.searchRecipesByParams(this.ingredientIds);
+    }
   }
 }

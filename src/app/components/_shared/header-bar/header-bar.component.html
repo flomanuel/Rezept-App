@@ -25,7 +25,7 @@
     <a class="fridge-flag fridge-button"
        *ngIf="!(suggestionContainerActive && ingredientIdList) &&  fridgeFlag"
        [class.selected]="fridgeContentStatus"
-       (click)="toggleFridgeStatus()">
+       (click)="toggleFridgeStatus(true)">
     </a>
 
     <a class="fridge-link fridge-button"

@@ -204,4 +204,16 @@ export class DataService {
       this.localStorageService.setItem(localeStorageKey, ingredientList);
     }
   }
+
+  public getIdListFromIngredients(ingredientList: Ingredient[]): number[] {
+    if (ingredientList.length > 0) {
+      const idList: number[] = [];
+      ingredientList.forEach(ingredient => {
+        idList.push(ingredient.id);
+      });
+      return idList;
+    } else {
+      return [];
+    }
+  }
 }
