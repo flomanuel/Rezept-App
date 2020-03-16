@@ -12,8 +12,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { InputPlusListComponent } from './components/input-plus-list/input-plus-list.component';
 import { SearchPageComponent } from './components/search-page/search-page.component';
-import { RecipeListElementComponent } from './components/recipe-list-element/recipe-list-element.component';
-import { SearchPageFilterTabComponent } from './components/search-page-filter-tab/search-page-filter-tab.component';
+import { RecipeListElementComponent } from './components/_search-page/recipe-list-element/recipe-list-element.component';
+import { SearchPageFilterTabComponent } from './components/_search-page/search-page-filter-tab/search-page-filter-tab.component';
 import { HeaderBarComponent } from './components/_shared/header-bar/header-bar.component';
 import { RecipeDetailPageComponent } from './components/recipe-detail-page/recipe-detail-page.component';
 import { BarcodeScannerComponent } from './components/barcode-scanner/barcode-scanner.component';
@@ -31,11 +31,14 @@ import { CookingStepsDetailPageComponent } from './components/_recipe-detail-pag
 import { MultiselectModalComponent } from './components/multiselect-modal/multiselect-modal.component';
 import { InfoModalComponent } from './components/info-modal/info-modal.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { FavoriteRecipeListComponent } from './components/favorite-recipe-list/favorite-recipe-list.component';
+import { RecipeCardComponent } from './components/favorite-recipe-list/recipe-card/recipe-card.component';
+import { ActionModalComponent } from './components/_shared/action-modal/action-modal.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 const appRoutes: Routes = [
   {
-    path: 'new_recipe',
+    path: 'new-recipe',
     component: RecipeComponent,
   },
   {
@@ -75,12 +78,16 @@ const appRoutes: Routes = [
     component: IngredientAdditionalInformationComponent,
   },
   {
-    path: 'shopping_list',
+    path: 'shopping-list',
     component: ShoppingListComponent,
   },
   {
     path: 'settings',
     component: SettingsComponent,
+  },
+  {
+    path: 'my-favorite-recipes',
+    component: FavoriteRecipeListComponent,
   },
   {
     // this should always be the last entry since otherwise all paths get mapped to the homepage
@@ -114,6 +121,9 @@ const appRoutes: Routes = [
     MultiselectModalComponent,
     InfoModalComponent,
     SettingsComponent,
+    FavoriteRecipeListComponent,
+    RecipeCardComponent,
+    ActionModalComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

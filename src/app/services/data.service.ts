@@ -5,27 +5,28 @@ import { IngredientList } from '../entity/IngredientList';
 import { ingredients } from '../types';
 import { TranslationService } from './translation.service';
 import { FirebaseService } from './firebase.service';
+import { LocalStorageService } from './local-storage.service';
+import { localStorageKeys } from '../../config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
   public tagList: number[] = [];
-  searchResult: Recipe[] = [];
-  selectedRecepies: Recipe[] = [];
   fridgeIngredients: Ingredient[] = [];
-  privateShoppingList: Ingredient[] = [];
   recipeShoppingLists: IngredientList[] = [];
-  allIngredientsFilteredShoppingList: Ingredient[] = [];
+  localStorageService: LocalStorageService;
   sharingString: string;
-  public activeSearch = false;
 
-  constructor(private translationService: TranslationService, private firebaseService: FirebaseService) {
+  constructor(private translationService: TranslationService, private firebaseService: FirebaseService,
+              localStorageService: LocalStorageService) {
+    this.localStorageService = localStorageService;
     for (const index in ingredients) {
       if (index in ingredients) {
         this.tagList.push(parseInt(index, 10));
       }
     }
+    this.updateShoppingLists();
   }
 
   getTagsBySearchString(searchValue: string) {
@@ -37,14 +38,15 @@ export class DataService {
   }
 
   addRecipe(recipe: Recipe) {
-    this.selectedRecepies.push(recipe);
-    this.recipeShoppingLists.push(this.getIngredientsListForRecipe(recipe));
-    this.allIngredientsFilteredShoppingList = this.getAllIngredientsFromRecipes();
+    this.localStorageService.addRecipeToSelectedRecipies(recipe);
+    this.updateShoppingLists();
+    this.localStorageService.setAllIngredientsFilteredShoppingList(this.getAllIngredientsFromRecipes());
     this.sharingString = this.createSharingStringFromIngredients();
   }
 
   addFridgeIngredient(ingredient: Ingredient) {
     this.fridgeIngredients.push(ingredient);
+    this.localStorageService.setAllIngredientsFilteredShoppingList(this.getAllIngredientsFromRecipes());
   }
 
   getRecipeFilteredShoppingLists() {
@@ -52,11 +54,11 @@ export class DataService {
   }
 
   getPrivateShoppingList() {
-    return this.privateShoppingList;
+    return this.localStorageService.getPrivateShoppingList();
   }
 
   getAllIngredientsFilteredShoppingList() {
-    return this.allIngredientsFilteredShoppingList;
+    return this.localStorageService.getAllIngredientsFilteredShoppingList();
   }
 
   getSharingString() {
@@ -64,7 +66,7 @@ export class DataService {
   }
 
   addItemToPrivateShoppingList(privateIngredient: Ingredient) {
-    this.privateShoppingList.push(privateIngredient);
+    this.localStorageService.addIngredientToPrivateShoppingList(privateIngredient);
   }
 
   deleteIngredientFromList(ingredient: Ingredient, ingredientsList: Ingredient[]) {
@@ -78,15 +80,16 @@ export class DataService {
   }
 
   deleteIngredientFromPrivateShoppingList(ingredient: Ingredient) {
-    const temporaryList: Ingredient[] = [];
-    this.privateShoppingList.forEach(ingredientInList => {
-      if (ingredientInList.label !== ingredient.label) {
-        temporaryList.push(ingredientInList);
-      }
-    });
-    this.privateShoppingList = temporaryList;
+    this.localStorageService.deleteIngredientFromPrivateShoppingList(ingredient);
   }
 
+  updateShoppingLists() {
+    this.recipeShoppingLists = [];
+    this.localStorageService.getSelectedRecipes().forEach(recipe => {
+      this.recipeShoppingLists.push(this.getIngredientsListForRecipe(recipe));
+    });
+    this.localStorageService.setAllIngredientsFilteredShoppingList(this.getAllIngredientsFromRecipes());
+  }
 
   getIngredientsListForRecipe(recipe: Recipe) {
     const neededIngredients: Ingredient[] = recipe.ingredients;
@@ -110,10 +113,11 @@ export class DataService {
   }
 
   private getAllIngredientsFromRecipes() {
+    const selectedRecipes = this.localStorageService.getSelectedRecipes();
     const availableIngredients: Ingredient[] = this.fridgeIngredients;
     let allIngredients: Ingredient[] = [];
 
-    this.selectedRecepies.forEach(recipe => {
+    selectedRecipes.forEach(recipe => {
       recipe.ingredients.forEach(ingredient => {
         if (this.ingredientIsInList(ingredient, allIngredients)) {
           allIngredients = this.sumIngredientsAmountAndDeleteFromListIfFridgeIsSufficient(allIngredients, ingredient, availableIngredients);
@@ -129,8 +133,8 @@ export class DataService {
     return allIngredients;
   }
 
-  // tslint:disable-next-line:max-line-length
-  private sumIngredientsAmountAndDeleteFromListIfFridgeIsSufficient(allIngredients: Ingredient[], ingredient: Ingredient, availableIngredients: Ingredient[]) {
+  private sumIngredientsAmountAndDeleteFromListIfFridgeIsSufficient(allIngredients: Ingredient[], ingredient: Ingredient,
+                                                                    availableIngredients: Ingredient[]) {
     allIngredients.forEach(ingredientInList => {
       if (ingredientInList.label === ingredient.label) {
         ingredientInList.amount += ingredient.amount;
@@ -161,19 +165,20 @@ export class DataService {
 
   public createSharingStringFromIngredients() {
     let sharingString = '';
+    const privateShoppingList = this.localStorageService.getPrivateShoppingList();
 
     sharingString += 'Einkaufszettel: \n';
-    this.allIngredientsFilteredShoppingList.forEach(ingredient => {
+    this.getAllIngredientsFilteredShoppingList().forEach(ingredient => {
       sharingString += ingredient.label + ' ' + ingredient.amount + ' ' + ingredient.volumeUnit;
-      if (this.allIngredientsFilteredShoppingList.indexOf(ingredient) !== this.allIngredientsFilteredShoppingList.length - 1) {
+      if (this.getAllIngredientsFilteredShoppingList().indexOf(ingredient) !== this.getAllIngredientsFilteredShoppingList().length - 1) {
         sharingString += ', \n';
       }
     });
-    if (this.privateShoppingList.length > 0) {
+    if (privateShoppingList.length > 0) {
       sharingString += ' \n--- \nZusätzliche Produkte: \n';
-      this.privateShoppingList.forEach(ingredient => {
+      privateShoppingList.forEach(ingredient => {
         sharingString += ingredient.label;
-        if (this.privateShoppingList.indexOf(ingredient) !== this.privateShoppingList.length - 1) {
+        if (privateShoppingList.indexOf(ingredient) !== privateShoppingList.length - 1) {
           sharingString += ', \n';
         }
       });
@@ -184,38 +189,19 @@ export class DataService {
     return encodeURIComponent(sharingString);
   }
 
-  public searchRecipesForIngredients(ingredientIds) {
-    this.activeSearch = true;
-    if (ingredientIds.length > 0) {
 
-      const filteredIds = ingredientIds.reduce((result: number[], currentValue: number) => {
-        return result.includes(currentValue) ? result : [...result, currentValue];
-      }, []);
-
-      this.firebaseService.searchRecipesByIngredients(filteredIds).then((collection) => {
-          collection.valueChanges().subscribe((recipes: Recipe[]) => {
-              if (filteredIds.length > 1) {
-                this.searchResult = recipes.reduce((result: Recipe[], currentRecipe: Recipe) => {
-                  if (
-                    currentRecipe.ingredientsIdList.every(id => {
-                      filteredIds.includes(id);
-                    })
-                  ) {
-                    return [...result, currentRecipe];
-                  }
-                  return result;
-                }, []);
-              } else {
-                this.searchResult = recipes;
-              }
-              this.activeSearch = false;
-            },
-          );
-        },
-      );
+  toggleIngredient(localeStorageKey: localStorageKeys, ingredient: Ingredient) {
+    if (localeStorageKey === localStorageKeys.SELECTED_RECIPES) {
+      this.localStorageService.toggleIngredientInAllIngredientList(ingredient);
     } else {
-      this.searchResult = [];
-      this.activeSearch = false;
+      const ingredientList = this.localStorageService.getItem(localeStorageKey);
+      const index = ingredientList.map(actualIngredient => {
+        return actualIngredient.label;
+      }).indexOf(ingredient.label);
+      const ingredientInList = ingredientList[index];
+      ingredientInList.done = !ingredientInList.done;
+      ingredientList[index] = ingredientInList;
+      this.localStorageService.setItem(localeStorageKey, ingredientList);
     }
   }
 }

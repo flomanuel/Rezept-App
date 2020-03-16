@@ -44,7 +44,7 @@
   </div>
 </div>
 
-<div class="suggestionsContainer" *ngIf="suggestionContainerActive && ingredientIdList">
+<div class="suggestionsContainer" *ngIf="suggestionContainerActive && ingredientIdList && searchValue.length > 0">
   <p class="suggestion"
      *ngFor="let ingredientId of this.dataService.getTagsBySearchString(this.searchValue)"
      (click)="addSuggestion(ingredientId)">{{translationService.translate(ingredients[ingredientId])}}
