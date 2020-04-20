@@ -19,26 +19,12 @@ import { Observable } from 'rxjs';
 export class MarketSearchComponent implements OnInit, OnDestroy {
 
 
-  constructor(private jsonRequestService: JsonRequestService) {
-
-  }
-
   public geoLocation: Coordinates;
   public limit = 5;
-  public radius = 0.9;
-  private nominatimURL = 'https://nominatim.openstreetmap.org/?adressdetails=1' +
-    '&q=[suche]' +
-    '&format=json' +
-    '&limit=[limit]' +
-    '&viewbox=[top],[right],[bottom],[left]' +
-    '&bounded=1' +
-    '&extratags=1';
-
-  private bFistGeoLocation = true;
+  public radius = 1;
   markets: Market[];
   map: any;
   locationsSubscription;
-
   locations = new Observable((observer) => {
     let watchId: number;
 
@@ -60,22 +46,28 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
       },
     };
   });
+  private nominatimURL = 'https://nominatim.openstreetmap.org/?adressdetails=1' +
+    '&q=[suche]' +
+    '&format=json' +
+    '&limit=[limit]' +
+    '&viewbox=[top],[right],[bottom],[left]' +
+    '&bounded=1' +
+    '&extratags=1';
+  private bFistGeoLocation = true;
+
+  constructor(private jsonRequestService: JsonRequestService) {
+
+  }
 
   ermittlePosition() {
     this.locationsSubscription = this.locations.subscribe((position: Position) => {
       this.geoLocation = position.coords;
-      console.log(this.geoLocation);
       if (this.bFistGeoLocation) {
         this.setCenter(this.geoLocation.longitude, this.geoLocation.latitude);
         this.bFistGeoLocation = false;
       }
       this.findMarkets();
     });
-  }
-
-
-  zeigePosition() {
-    console.log('Ihre Koordinaten sind: Breite: ' + this.geoLocation.latitude + ' Länge: ' + this.geoLocation.longitude);
   }
 
   ngOnInit() {
@@ -99,10 +91,9 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
       ],
       view: new View({
         center: proj.fromLonLat([0, 0]),
-        zoom: 17,
+        zoom: 18,
       }),
     });
-    // document.getElementsByClassName('ol-zoom ol-unselectable ol-control')[0].remove();
     document.getElementsByClassName('ol-overlaycontainer-stopevent')[0].remove();
 
   }
@@ -114,10 +105,6 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
   }
 
   findMarkets() {
-    this.getResponse();
-  }
-
-  getResponse() {
     let url = this.nominatimURL;
     const coords = this.GetBoundingBox(this.geoLocation.longitude, this.geoLocation.latitude, this.radius);
     url = url.replace('[suche]', '[supermarket]');
@@ -126,8 +113,6 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
     url = url.replace('[right]', (coords.right).toString());
     url = url.replace('[bottom]', (coords.bottom).toString());
     url = url.replace('[left]', (coords.left).toString());
-
-    // console.log(url);
 
     if (this.markets) {
       this.markets.length = 0;
@@ -147,14 +132,6 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
         }
         this.setMarker();
       });
-  }
-
-  stringToFloat(str: string): number {
-    return parseFloat(str);
-  }
-
-  round(zahl: number): number {
-    return Math.round(zahl * 100) / 100;
   }
 
   deleteAllMarker() {
@@ -198,6 +175,7 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
   }
 
   distance(lat1, lon1, lat2, lon2) {
+    // Funktion um die Distanz zwischen zwei Koordinaten in km zu bestimmen
     if ((lat1 === lat2) && (lon1 === lon2)) {
       return 0;
     } else {
@@ -217,7 +195,19 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  stringToFloat(str: string): number {
+    // Funktion um einen string in eine float Zahl umzuwandeln
+    return parseFloat(str);
+  }
+
+  round(zahl: number): number {
+    // Funktion zum Runden auf eine Nachkommastelle
+    return Math.round(zahl * 10) / 10;
+  }
+
   GetBoundingBox(longitude: number, latitude: number, radius: number) {
+    // Funktion um Kordinaten zu bekommen um den Suchbereich auf einen best. Radius zu begrenzen
     const dY = (radius / 6371) * (180 / Math.PI);   // 6371 = Radius der Erde in km
     const dX = (radius / (6371 * Math.cos(latitude * (Math.PI / 180.0)))) * (180 / Math.PI);
 

@@ -1,12 +1,15 @@
 @import "../../../styles.less";
 
 .mainFontFamily {
-
 }
 
 #map {
   height: 100vh;
   width: 100vw;
+}
+
+app-header-bar::ng-deep span.back {
+  padding: 8px 8px 8px 32px;
 }
 
 .gpsButton {
@@ -23,10 +26,6 @@
   }
 }
 
-app-header-bar::ng-deep span.back {
-  padding: 8px 8px 8px 32px;
-}
-
 .sidebar {
   z-index: 2;
   position: fixed;
@@ -34,10 +33,12 @@ app-header-bar::ng-deep span.back {
   width: 100%;
   height: 25%;
   transition: all .5s ease;
+  overflow-y: scroll;
+  .mainFontFamily;
 }
 
-.tab{
-  overflow-x: auto;
+.sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 #check {
@@ -76,31 +77,35 @@ label #open_menu, label #close_menu {
   margin-right: auto;
 }
 
-.markets{
+.markets {
   border-collapse: collapse;
 }
 
-#maerkte td {
-  padding: 8px;
-}
-
-#maerkte tr {
-  border: 5px solid transparent;
+#row {
+  display: block;
+  margin-bottom: 5px;
+  border: 1px solid #000000;
+  border-radius: 50px;
   background-color: #df8620;
 }
 
-#market_index{
-  width: 5px;
+#maerkte_table td {
+  cursor: pointer;
+  padding: 8px;
 }
 
-#market_name{
-  width: 150px;
+#market_index {
+  left: 0;
 }
 
-#market_opening, #market_opening2{
-  width: 150px;
+#market_name {
+  width: 95px;
 }
 
-#market_distance{
-  width: 120px;
+#market_opening, #market_opening2 {
+  width: 180px;
+}
+
+#market_distance {
+  right: 0;
 }
