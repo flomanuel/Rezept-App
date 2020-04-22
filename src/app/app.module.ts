@@ -90,6 +90,10 @@ const appRoutes: Routes = [
     component: FavoriteRecipeListComponent,
   },
   {
+    path: 'fridge',
+    component: FridgeDetailPageComponent,
+  },
+  {
     // this should always be the last entry since otherwise all requests get redirected to the homepage
     path: '**',
     component: HomePageComponent,
