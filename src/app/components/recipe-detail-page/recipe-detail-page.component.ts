@@ -7,8 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IngredientInfoService } from '../../services/ingredient-info.service';
 import { TranslationService } from '../../services/translation.service';
 import { DataService } from '../../services/data.service';
-import { Ingredient } from '../../entity/ingredient.class';
 import { FirebaseService } from '../../services/firebase.service';
+import { FridgeService } from '../../services/fridge.service';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -28,7 +28,8 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
               private dataService: DataService,
               private firebaseService: FirebaseService,
               private router: Router,
-              private routerParams: ActivatedRoute) {
+              private routerParams: ActivatedRoute,
+              private fridgeService: FridgeService) {
   }
 
   async ngOnInit() {
@@ -45,16 +46,6 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     document.body.style.margin = '8px';
-  }
-
-  isIngredientInFridge(ingredient: Ingredient): boolean {
-    let ingredientAvailable = false;
-    this.dataService.fridgeIngredients.forEach(fridgeIngredient => {
-      if (!ingredientAvailable && fridgeIngredient.id === ingredient.id) {
-        ingredientAvailable = true;
-      }
-    });
-    return ingredientAvailable;
   }
 
   toggleFavouriteRecipe() {

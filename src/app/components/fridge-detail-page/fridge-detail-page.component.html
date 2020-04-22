@@ -1,1 +1,27 @@
-<p>fridge-detail-page works!</p>
+<app-header-bar
+  [ingredientIdList]="fridgeService.newIngredientsIdList"
+  (ingredientListChange)="fridgeService.updateFridgeIngredients()"></app-header-bar>
+
+<div class="fridge">
+  <div *ngFor="let ingredient of fridgeService.fridgeIngredients"
+       class="fridge__element">
+
+    <span class="fridge__element--closer" (click)="fridgeService.removeIngredient(ingredient)">X</span>
+
+    <p class="fridge__element--text">{{translationService.translate(ingredients[ingredient.id])}}</p>
+
+    <div class="fridge__element--input-elements">
+
+      <input class="fridge__element--amount" type="number" name="fridge__element--amount" min="0"
+             [(ngModel)]="ingredient.amount"/>
+
+      <select class="fridge__element--units" [(ngModel)]="ingredient.volumeUnit">
+        <option *ngFor="let volumeUnit of volumeUnits" value="{{volumeUnit}}">{{volumeUnit}}</option>
+      </select>
+
+      <div class="fridge__element--button" (click)="fridgeService.updateFridgeIngredients()">Speichern</div>
+
+    </div>
+  </div>
+
+</div>

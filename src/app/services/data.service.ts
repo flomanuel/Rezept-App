@@ -28,10 +28,6 @@ export class DataService {
     this.updateShoppingLists();
   }
 
-  get fridgeIngredients() {
-    return this.fridgeService.fridgeIngredients;
-  }
-
   getTagsBySearchString(searchValue: string) {
     if (searchValue && searchValue !== '') {
       return this.tagList.filter(
@@ -112,7 +108,7 @@ export class DataService {
 
   private getAllIngredientsFromRecipes() {
     const selectedRecipes = this.localStorageService.getSelectedRecipes();
-    const availableIngredients: Ingredient[] = this.fridgeIngredients;
+    const availableIngredients: Ingredient[] = this.fridgeService.fridgeIngredients;
     let allIngredients: Ingredient[] = [];
 
     selectedRecipes.forEach(recipe => {
@@ -200,18 +196,6 @@ export class DataService {
       ingredientInList.done = !ingredientInList.done;
       ingredientList[index] = ingredientInList;
       this.localStorageService.setItem(localeStorageKey, ingredientList);
-    }
-  }
-
-  public getIdListFromIngredients(ingredientList: Ingredient[]): number[] {
-    if (ingredientList.length > 0) {
-      const idList: number[] = [];
-      ingredientList.forEach(ingredient => {
-        idList.push(ingredient.id);
-      });
-      return idList;
-    } else {
-      return [];
     }
   }
 }

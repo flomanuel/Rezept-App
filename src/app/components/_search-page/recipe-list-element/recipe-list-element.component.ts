@@ -9,7 +9,7 @@ import { Recipe } from '../../../entity/recipe';
 export class RecipeListElementComponent implements OnInit {
   @Input() recipe: Recipe;
 
-  private fallbackImagePath = '../../../assets/fallbackImage.svg';
+  private fallbackImagePath = '../../../../assets/objects/fallbackImage.svg';
 
   constructor() {
   }

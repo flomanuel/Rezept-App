@@ -20,6 +20,8 @@
 
     </app-search-page-filter-tab>
     <div class="recipe-list">
+      <img class="recipe-list__background" alt="Hintergrundbild"
+           src="../../../assets/icons/chef's-hat.svg"/>
       {{ingredientIds}}
       <ng-container
         *ngIf="firebaseService.searchResult.length > 0 && !firebaseService.activeSearch; then recipes else loading"></ng-container>
@@ -35,8 +37,6 @@
           <div class="recipe-list__noResult">Es konnten keine Rezepte gefunden werden.</div>
         </ng-template>
       </ng-template>
-      <img class="recipe-list__background" alt="Hintergrundbild"
-           src="../../../assets/icons/chef's-hat.svg"/>
     </div>
   </div>
 </div>

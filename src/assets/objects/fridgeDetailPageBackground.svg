@@ -1,0 +1,20 @@
+<svg width="294" height="638" viewBox="0 0 294 638" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="17.6782" y="51.5" width="256.3" height="559" stroke="black" stroke-width="3"/>
+<line y1="-1" x2="233.372" y2="-1" transform="matrix(0.999991 0.00426245 -0.00649862 0.999979 27.2913 111)" stroke="black" stroke-width="2"/>
+<line x1="28.5259" y1="114" x2="252.018" y2="114" stroke="black" stroke-width="2"/>
+<line y1="-1.5" x2="238.311" y2="-1.5" transform="matrix(0.999991 0.00421805 -0.00643092 0.999979 28.5259 180)" stroke="black" stroke-width="3"/>
+<line x1="28.5259" y1="183" x2="266.835" y2="183" stroke="black" stroke-width="2"/>
+<line x1="26.0564" y1="248.5" x2="264.366" y2="248.5" stroke="black" stroke-width="3"/>
+<line x1="24.8218" y1="253" x2="264.366" y2="253" stroke="black" stroke-width="2"/>
+<line x1="26.0564" y1="324.5" x2="261.896" y2="324.5" stroke="black" stroke-width="3"/>
+<line x1="28.5259" y1="330" x2="261.896" y2="330" stroke="black" stroke-width="2"/>
+<line y1="-1.5" x2="234.607" y2="-1.5" transform="matrix(0.999991 0.00426245 -0.00649862 0.999979 26.0564 408)" stroke="black" stroke-width="3"/>
+<line y1="-1" x2="237.077" y2="-1" transform="matrix(0.999991 0.00426245 -0.00649862 0.999979 23.5869 412)" stroke="black" stroke-width="2"/>
+<path d="M24.8216 511.5H124.837M266.218 511.5H199.541M199.541 511.5V503H124.837V511.5M199.541 511.5H124.837M27.2912 517.5H264.366M22.9695 605H143.359L145.211 521.5H22.9695V605ZM60.0124 543V533H112.49V543H60.0124ZM195.219 533H244.609V543H195.219V533ZM149.533 605V521.5H268.687V605H149.533Z" stroke="black" stroke-width="2"/>
+<path d="M61.2472 322.5C57.9739 313.209 57.0378 307.959 56.9255 298.5H90.8815C89.3919 308.28 87.9717 313.574 84.7077 322.5M189.663 108.5V100H234.114V108.5" stroke="black"/>
+<path d="M21.1173 627.5V637H10.0044V627.5M261.896 627.5V637H273.009V627.5" stroke="black" stroke-width="2"/>
+<rect x="1.62646" y="1.5" width="290.874" height="626" stroke="black" stroke-width="3"/>
+<rect x="91.9988" y="9.5" width="13.8172" height="7" stroke="black"/>
+<rect x="135.216" y="9.5" width="13.8172" height="7" stroke="black"/>
+<rect x="179.667" y="9.5" width="13.8172" height="7" stroke="black"/>
+</svg>
