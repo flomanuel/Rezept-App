@@ -53,7 +53,8 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
     '&viewbox=[top],[right],[bottom],[left]' +
     '&bounded=1' +
     '&extratags=1';
-  private bFistGeoLocation = true;
+  private bFirstGeoLocation = true;
+  private bFirstMarket = false;
 
   constructor(private jsonRequestService: JsonRequestService) {
 
@@ -62,9 +63,9 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
   ermittlePosition() {
     this.locationsSubscription = this.locations.subscribe((position: Position) => {
       this.geoLocation = position.coords;
-      if (this.bFistGeoLocation) {
+      if (this.bFirstGeoLocation) {
         this.setCenter(this.geoLocation.longitude, this.geoLocation.latitude);
-        this.bFistGeoLocation = false;
+        this.bFirstGeoLocation = false;
       }
       this.findMarkets();
     });
@@ -130,6 +131,7 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
           index++;
           mark.index = index;
         }
+        this.bFirstMarket = true;
         this.setMarker();
       });
   }

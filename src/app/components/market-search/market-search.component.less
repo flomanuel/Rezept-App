@@ -16,7 +16,7 @@ app-header-bar::ng-deep span.back {
   position: absolute;
   z-index: 1;
   right: 15px;
-  top: 15px;
+  top: 10px;
   width: 40px;
   height: 40px;
 
@@ -43,6 +43,47 @@ app-header-bar::ng-deep span.back {
 
 #check {
   display: none;
+}
+
+#open_menu:before{
+  content: '';
+  border-radius: 10px;
+  min-width: 30px;
+  min-height: 30px;
+  border: 6px solid #ff9900;
+  box-shadow: 0 0 60px rgba(223, 134, 32, 0.64);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all .3s ease-in-out 0s;
+}
+
+#open_menu:after{
+  content: '';
+  width: 30px; height: 30px;
+  border-radius: 100%;
+  border: 6px solid #ff9900;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ring 1.5s infinite;
+}
+
+@keyframes ring {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 1;
+  }
+  100% {
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+  }
 }
 
 label #open_menu, label #close_menu {
