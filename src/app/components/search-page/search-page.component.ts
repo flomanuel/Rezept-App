@@ -3,6 +3,7 @@ import { DataService } from '../../services/data.service';
 import { regions, ingredients, categories } from '../../types';
 import { TranslationService } from '../../services/translation.service';
 import { FirebaseService } from '../../services/firebase.service';
+import { FridgeService } from '../../services/fridge.service';
 
 @Component({
   selector: 'app-search-page',
@@ -12,10 +13,10 @@ import { FirebaseService } from '../../services/firebase.service';
 export class SearchPageComponent implements OnInit {
   private ingredientIds: number[] = [];
   private tabElements = { regionIds: [], categoryIds: [] };
-  private defaultIngredientsStatus = false;
   private ingredients = ingredients;
 
-  constructor(private dataService: DataService, private translationService: TranslationService, private firebaseService: FirebaseService) {
+  constructor(private dataService: DataService, private translationService: TranslationService,
+              private firebaseService: FirebaseService, private fridgeService: FridgeService) {
     for (const index in regions) {
       if (index in regions) {
         this.tabElements.regionIds.push(index);
@@ -41,6 +42,14 @@ export class SearchPageComponent implements OnInit {
   }
 
   onDefaultIngredientsChange($event: boolean) {
-    this.defaultIngredientsStatus = $event;
+  }
+
+  onFridgeStatusChange($event: boolean) {
+    if ($event) {
+      const idList: number[] = this.fridgeService.fridgeIngredientsById;
+      this.firebaseService.filterSearchResultByIdList(idList, 'ingredients');
+    } else {
+      this.firebaseService.searchRecipesByParams(this.ingredientIds);
+    }
   }
 }
