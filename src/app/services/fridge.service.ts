@@ -15,8 +15,6 @@ export class FridgeService {
   }
 
   public updateFridgeIngredients(): void {
-    const newIngredients: Ingredient[] = [];
-
     this.newIngredientsIdList.forEach(id => {
       if (!this.fridgeIngredients.some(ingredient => {
         return ingredient.id === id;
@@ -24,7 +22,6 @@ export class FridgeService {
         this.fridgeIngredients.push(new Ingredient('', 0, '', id));
       }
     });
-    this.updateFridgeInLocalStorage();
   }
 
   public removeIngredient(ingredientToRemove): void {
@@ -32,7 +29,7 @@ export class FridgeService {
     this.updateFridgeInLocalStorage();
   }
 
-  private updateFridgeInLocalStorage() {
+  public updateFridgeInLocalStorage() {
     this.localStorageService.setItem(localStorageKeys.FRIDGE_INGREDIENTS, this.fridgeIngredients);
   }
 

@@ -65,9 +65,9 @@ fridge element
   font-style: normal;
   font-weight: 400;
   max-width: 50%;
-  padding: 2px 6px;
-  border-radius: 5px;
+  padding: 5px;
   background-color: @colourButtonShoppingList;
+  border-radius: 5px;
   color: rgba(0, 0, 0, 0.6);
 
   &:hover:not(:active) {
@@ -76,6 +76,15 @@ fridge element
 
   &:active {
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  &:after {
+    content: '';
+    background-image: url("../../../assets/icons/closing-X.svg");
+    background-size: contain;
+    display: block;
+    width: 13px;
+    height: 13px;
   }
 }
 
@@ -94,14 +103,13 @@ fridge element
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 5%;
+  padding: 0 5% 5% 5%;
 }
 
-.fridge__element--button {
-  background-color: @colourButtonSearch;
-  border-radius: 5px;
+.fridge__element--button,
+.fridge__element--edit-button {
   cursor: pointer;
-  padding: 5px;
+  border-radius: 5px;
 
   &:hover:not(:active) {
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
@@ -110,11 +118,40 @@ fridge element
   &:active {
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
   }
+
+  &:after {
+    content: '';
+    background-size: contain;
+    display: block;
+  }
+}
+
+.fridge__element--button {
+  background-color: @colourButtonSearch;
+
+  &:after {
+    background-image: url("../../../assets/icons/save_discette.svg");
+    padding: 5px;
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.fridge__element--edit-button {
+  background-color: @colourButtonSearch;
+
+  &:after {
+    background-image: url("../../../assets/icons/pencil__edit.svg");
+    margin: 2px;
+    width: 23px;
+    height: 23px;
+  }
 }
 
 .fridge__element--amount,
 .fridge__element--units,
-.fridge__element--button {
+.fridge__element--button,
+.fridge__element--edit-button {
   margin: 5% 1% 1% 1%;
   .mainFontFamily();
   font-style: normal;

@@ -6,20 +6,25 @@
   <div *ngFor="let ingredient of fridgeService.fridgeIngredients"
        class="fridge__element">
 
-    <span class="fridge__element--closer" (click)="fridgeService.removeIngredient(ingredient)">X</span>
+    <span class="fridge__element--closer" (click)="fridgeService.removeIngredient(ingredient)"></span>
 
     <p class="fridge__element--text">{{translationService.translate(ingredients[ingredient.id])}}</p>
 
     <div class="fridge__element--input-elements">
 
       <input class="fridge__element--amount" type="number" name="fridge__element--amount" min="0"
-             [(ngModel)]="ingredient.amount"/>
+             *ngIf="!ingredient.saved" [(ngModel)]="ingredient.amount"/>
 
-      <select class="fridge__element--units" [(ngModel)]="ingredient.volumeUnit">
+      <select class="fridge__element--units"
+              *ngIf="!ingredient.saved" [(ngModel)]="ingredient.volumeUnit">
         <option *ngFor="let volumeUnit of volumeUnits" value="{{volumeUnit}}">{{volumeUnit}}</option>
       </select>
 
-      <div class="fridge__element--button" (click)="fridgeService.updateFridgeIngredients()">Speichern</div>
+      <div class="fridge__element--button" *ngIf="!ingredient.saved"
+           (click)="ingredient.saved = true; fridgeService.updateFridgeInLocalStorage();"></div>
+
+      <div class="fridge__element--edit-button" *ngIf="ingredient.saved"
+           (click)="ingredient.saved = false;"></div>
 
     </div>
   </div>
