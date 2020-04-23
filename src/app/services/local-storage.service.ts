@@ -137,6 +137,6 @@ export class LocalStorageService {
   }
 
   reset() {
-    // Todo
+    localStorage.clear();
   }
 }
