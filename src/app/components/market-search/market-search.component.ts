@@ -54,7 +54,6 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
     '&bounded=1' +
     '&extratags=1';
   private bFirstGeoLocation = true;
-  private bFirstMarket = false;
 
   constructor(private jsonRequestService: JsonRequestService) {
 
@@ -131,7 +130,6 @@ export class MarketSearchComponent implements OnInit, OnDestroy {
           index++;
           mark.index = index;
         }
-        this.bFirstMarket = true;
         this.setMarker();
       });
   }
