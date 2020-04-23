@@ -4,6 +4,7 @@ table {
   .mainFontFamily();
   border-collapse: collapse;
   width: 100%;
+  max-width: 850px;
 }
 
 .item-checked {
@@ -18,13 +19,8 @@ tr {
   position: relative;
   padding: 12px 8px 12px 40px;
   list-style-type: none;
-  background-color: #eee;
   font-size: 18px;
   transition: 0.2s;
-}
-
-.table-row:hover {
-  background-color: #ddd;
 }
 
 .clear-row {
@@ -34,9 +30,8 @@ tr {
 th, td {
   .mainFontFamily();
   width: 10%;
-  padding: 8px;
+  padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
 }
 
 input[type=text] {
@@ -62,17 +57,6 @@ button[type=submit] {
   cursor: pointer;
 }
 
-.td-second {
-  width: 10%;
-  border-left: 1px solid #ddd;
-}
-
-.td-third {
-  width: 30%;
-  text-align: right;
-  padding-right: 30px;
-}
-
 .shopping-list {
   margin: 20px;
 }
@@ -88,10 +72,6 @@ button[type=submit] {
   color: white;
 }
 
-.filter-button-recipe:hover {
-  background-color: lightgray;
-}
-
 .filter-button-all {
   cursor: pointer;
 }
@@ -102,18 +82,74 @@ button[type=submit] {
 }
 
 .sharing-button {
+  display: flex;
   margin-top: 30px;
+
+  @media screen and (max-width: @width_max-sm) {
+    justify-content: space-between;
+  }
+
+  @media screen and (min-width: @width_min-md) {
+    justify-content: left;
+  }
+
+  div {
+    &:first-of-type {
+      margin: 10px 20px;
+    }
+
+    &:last-of-type {
+      margin: 10px 20px;
+    }
+
+    &.sharing-button--whatsapp {
+      width: 50px;
+      height: 50px;
+      background-image: url("../../../assets/icons/whatsapp_share.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    @media screen and (max-width: @width_max-sm) {
+      &:first-of-type {
+        margin: 10px 10px 10px 40px;
+      }
+
+      &:last-of-type {
+        margin: 10px 40px 10px 10px;
+      }
+    }
+  }
 }
 
-
-h2 {
+h2, h3 {
   .mainFontFamily();
 }
 
-h3 {
-  .mainFontFamily();
+.additional-ingredients-wrapper {
+  padding-top: 25px;
 }
 
-h4 {
+.recipe-list-wrapper > h3 {
   .mainFontFamily();
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.25rem;
+}
+
+.recipe-list-wrapper > div:not(:first-of-type) {
+  padding-top: 43px;
+}
+
+.additional-ingredients-wrapper h4,
+.recipe-list-wrapper h4 {
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  padding: 0;
+  margin: 0 0 10px 0;
+  border-bottom: 1px solid #000000;
 }

@@ -7,19 +7,18 @@ import { TranslationService } from './translation.service';
 import { FirebaseService } from './firebase.service';
 import { LocalStorageService } from './local-storage.service';
 import { localStorageKeys } from '../../config';
+import { FridgeService } from './fridge.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
   public tagList: number[] = [];
-  fridgeIngredients: Ingredient[] = [];
   recipeShoppingLists: IngredientList[] = [];
-  localStorageService: LocalStorageService;
   sharingString: string;
 
   constructor(private translationService: TranslationService, private firebaseService: FirebaseService,
-              localStorageService: LocalStorageService) {
+              private localStorageService: LocalStorageService, private fridgeService: FridgeService) {
     this.localStorageService = localStorageService;
     for (const index in ingredients) {
       if (index in ingredients) {
@@ -42,11 +41,6 @@ export class DataService {
     this.updateShoppingLists();
     this.localStorageService.setAllIngredientsFilteredShoppingList(this.getAllIngredientsFromRecipes());
     this.sharingString = this.createSharingStringFromIngredients();
-  }
-
-  addFridgeIngredient(ingredient: Ingredient) {
-    this.fridgeIngredients.push(ingredient);
-    this.localStorageService.setAllIngredientsFilteredShoppingList(this.getAllIngredientsFromRecipes());
   }
 
   getRecipeFilteredShoppingLists() {
@@ -114,7 +108,7 @@ export class DataService {
 
   private getAllIngredientsFromRecipes() {
     const selectedRecipes = this.localStorageService.getSelectedRecipes();
-    const availableIngredients: Ingredient[] = this.fridgeIngredients;
+    const availableIngredients: Ingredient[] = this.fridgeService.fridgeIngredients;
     let allIngredients: Ingredient[] = [];
 
     selectedRecipes.forEach(recipe => {

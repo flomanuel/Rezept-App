@@ -1,5 +1,5 @@
 <div id="header" class="grid-container noExtraColumns"
-     [style.opacity]="opacity" [style.width]="width" [class.background]="background"
+     [style.opacity]="opacity" [style.width]="width" [class.background]="background" [style.position]="position"
 >
   <span class="back" [class.allowElementsBehind]="allowElementsBehind" (click)="goBack()"></span>
 
@@ -25,7 +25,7 @@
     <a class="fridge-flag fridge-button"
        *ngIf="!(suggestionContainerActive && ingredientIdList) &&  fridgeFlag"
        [class.selected]="fridgeContentStatus"
-       (click)="toggleFridgeStatus()">
+       (click)="toggleFridgeStatus(true)">
     </a>
 
     <a class="fridge-link fridge-button"
@@ -34,7 +34,7 @@
     </a>
 
     <a class="open-shoppingList"
-       *ngIf="!(suggestionContainerActive && ingredientIdList) &&  shoppingListButton" routerLink="/shopping_list">
+       *ngIf="!(suggestionContainerActive && ingredientIdList) &&  shoppingListButton" routerLink="/shopping-list">
     </a>
 
     <div class="open-ingredientsList"

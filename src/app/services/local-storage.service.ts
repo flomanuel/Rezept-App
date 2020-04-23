@@ -1,8 +1,8 @@
-import {Recipe} from '../entity/recipe';
-import {Injectable} from '@angular/core';
-import {localStorageKeys} from '../../config';
-import {Ingredient} from '../entity/ingredient.class';
-import {VolumeUnit} from '../types';
+import { Recipe } from '../entity/recipe';
+import { Injectable } from '@angular/core';
+import { localStorageKeys } from '../../config';
+import { Ingredient } from '../entity/ingredient.class';
+import { VolumeUnit } from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -113,7 +113,7 @@ export class LocalStorageService {
     const temporaryList = this.getAllIngredientsFilteredShoppingList();
     temporaryList.forEach(ingredientInList => {
       if (ingredientInList.label === ingredient.label) {
-        ingredientInList.done = ! ingredient.done;
+        ingredientInList.done = !ingredient.done;
       }
     });
     this.setItem(localStorageKeys.ALL_INGREDIENTS_SHOPPING_LIST, temporaryList);

@@ -24,6 +24,7 @@ export class HeaderBarComponent implements OnInit {
   @Input() shoppingListButton: boolean;
   @Input() defaultIngredientsButton: boolean;
   @Input() opacity = 1;
+  @Input() position = 'sticky';
   @Input() width = 'initial';
   @Input() background = true;
   @Input() allowElementsBehind = false;
@@ -75,9 +76,11 @@ export class HeaderBarComponent implements OnInit {
     this.defaultIngredientsEvent.emit(this.defaultIngredientsStatus);
   }
 
-  toggleFridgeStatus(): void {
+  toggleFridgeStatus(emitEvent: boolean = false): void {
     this.fridgeContentStatus = !this.fridgeContentStatus;
-    this.fridgeStatusEvent.emit(this.fridgeContentStatus);
+    if (emitEvent) {
+      this.fridgeStatusEvent.emit(this.fridgeContentStatus);
+    }
   }
 
   toggleDefaultIngredientsUiStatus(): void {

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -34,6 +35,7 @@ import { FavoriteRecipeListComponent } from './components/favorite-recipe-list/f
 import { RecipeCardComponent } from './components/favorite-recipe-list/recipe-card/recipe-card.component';
 import { ActionModalComponent } from './components/_shared/action-modal/action-modal.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { FridgeDetailPageComponent } from './components/fridge-detail-page/fridge-detail-page.component';
 import { DefaultIngredientsComponent } from './components/_settings/default-ingredients/default-ingredients.component';
 
 const appRoutes: Routes = [
@@ -90,11 +92,15 @@ const appRoutes: Routes = [
     component: FavoriteRecipeListComponent,
   },
   {
+    path: 'fridge',
+    component: FridgeDetailPageComponent,
+  },
+  {
     path: 'default-ingredients',
     component: DefaultIngredientsComponent,
   },
   {
-    // this should always be the last entry since otherwise all paths get mapped to the homepage
+    // this should always be the last entry since otherwise all requests get redirected to the homepage
     path: '**',
     component: HomePageComponent,
   },
@@ -128,12 +134,14 @@ const appRoutes: Routes = [
     FavoriteRecipeListComponent,
     RecipeCardComponent,
     ActionModalComponent,
+    FridgeDetailPageComponent,
     DefaultIngredientsComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
     BrowserAnimationsModule,

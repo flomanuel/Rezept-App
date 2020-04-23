@@ -1,0 +1,160 @@
+/*************************************
+imports
+basic setup
+fridge
+fridge element
+**************************************/
+
+/*************************************
+imports
+**************************************/
+@import "../../../styles.less";
+
+/*************************************
+basic setup
+**************************************/
+
+
+/*************************************
+fridge
+**************************************/
+.fridge {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*************************************
+fridge element
+**************************************/
+.fridge__element {
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: @colourButtonShoppingList_Opacity;
+  border-radius: 5px;
+  min-height: 25%;
+  margin: 0 1% 5% 1%;
+  position: relative;
+
+  &:hover:not(:active) {
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
+    width: calc(1 / 5 * 90%);
+  }
+
+  @media screen and (max-width: @width_max-md) and (min-width: @width_min-md) {
+    width: calc(1 / 4 * 92%);
+  }
+
+  @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
+    width: calc(1 / 2 * 96%);
+  }
+}
+
+.fridge__element--closer {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: 400;
+  max-width: 50%;
+  padding: 5px;
+  background-color: @colourButtonShoppingList;
+  border-radius: 5px;
+  color: rgba(0, 0, 0, 0.6);
+
+  &:hover:not(:active) {
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  &:after {
+    content: '';
+    background-image: url("../../../assets/icons/closing-X.svg");
+    background-size: contain;
+    display: block;
+    width: 13px;
+    height: 13px;
+  }
+}
+
+.fridge__element--text {
+  padding: 5%;
+  margin: 0;
+  text-align: center;
+  pointer-events: none;
+
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: 400;
+}
+
+.fridge__element--input-elements {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 5% 5% 5%;
+}
+
+.fridge__element--button,
+.fridge__element--edit-button {
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:hover:not(:active) {
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  &:after {
+    content: '';
+    background-size: contain;
+    display: block;
+  }
+}
+
+.fridge__element--button {
+  background-color: @colourButtonSearch;
+
+  &:after {
+    background-image: url("../../../assets/icons/save_discette.svg");
+    padding: 5px;
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.fridge__element--edit-button {
+  background-color: @colourButtonSearch;
+
+  &:after {
+    background-image: url("../../../assets/icons/pencil__edit.svg");
+    margin: 2px;
+    width: 23px;
+    height: 23px;
+  }
+}
+
+.fridge__element--amount,
+.fridge__element--units,
+.fridge__element--button,
+.fridge__element--edit-button {
+  margin: 5% 1% 1% 1%;
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: 400;
+  max-width: 50%;
+}
