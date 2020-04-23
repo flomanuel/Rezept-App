@@ -3,8 +3,16 @@ export enum Database {
   RECIPES = 'recipes',
 }
 
+export enum DatabaseFields {
+  ID = 'id',
+  INGREDIENTS_ID_LIST = 'ingredientsIdList',
+  INGREDIENT_ADDITIONAL_INFO___ID = 'id'
+}
+
 export enum localStorageKeys {
   CREATED_RECIPES = 'created-recipes',
-  FAVOURITE_RECIPES = 'favourite-recipes',
-  DEFAULT_INGREDIENTS = 'default-ingredients',
+  FAVORITE_RECIPES = 'favorite-recipes',
+  SELECTED_RECIPES = 'selected-recepies',
+  PRIVATE_SHOPPING_LIST = 'private-shopping-list',
+  ALL_INGREDIENTS_SHOPPING_LIST = 'all-ingredients-shopping-list'
 }

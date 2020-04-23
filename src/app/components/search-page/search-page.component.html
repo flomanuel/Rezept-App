@@ -1,20 +1,41 @@
 <div class="mainPage">
-  <app-header-bar [suggestions]="suggestionsList"
+  <app-header-bar [ingredientIdList]="ingredientIds"
                   [fridgeFlag]="true"
                   [shoppingListButton]="true"
                   [defaultIngredientsButton]="true"
                   (defaultIngredientsEvent)="onDefaultIngredientsChange($event)"
+                  (ingredientListChange)="firebaseService.searchRecipesByParams(this.ingredientIds)"
   ></app-header-bar>
-<!-- todo: additionally to the translated title, pass region-, recipe- and category-ID so we can build a search query based on them -->
   <div id="contentArea" class="grid-container noExtraColumns noRows">
-    <div class="tag-list" *ngIf="suggestionsList.length > 0">
-      <p class="tag-list__element" (click)="removeFilterParam(selectedTag, suggestionsList)"
-         *ngFor="let selectedTag of suggestionsList">{{selectedTag}}</p>
+    <div class="tag-list" *ngIf="ingredientIds.length > 0">
+      <p *ngFor="let suggestion of ingredientIds" class="tag-list__element"
+         (click)="removeRecipeId(suggestion); firebaseService.searchRecipesByParams(this.ingredientIds)">
+        {{translationService.translate(ingredients[suggestion])}}
+      </p>
     </div>
-    <app-search-page-filter-tab [tabElements]="tabElements"
-                                (tabSelection)="onTabSelection($event)"></app-search-page-filter-tab>
+    <app-search-page-filter-tab *ngIf="ingredientIds.length > 0" [tabElements]="tabElements"
+                                (regionSelection)="this.firebaseService.regionIds = $event; firebaseService.searchRecipesByParams(this.ingredientIds)"
+                                (categorySelection)="this.firebaseService.categoryIds = $event; firebaseService.searchRecipesByParams(this.ingredientIds)">
+
+    </app-search-page-filter-tab>
     <div class="recipe-list">
-      <app-recipe-list-element *ngFor="let recipe of searchResult" [recipe]="recipe"></app-recipe-list-element>
+      {{ingredientIds}}
+      <ng-container
+        *ngIf="firebaseService.searchResult.length > 0 && !firebaseService.activeSearch; then recipes else loading"></ng-container>
+      <ng-template #recipes>
+        <app-recipe-list-element *ngFor="let recipe of firebaseService.searchResult"
+                                 [recipe]="recipe">
+        </app-recipe-list-element>
+      </ng-template>
+      <ng-template *ngIf="ingredientIds.length > 0" #loading>
+        <app-loading-animation *ngIf="firebaseService.activeSearch; else noResults"
+                               [description]="'Ergebnisse werden geladen ...'"></app-loading-animation>
+        <ng-template #noResults>
+          <div class="recipe-list__noResult">Es konnten keine Rezepte gefunden werden.</div>
+        </ng-template>
+      </ng-template>
+      <img class="recipe-list__background" alt="Hintergrundbild"
+           src="../../../assets/icons/chef's-hat.svg"/>
     </div>
   </div>
 </div>

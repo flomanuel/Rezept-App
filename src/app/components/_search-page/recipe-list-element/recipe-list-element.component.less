@@ -8,7 +8,7 @@ list element content
 /*************************************
 imports
 **************************************/
-@import "../../../../src/styles.less";
+@import "../../../../styles.less";
 
 /*************************************
 list element
@@ -30,6 +30,11 @@ list element image
   align-self: center;
   padding-bottom: 40%;
   border-radius: 20px;
+  pointer-events: none;
+
+  &:not(.fallback) {
+    background-color: @mainColors_lightGrey;
+  }
 
   > img {
     position: absolute;
@@ -48,12 +53,13 @@ list element content
 .listElement__content {
   width: 61%;
   margin: 27px 0 27px -10px;
-  //padding: 18px 9px 22px 22px;
+  background-color: #fcfcfc;
   padding-left: 22px;
   border-width: 1px;
   border-style: solid solid solid none;
   border-color: #000000;
   border-radius: 5px;
+  pointer-events: none;
 
 
   &__title {
@@ -99,12 +105,12 @@ list element content
       &:before {
         position: absolute;
         bottom: 0;
-        left: 0px;
+        left: 0;
         display: inline-block;
         width: 15px;
         height: 15px;
         content: '';
-        background: url("../../../assets/icons/timer.svg") no-repeat center;
+        background: url("../../../../assets/icons/timer.svg") no-repeat center;
         background-size: contain;
       }
     }

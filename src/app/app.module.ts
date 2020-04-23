@@ -11,27 +11,33 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { InputPlusListComponent } from './components/input-plus-list/input-plus-list.component';
 import { SearchPageComponent } from './components/search-page/search-page.component';
-import { RecipeListElementComponent } from './components/recipe-list-element/recipe-list-element.component';
-import { SearchPageFilterTabComponent } from './components/search-page-filter-tab/search-page-filter-tab.component';
+import { RecipeListElementComponent } from './components/_search-page/recipe-list-element/recipe-list-element.component';
+import { SearchPageFilterTabComponent } from './components/_search-page/search-page-filter-tab/search-page-filter-tab.component';
 import { HeaderBarComponent } from './components/_shared/header-bar/header-bar.component';
 import { RecipeDetailPageComponent } from './components/recipe-detail-page/recipe-detail-page.component';
 import { BarcodeScannerComponent } from './components/barcode-scanner/barcode-scanner.component';
 import { OpenFoodFactsDetailpageComponent } from './components/open-food-facts-detailpage/open-food-facts-detailpage.component';
 import { MarketSearchComponent } from './components/market-search/market-search.component';
+// tslint:disable-next-line:max-line-length
 import { IngredientAdditionalInformationComponent } from './components/_recipe-detail-page/ingredient-additional-information/ingredient-additional-information.component';
 import { LoadingAnimationComponent } from './components/_shared/loading-animation/loading-animation.component';
 import { PopupComponent } from './components/_shared/popup/popup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageGalleryComponent } from './components/_shared/image-gallery/image-gallery.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+// tslint:disable-next-line:max-line-length
 import { CookingStepsDetailPageComponent } from './components/_recipe-detail-page/cooking-steps-detail-page/cooking-steps-detail-page.component';
 import { MultiselectModalComponent } from './components/multiselect-modal/multiselect-modal.component';
 import { InfoModalComponent } from './components/info-modal/info-modal.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { FavoriteRecipeListComponent } from './components/favorite-recipe-list/favorite-recipe-list.component';
+import { RecipeCardComponent } from './components/favorite-recipe-list/recipe-card/recipe-card.component';
+import { ActionModalComponent } from './components/_shared/action-modal/action-modal.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 const appRoutes: Routes = [
   {
-    path: 'new_recipe',
+    path: 'new-recipe',
     component: RecipeComponent,
   },
   {
@@ -59,7 +65,7 @@ const appRoutes: Routes = [
     component: MarketSearchComponent,
   },
   {
-    path: 'recipe-detail-page',
+    path: 'recipe-detail-page/:id',
     component: RecipeDetailPageComponent,
   },
   {
@@ -67,16 +73,20 @@ const appRoutes: Routes = [
     component: CookingStepsDetailPageComponent,
   },
   {
-    path: 'ingredient-information',
+    path: 'ingredient-information/:id',
     component: IngredientAdditionalInformationComponent,
   },
   {
-    path: 'shopping_list',
+    path: 'shopping-list',
     component: ShoppingListComponent,
   },
   {
     path: 'settings',
     component: SettingsComponent,
+  },
+  {
+    path: 'my-favorite-recipes',
+    component: FavoriteRecipeListComponent,
   },
   {
     // this should always be the last entry since otherwise all paths get mapped to the homepage
@@ -110,6 +120,9 @@ const appRoutes: Routes = [
     MultiselectModalComponent,
     InfoModalComponent,
     SettingsComponent,
+    FavoriteRecipeListComponent,
+    RecipeCardComponent,
+    ActionModalComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -118,6 +131,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     BrowserAnimationsModule,
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

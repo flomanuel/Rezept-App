@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Recipe } from '../../entity/recipe';
+import { Recipe } from '../../../entity/recipe';
 
 @Component({
   selector: 'app-recipe-list-element',
@@ -9,7 +9,7 @@ import { Recipe } from '../../entity/recipe';
 export class RecipeListElementComponent implements OnInit {
   @Input() recipe: Recipe;
 
-  private fallbackImagePath = 'assets/fallbackImage.svg';
+  private fallbackImagePath = '../../../assets/fallbackImage.svg';
 
   constructor() {
   }
