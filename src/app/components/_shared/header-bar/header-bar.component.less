@@ -11,6 +11,7 @@ default ingredients flag
 add-recipe-to-shopping-list button
 open ingredient list button
 ingredient list
+add default ingredients opener
 **************************************/
 
 /*************************************
@@ -401,5 +402,25 @@ ingredient list
       line-height: 124%;
       text-align: left;
     }
+  }
+}
+
+/*************************************
+add default ingredients opener
+**************************************/
+#add-default-ingredients-icon {
+  display: block;
+  width: 50px;
+  height: 50px;
+  background: url(../../../../assets/icons/add-24px-black.svg) no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+
+  &:not(:hover) {
+    opacity: 0.6;
+  }
+
+  &.active {
+    transform: rotateZ(45deg);
   }
 }

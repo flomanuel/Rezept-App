@@ -1,3 +1,5 @@
+@import "../../../styles";
+
 .icon {
   font-size: 36pt !important;
 }
@@ -20,6 +22,8 @@
   margin-top: 15px;
   display: flex;
   justify-content: space-around;
+  color: @mainColors_darkGrey;
+  text-decoration: none;
 }
 
 .list_item_settings {
@@ -85,23 +89,6 @@
   border-radius: 10px;
 }
 
-#add-default-ingredients-icon {
-  display: block;
-  text-indent: -9999px;
-  width: 35px;
-  height: 35px;
-  color: #575757;
-  float: right;
-  background: url(../../../assets/icons/add-24px-black.svg) no-repeat center;
-  background-size: 35px 35px;
-}
-
-.add-default-ingredients-button {
-  float: right !important;
-  font-size: 24pt !important;
-  color: #575757;
-}
-
 .back {
   display: block;
   text-indent: -9999px;
@@ -116,13 +103,4 @@
   color: #575757;
   float: left;
   font-size: 32pt !important;
-}
-
-.footer-error-popup {
-  border-width: 1px;
-  border-color: white;
-  background-color: red;
-  position: absolute;
-  bottom: 0;
-  color: white;
 }

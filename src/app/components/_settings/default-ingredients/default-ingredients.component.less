@@ -1,0 +1,244 @@
+/*************************************
+imports
+default ingredients input field
+default ingredients list
+default ingredients list elements
+**************************************/
+
+/*************************************
+imports
+**************************************/
+@import "../../../../styles.less";
+
+/*************************************
+default ingredients input field
+**************************************/
+.add-default-ingredients {
+  position: relative;
+  align-items: stretch;
+  margin-top: 3%;
+  padding: 4% 2%;
+  border-top: 2px solid @mainColors_darkGrey;
+  border-radius: 0 0 11px 11px;
+  background-color: @mainColors_lightGrey;
+}
+
+.add-default-ingredients--ui {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.list-item--amount,
+.list-item--unit,
+.list-item--id,
+.list-item--save {
+  box-sizing: border-box;
+  border: 0;
+  margin: 2px;
+}
+
+.list-item--amount,
+.list-item--unit,
+.list-item--id {
+  @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
+    width: 100%;
+  }
+}
+
+.list-item--amount,
+.list-item--unit,
+.list-item--id__search-field {
+  padding: 5px;
+}
+
+.list-item--id {
+  padding: 0;
+}
+
+.list-item--unit {
+  cursor: pointer;
+}
+
+.list-item--id__search-field {
+  height: 100%;
+  width: 100%;
+  border: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.list-item--id__available-ingredients {
+  z-index: 1;
+  min-height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 6% 2.5% 4% 2.5%;
+  border-radius: 0 0 2% 2%;
+  background-color: @mainColors_lightGrey;
+}
+
+.list-item--id__available-ingredients--closer {
+  position: absolute;
+  top: 0;
+  right: 2%;
+  display: block;
+  background: url(../../../../assets/icons/closing-X.svg) no-repeat center;
+  background-size: contain;
+
+  @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
+    width: 35px;
+    height: 35px;
+  }
+
+  @media screen and (max-width: @width_max-md) and (min-width: @width_min-md) {
+    width: 30px;
+    height: 30px;
+  }
+
+  @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:not(:hover) {
+    opacity: 0.85;
+  }
+}
+
+.list-item--id__available-ingredients--element {
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.55rem;
+  cursor: pointer;
+  padding: 1%;
+  margin: 0;
+
+  &:hover {
+    background-color: @mainColors_mediumGrey;
+    border-radius: 3px;
+  }
+
+  &:first-of-type {
+    border-top: 1px solid @mainColors_darkGrey;
+  }
+}
+
+.add-default-ingredients-button {
+  float: right !important;
+  font-size: 24pt !important;
+  color: #575757;
+}
+
+.list-item--save {
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Roboto", Arial, 'sans-serif';
+  font-style: normal;
+  font-weight: 400;
+
+  @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
+    width: 50px;
+    height: 50px;
+  }
+
+  @media screen and (max-width: @width_max-md) and (min-width: @width_min-md) {
+    width: 100%;
+    height: 50px;
+  }
+
+  @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
+    width: 100%;
+    height: 35px;
+  }
+
+  &:not(:hover) {
+    background-color: @colourButtonSearch;
+  }
+
+  &:hover {
+    background-color: @colourButtonSearch--dark;
+  }
+
+  &:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: block;
+    background-image: url('../../../../assets/icons/save_discette.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+}
+
+.list-item--error-already-default {
+  padding: 0 0 0 2%;
+  margin: 0;
+  width: 100%;
+
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.55rem;
+  color: #ff0000;
+}
+
+/*************************************
+default ingredients list
+**************************************/
+.default-ingredients-list {
+  padding-top: 50px;
+}
+
+/*************************************
+default ingredients list elements
+**************************************/
+.default-ingredients-list__default-ingredient {
+  display: flex;
+  border-bottom: 1px solid @mainColors_lightGrey;
+  cursor: default;
+  position: relative;
+  padding-right: calc(20px + 1%);
+
+  .mainFontFamily();
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.55rem;
+
+  &:first-of-type {
+    border-top: 1px solid @mainColors_lightGrey;
+  }
+}
+
+.default-ingredient--title {
+  padding-right: 2.5%;
+}
+
+.default-ingredient--amount {
+}
+
+.default-ingredient--remove {
+  position: absolute;
+  right: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-image: url("../../../../assets/icons/closing-X.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    cursor: pointer;
+  }
+}

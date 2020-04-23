@@ -34,6 +34,7 @@ import { FavoriteRecipeListComponent } from './components/favorite-recipe-list/f
 import { RecipeCardComponent } from './components/favorite-recipe-list/recipe-card/recipe-card.component';
 import { ActionModalComponent } from './components/_shared/action-modal/action-modal.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { DefaultIngredientsComponent } from './components/_settings/default-ingredients/default-ingredients.component';
 
 const appRoutes: Routes = [
   {
@@ -89,6 +90,10 @@ const appRoutes: Routes = [
     component: FavoriteRecipeListComponent,
   },
   {
+    path: 'default-ingredients',
+    component: DefaultIngredientsComponent,
+  },
+  {
     // this should always be the last entry since otherwise all paths get mapped to the homepage
     path: '**',
     component: HomePageComponent,
@@ -123,6 +128,7 @@ const appRoutes: Routes = [
     FavoriteRecipeListComponent,
     RecipeCardComponent,
     ActionModalComponent,
+    DefaultIngredientsComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

@@ -41,6 +41,10 @@
          *ngIf="!(suggestionContainerActive && ingredientIdList) &&  ingredientsListButton"
          (click)="ingredientsListButtonState = !ingredientsListButtonState">
     </div>
+
+    <div *ngIf="defaultIngredientsUiOpener" (click)="toggleDefaultIngredientsUiStatus()" id="add-default-ingredients-icon"
+         [class.active]="isDefaultIngredientsUiOpened"></div>
+
   </div>
 </div>
 

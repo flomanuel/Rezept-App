@@ -1,0 +1,44 @@
+<app-header-bar [defaultIngredientsUiOpener]="true" [isDefaultIngredientsUiOpened]="isDefaultIngredientsUiOpened"
+                (defaultIngredientsUiOpenedEvent)="onDefaultIngredientsUiOpenedChange()"
+></app-header-bar>
+<div *ngIf="isDefaultIngredientsUiOpened" class="add-default-ingredients">
+  <div class="add-default-ingredients--ui">
+    <p class="list-item--error-already-default" *ngIf="errorIngredientAlreadyDefault">Diese Zutat ist bereits eine Standard Zutat.</p>
+    <div class="list-item--id">
+      <input type="text" name="search-field" class="list-item--id__search-field" placeholder="Zutat ..."
+             [(ngModel)]="ingredientSearchValue"
+             (ngModelChange)="ingredientSuggestionVisible = true"
+             (click)="ingredientSuggestionVisible = true; errorIngredientAlreadyDefault = false"
+             (keydown.escape)="ingredientSuggestionVisible = false">
+      <div *ngIf="ingredientSuggestionVisible && ingredientSearchValue.length > 0"
+           class="list-item--id__available-ingredients">
+        <span class="list-item--id__available-ingredients--closer" (click)="ingredientSuggestionVisible = false"></span>
+        <p class="list-item--id__available-ingredients--element"
+             *ngFor="let ingredientId of this.dataService.getTagsBySearchString(ingredientSearchValue)"
+             (click)="updateNewIngredient(ingredientId); ingredientSuggestionVisible = false">
+          {{translationService.translate(typesMappingService.getRecipeNameById(ingredientId))}}
+        </p>
+      </div>
+    </div>
+    <input class="list-item--amount" type="number" name="list-item--amount" min="0" [(ngModel)]="newIngredient.amount"/>
+    <select class="list-item--unit" [(ngModel)]="newIngredient.volumeUnit">
+      <option value="" disabled selected>kg/ml/...</option>
+      <option *ngFor="let volumeUnit of volumeUnits"
+              value="{{volumeUnit}}">
+        {{volumeUnit}}
+      </option>
+    </select>
+    <div class="list-item--save" (click)="addToDefaultIngredients();"></div>
+  </div>
+</div>
+<div class="default-ingredients-list" *ngIf="defaultIngredients.length > 0">
+  <div class="default-ingredients-list__default-ingredient" *ngFor="let ingredient of defaultIngredients">
+    <p class="default-ingredient--title"><!--
+    -->{{translationService.translate(typesMappingService.getRecipeNameById(ingredient.id))}}<!--
+    --></p>
+    <p class="default-ingredient--amount" *ngIf="ingredient.amount > 0 && ingredient.volumeUnit !== ''"><!--
+    -->({{ingredient.amount}}<span>{{ingredient.volumeUnit}})</span><!--
+    --></p>
+    <span class="default-ingredient--remove" (click)="removeIngredient(ingredient)"></span>
+  </div>
+</div>

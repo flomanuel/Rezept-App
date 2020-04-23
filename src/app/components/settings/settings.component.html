@@ -1,15 +1,11 @@
-<app-header-bar *ngIf="!showImprint && !showDefaultIngredientsSetting && !showOverallSettings"></app-header-bar>
+<app-header-bar *ngIf="!showImprint && !showOverallSettings"></app-header-bar>
 <div class="back_button"><p
-  *ngIf="showImprint || showDefaultIngredientsSetting || showOverallSettings">
+  *ngIf="showImprint || showOverallSettings">
   <i (click)="goBack();"
      class="material-icons back">
   </i>
-  <i (click)="popIngredientsWindowUp()"
-     *ngIf="showDefaultIngredientsSetting"
-     id="add-default-ingredients-icon">
-  </i>
 </div>
-<div *ngIf="!showOverallSettings && !showImprint && !showDefaultIngredientsSetting">
+<div *ngIf="!showOverallSettings && !showImprint">
   <button class="button_setting_list">
     <span (click)="openSettings()"
           class="list_item_settings">
@@ -30,14 +26,9 @@
     </span>
   </button>
   <button class="button_setting_list">
-    <span (click)="openDefaultIngredientsSettings()"
-          class="list_item_settings">
-      <i class="material-icons icon">
-        local_dining
-      </i>
-      <span class="icon_text">
-    Standardzutaten
-      </span>
+    <span class="list_item_settings">
+      <i class="material-icons icon">local_dining</i>
+      <a routerLink="/default-ingredients" class="icon_text">Standardzutaten</a>
     </span>
   </button>
   <button class="button_setting_list">
@@ -73,17 +64,7 @@
 </div>
 
 
-<div *ngIf="showOverallSettings || showImprint || showDefaultIngredientsSetting">
-  <div *ngIf="addNewDefaultIngredient" class="button_setting_list">
-    <div class="list_item_settings">
-      <input (keydown)="onInput()" (keydown.enter)="addDefaultIngredient()" [(ngModel)]="defaultIngredientInput"
-             style="width: 75%;"
-             type="text">
-      <button (click)="addDefaultIngredient()"
-              style="background: none; border-width: 1px; border-color: black; border-style: solid; width: 25%;">+
-      </button>
-    </div>
-  </div>
+<div *ngIf="showOverallSettings || showImprint">
   <div *ngFor="let setting of setupData.settings">
     <button class="button_setting_list">
       <span *ngIf="showImprint">
@@ -97,9 +78,6 @@
 </div>
 
 <div *ngIf="showOverlay" id="overlay">
-  <p style="color:white;">
-    Zurücksetzen
-  </p>
   <div class="overlay_box">
     <p>Wollen sie die App wirklich zurücksetzen?</p>
 
@@ -109,26 +87,3 @@
     </div>
   </div>
 </div>
-
-<div *ngIf="showDefaultIngredientsMenu">
-
-  <p style="color:white;">
-    Zurücksetzen
-  </p>
-  <div class="overlay_box">
-    <p>Wollen sie diese Zutat von ihrer Liste löschen?</p>
-    <p>{{ingredientAt}}</p>
-    <div>
-      <button (click)="showDefaultIngredientsMenu = false; removeDefaultIngredient(ingredientAt)"
-              class="overlay_box_button"> Ja
-      </button>
-      <button (click)="showDefaultIngredientsMenu = false;" class="overlay_box_button"> Nein</button>
-    </div>
-  </div>
-</div>
-
-<footer *ngIf="showAlreadyInDefaultIngredientsListError">
-  <div class="footer-error-popup">
-    Die eingegebene Zutat ist entweder schon in der Liste vorhanden oder keine gültige Zutat.
-  </div>
-</footer>
