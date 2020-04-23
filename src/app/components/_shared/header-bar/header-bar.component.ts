@@ -23,6 +23,7 @@ export class HeaderBarComponent implements OnInit {
   @Input() shoppingListButton: boolean;
   @Input() defaultIngredientsButton: boolean;
   @Input() opacity = 1;
+  @Input() position = 'sticky';
   @Input() width = 'initial';
   @Input() background = true;
   @Input() allowElementsBehind = false;
