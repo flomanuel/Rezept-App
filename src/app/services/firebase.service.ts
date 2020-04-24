@@ -53,6 +53,7 @@ export class FirebaseService {
 
       this.searchRecipesByIngredients(filteredIngredientIds).then((collection) => {
           collection.valueChanges().subscribe((recipes: Recipe[]) => {
+              this.activeSearch = true;
               if (filteredIngredientIds.length > 1) {
                 this.filterSearchResultByIdList(filteredIngredientIds, 'ingredients', recipes);
               } else {

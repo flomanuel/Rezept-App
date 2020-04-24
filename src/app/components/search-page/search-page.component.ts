@@ -11,9 +11,11 @@ import { FridgeService } from '../../services/fridge.service';
   styleUrls: ['./search-page.component.less'],
 })
 export class SearchPageComponent implements OnInit {
-  private ingredientIds: number[] = [];
+  private userSelectedIngredientIds: number[] = [];
+  private fridgeIds: number[] = [];
   private tabElements = { regionIds: [], categoryIds: [] };
   private ingredients = ingredients;
+  private fridgeFlagActive = false;
 
   constructor(private dataService: DataService, private translationService: TranslationService,
               private firebaseService: FirebaseService, private fridgeService: FridgeService) {
@@ -32,11 +34,15 @@ export class SearchPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  get fullListIngredientIds(): number[] {
+    return [...this.userSelectedIngredientIds, ...this.fridgeIds];
+  }
+
   removeRecipeId(id: number) {
-    if (typeof this.ingredientIds !== 'undefined' && typeof id !== 'undefined') {
-      const index = this.ingredientIds.indexOf(id);
+    if (typeof this.userSelectedIngredientIds !== 'undefined' && typeof id !== 'undefined') {
+      const index = this.userSelectedIngredientIds.indexOf(id);
       if (index >= 0) {
-        this.ingredientIds.splice(index, 1);
+        this.userSelectedIngredientIds.splice(index, 1);
       }
     }
   }
@@ -45,11 +51,12 @@ export class SearchPageComponent implements OnInit {
   }
 
   onFridgeStatusChange($event: boolean) {
+    this.fridgeFlagActive = $event;
     if ($event) {
-      const idList: number[] = this.fridgeService.fridgeIngredientsById;
-      this.firebaseService.filterSearchResultByIdList(idList, 'ingredients');
+      this.fridgeIds = this.fridgeService.fridgeIngredientsById;
     } else {
-      this.firebaseService.searchRecipesByParams(this.ingredientIds);
+      this.fridgeIds = [];
     }
+    this.firebaseService.searchRecipesByParams(this.fullListIngredientIds);
   }
 }
