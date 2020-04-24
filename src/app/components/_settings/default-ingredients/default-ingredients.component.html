@@ -23,14 +23,14 @@
     <div class="list-item--save" (click)="addToDefaultIngredients();"></div>
   </div>
 </div>
-<div class="default-ingredients-list" *ngIf="defaultIngredients.length > 0">
-  <div class="default-ingredients-list__default-ingredient" *ngFor="let ingredient of defaultIngredients">
+<div class="default-ingredients-list" *ngIf="defaultIngredientService.defaultIngredients.length > 0">
+  <div class="default-ingredients-list__default-ingredient" *ngFor="let ingredient of defaultIngredientService.defaultIngredients">
     <p class="default-ingredient--title"><!--
     -->{{translationService.translate(typesMappingService.getRecipeNameById(ingredient.id))}}<!--
     --></p>
     <p class="default-ingredient--amount" *ngIf="ingredient.amount > 0 && ingredient.volumeUnit !== ''"><!--
     -->({{ingredient.amount}}<span>{{ingredient.volumeUnit}})</span><!--
     --></p>
-    <span class="default-ingredient--remove" (click)="removeIngredient(ingredient)"></span>
+    <span class="default-ingredient--remove" (click)="defaultIngredientService.removeIngredient(ingredient)"></span>
   </div>
 </div>

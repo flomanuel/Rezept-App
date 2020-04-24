@@ -64,6 +64,7 @@ popup "ingredient added"
   border: 2px solid #f2f2f2;
   border-radius: 5px;
   animation: 1750ms ease-in-out move-popup;
+  pointer-events: none;
 }
 
 /*************************************
@@ -198,6 +199,18 @@ information-components
     font-weight: 700;
   }
 
+  tr.available td.information-components__recipe-list--title {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  tr:not(.available) td.information-components__recipe-list--title {
+    cursor: default;
+  }
+
   tr + tr > td {
     padding-top: 10px;
   }
@@ -218,12 +231,7 @@ information-components
     }
 
     &.information-components__recipe-list--title {
-      cursor: pointer;
       width: 45%;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
 
     &:first-child {

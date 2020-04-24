@@ -10,6 +10,7 @@ import { DataService } from '../../services/data.service';
 import { Ingredient } from '../../entity/ingredient.class';
 import { FirebaseService } from '../../services/firebase.service';
 import { FridgeService } from '../../services/fridge.service';
+import { DefaultIngredientService } from '../../services/default-ingredient.service';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -31,7 +32,8 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
               private firebaseService: FirebaseService,
               private router: Router,
               private routerParams: ActivatedRoute,
-              private fridgeService: FridgeService) {
+              private fridgeService: FridgeService,
+              private defaultIngredientService: DefaultIngredientService) {
   }
 
   async ngOnInit() {
@@ -57,21 +59,12 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
   }
 
   isIngredientAvailable(ingredient: Ingredient): boolean {
-    return this.isIngredientInFridge(ingredient) || this.isIngredientDefaultIngredient(ingredient);
-  }
-
-  isIngredientInFridge(ingredient: Ingredient): boolean {
-    let ingredientAvailable = false;
-    this.dataService.fridgeIngredients.forEach(fridgeIngredient => {
-      if (!ingredientAvailable && fridgeIngredient.id === ingredient.id) {
-        ingredientAvailable = true;
-      }
-    });
-    return ingredientAvailable;
-  }
-
-  isIngredientDefaultIngredient(ingredient: Ingredient): boolean {
-    return false;
+    const availabilityStatus = this.fridgeService.isIngredientInFridge(
+      ingredient) || this.defaultIngredientService.isIngredientDefaultIngredient(ingredient,
+    );
+    // todo: implement check in shopping list to only display ingredients that are not available
+    ingredient.done = availabilityStatus;
+    return availabilityStatus;
   }
 
   toggleFavouriteRecipe() {
@@ -111,13 +104,15 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
   }
 
   addIngredientToPrivateShoppingList(ingredient: Ingredient) {
-    this.localStorageService.addIngredientToPrivateShoppingList(ingredient);
-    if (!this.ingredientAddedPrivateShoppingList) {
-      this.ingredientAddedPrivateShoppingList = true;
+    if (this.isIngredientAvailable(ingredient)) {
+      this.localStorageService.addIngredientToPrivateShoppingList(ingredient);
+      if (!this.ingredientAddedPrivateShoppingList) {
+        this.ingredientAddedPrivateShoppingList = true;
 
-      setTimeout(() => {
-        this.ingredientAddedPrivateShoppingList = false;
-      }, 1750);
+        setTimeout(() => {
+          this.ingredientAddedPrivateShoppingList = false;
+        }, 1750);
+      }
     }
   }
 }
