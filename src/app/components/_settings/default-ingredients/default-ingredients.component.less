@@ -15,22 +15,20 @@ default ingredients input field
 **************************************/
 .add-default-ingredients {
   position: relative;
-  align-items: stretch;
   margin-top: 3%;
-  padding: 4% 2%;
   border-top: 2px solid @mainColors_darkGrey;
-  border-radius: 0 0 11px 11px;
-  background-color: @mainColors_lightGrey;
 }
 
 .add-default-ingredients--ui {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  padding: 4% 2%;
+  box-sizing: border-box;
+  border-radius: 0 0 11px 11px;
+  background-color: @mainColors_lightGrey;
 }
 
-.list-item--amount,
-.list-item--unit,
 .list-item--id,
 .list-item--save {
   box-sizing: border-box;
@@ -38,26 +36,16 @@ default ingredients input field
   margin: 2px;
 }
 
-.list-item--amount,
-.list-item--unit,
 .list-item--id {
-  @media screen and (max-width: @width_max-sm) and (min-width: @width_min-sm) {
-    width: 100%;
-  }
+  width: 100%;
 }
 
-.list-item--amount,
-.list-item--unit,
 .list-item--id__search-field {
   padding: 5px;
 }
 
 .list-item--id {
   padding: 0;
-}
-
-.list-item--unit {
-  cursor: pointer;
 }
 
 .list-item--id__search-field {
@@ -141,7 +129,7 @@ default ingredients input field
   font-weight: 400;
 
   @media screen and (max-width: @width_max-xl) and (min-width: @width_min-xl) {
-    width: 50px;
+    width: 100%;
     height: 50px;
   }
 

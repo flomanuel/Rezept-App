@@ -3,7 +3,6 @@ import { localStorageKeys } from '../../../../config';
 import { LocalStorageService } from '../../../services/local-storage.service';
 import { Ingredient } from '../../../entity/ingredient.class';
 import { TranslationService } from '../../../services/translation.service';
-import { VolumeUnit } from '../../../types';
 import { TypesMappingService } from '../../../services/types-mapping.service';
 import { DataService } from '../../../services/data.service';
 
@@ -20,7 +19,6 @@ export class DefaultIngredientsComponent implements OnInit {
   private defaultIngredients: Ingredient[];
   private ingredientSuggestionVisible = false;
   private errorIngredientAlreadyDefault = false;
-  volumeUnits: string[] = Object.values(VolumeUnit);
 
   constructor(private localStorageService: LocalStorageService, private translationService: TranslationService,
               private typesMappingService: TypesMappingService, private dataService: DataService) {
@@ -37,13 +35,15 @@ export class DefaultIngredientsComponent implements OnInit {
   }
 
   private addToDefaultIngredients() {
-    if (this.newIngredient.id >= 0 && !this.isIngredientDefaultIngredient(this.newIngredient)) {
-      this.defaultIngredients.push(this.newIngredient);
-      this.localStorageService.setItem(localStorageKeys.DEFAULT_INGREDIENTS, this.defaultIngredients);
-      this.ingredientSearchValue = '';
-      this.newIngredient = new Ingredient('', 0, '', -1);
-    } else {
-      this.errorIngredientAlreadyDefault = true;
+    if (this.newIngredient.id >= 0) {
+      if (!this.isIngredientDefaultIngredient(this.newIngredient)) {
+        this.defaultIngredients.push(this.newIngredient);
+        this.localStorageService.setItem(localStorageKeys.DEFAULT_INGREDIENTS, this.defaultIngredients);
+        this.ingredientSearchValue = '';
+        this.newIngredient = new Ingredient('', 0, '', -1);
+      } else {
+        this.errorIngredientAlreadyDefault = true;
+      }
     }
   }
 
