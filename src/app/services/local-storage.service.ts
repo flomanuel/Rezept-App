@@ -1,8 +1,8 @@
-import {Recipe} from '../entity/recipe';
-import {Injectable} from '@angular/core';
-import {localStorageKeys} from '../../config';
-import {Ingredient} from '../entity/ingredient.class';
-import {VolumeUnit} from '../types';
+import { Recipe } from '../entity/recipe';
+import { Injectable } from '@angular/core';
+import { localStorageKeys } from '../../config';
+import { Ingredient } from '../entity/ingredient.class';
+import { VolumeUnit } from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -113,9 +113,30 @@ export class LocalStorageService {
     const temporaryList = this.getAllIngredientsFilteredShoppingList();
     temporaryList.forEach(ingredientInList => {
       if (ingredientInList.customTitle === ingredient.customTitle) {
-        ingredientInList.done = ! ingredient.done;
+        ingredientInList.done = !ingredient.done;
       }
     });
     this.setItem(localStorageKeys.ALL_INGREDIENTS_SHOPPING_LIST, temporaryList);
+  }
+
+  addToDefaultIngredients(id: number) {
+    const defaultIngredients = this.getItem(localStorageKeys.DEFAULT_INGREDIENTS);
+    defaultIngredients.push(id);
+    this.setItem(localStorageKeys.DEFAULT_INGREDIENTS, defaultIngredients);
+  }
+
+  removeFromDefaultIngredients(id: number) {
+    if (this.getItem(localStorageKeys.DEFAULT_INGREDIENTS) !== null) {
+      const defaultIngredients = this.getItem(localStorageKeys.DEFAULT_INGREDIENTS);
+      const index = defaultIngredients.indexOf(id);
+      if (index >= 0) {
+        defaultIngredients.splice(index, 1);
+      }
+      this.setItem(localStorageKeys.DEFAULT_INGREDIENTS, defaultIngredients);
+    }
+  }
+
+  reset() {
+    localStorage.clear();
   }
 }

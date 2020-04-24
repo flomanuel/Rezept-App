@@ -1,7 +1,8 @@
 <div *ngIf="recipe != undefined" class="card">
   <div class="card-image">
-    <img *ngIf="recipe.images.length > 0" src="{{ recipe.images[0] }}">
-    <img *ngIf="recipe.images.length == 0" src="src/assets/fallbackImage.svg">
+    <img *ngIf="recipe.images.length > 0" src="{{ recipe.images[0] }}" alt="Bild von dem Gericht.">
+    <img *ngIf="recipe.images.length == 0"
+         src="../../../../assets/objects/fallbackImage.svg" alt="Platzhalter für Bild von dem Gericht.">
     <div class="allergens">
       <span>Allergene: {{ recipe.allergens.join(', ') }}</span>
     </div>

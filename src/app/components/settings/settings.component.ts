@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-settings',
@@ -7,17 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
   showOverallSettings: boolean;
-  showDefaultIngredientsSetting: boolean;
   showImprint: boolean;
   setupData: object;
   showOverlay: boolean;
 
-  constructor() {
+  constructor(private localStorageService: LocalStorageService) {
   }
 
   ngOnInit() {
     this.showOverallSettings = false;
-    this.showDefaultIngredientsSetting = false;
     this.showImprint = false;
   }
 
@@ -57,45 +56,12 @@ export class SettingsComponent implements OnInit {
     this.showOverallSettings = true;
   }
 
-  openDefaultIngredientsSettings() {
-    this.setupData = {
-      settings: [
-        {
-          text: 'Salz',
-          function: () => {
-            console.log('Salz');
-            return 0;
-          },
-        },
-        {
-          text: 'Pfeffer',
-          function: () => {
-            console.log('Pfeffer');
-            return 1;
-          },
-        },
-        {
-          text: 'Milch',
-          function: () => {
-            console.log('Milch');
-            return 1;
-          },
-        },
-        {
-          text: 'Gewürz XY',
-          function: () => {
-            console.log('Gewürz XY');
-            return 1;
-          },
-        },
-      ],
-    };
-    this.showDefaultIngredientsSetting = true;
+  showReset() {
+    this.showOverlay = true;
   }
 
   reset() {
-    console.log('reset');
-    this.showOverlay = true;
+    this.localStorageService.reset();
   }
 
   openImprint() {
@@ -113,6 +79,7 @@ export class SettingsComponent implements OnInit {
           text: 'Meta-Sattler-Straße. 33 28217 Bremen',
           icon: 'place',
           function: () => {
+            // Todo open in googleMaps?
             return 0;
           },
         },
@@ -120,6 +87,7 @@ export class SettingsComponent implements OnInit {
           text: 'https://www.szut.de',
           icon: 'web',
           function: () => {
+            window.location.href = 'https://www.szut.de';
             return 0;
           },
         },
@@ -127,6 +95,7 @@ export class SettingsComponent implements OnInit {
           text: '368@schulverwaltung.bremen.de',
           icon: 'email',
           function: () => {
+            // Todo open in email app?
             return 0;
           },
         },
@@ -136,11 +105,16 @@ export class SettingsComponent implements OnInit {
 
   goBack() {
     this.showOverallSettings = false;
-    this.showDefaultIngredientsSetting = false;
     this.showImprint = false;
   }
 
-  popIngredientsWindowUp() {
-    console.log('addDefaultIngredients');
+  removeItemFromArrayByValue(arr, value) {
+    return arr.filter((ele) => {
+      return ele !== value;
+    });
+  }
+
+  onInput() {
+    // Todo suggest an ingredient?
   }
 }

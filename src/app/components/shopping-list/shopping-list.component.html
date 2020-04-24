@@ -1,8 +1,7 @@
 <app-header-bar></app-header-bar>
 <div class="shopping-list">
-  <h2>Einkaufsliste</h2>
-  <div>
-    <form *ngIf="recipeFilter">
+  <div class="control-head">
+    <form *ngIf="recipeFilter" class="control-head--add-recipe">
       <label>
         <input placeholder="Zutat hinzufügen" type="text" name="name" [(ngModel)]="privateIngredient.customTitle">
       </label>
@@ -12,7 +11,7 @@
        class="filter-button material-icons md-48" style="float: right" (click)="toggleFilter()">filter_list</i>
   </div>
 
-  <div *ngIf="!recipeFilter">
+  <div *ngIf="!recipeFilter" class="recipe-list-wrapper">
     <h3>Rezepte</h3>
     <table *ngIf="recipeFilteredShoppingLists.length === 0">
       <tr class="clear-row">Keine Rezepte ausgewählt.</tr>
@@ -22,27 +21,24 @@
       <table>
         <tr *ngFor="let ingredient of recipeShoppingList.ingredients">
           <td>{{ingredient.customTitle}}</td>
-          <td class="td-second">{{ingredient.amount}}</td>
-          <td class="td-second">{{ingredient.volumeUnit}}</td>
+          <td class="td-second">{{ingredient.amount}} {{ingredient.volumeUnit}}</td>
         </tr>
       </table>
     </div>
   </div>
 
-  <div *ngIf="recipeFilter">
-    <h3>Einkaufsliste</h3>
+  <div *ngIf="recipeFilter" class="ingredient-list-wrapper">
     <table>
       <tr class="clear-row" *ngIf="allIngredientsFilteredShoppingList.length === 0">Keine Rezepte ausgewählt.</tr>
       <tr [class.item-checked]="ingredient.done" *ngFor="let ingredient of allIngredientsFilteredShoppingList"
           (click)="toggleIngredient(localStorageKey.SELECTED_RECIPES, ingredient)">
         <td>{{ingredient.customTitle}}</td>
-        <td class="td-second">{{ingredient.amount}}</td>
-        <td class="td-second">{{ingredient.volumeUnit}}</td>
+        <td class="td-second">{{ingredient.amount}} {{ingredient.volumeUnit}}</td>
       </tr>
     </table>
   </div>
 
-  <div *ngIf="recipeFilter">
+  <div *ngIf="recipeFilter" class="additional-ingredients-wrapper">
     <h4>Zuätzliche Produkte</h4>
     <table>
       <tr class="clear-row" *ngIf="privateShoppingList.length === 0">Keine zuätzlichen Produkte eingegeben.</tr>
@@ -57,12 +53,10 @@
   </div>
 
   <div class="sharing-button">
-    <div *ngIf="recipeFilter" align="center">
-      <a href="https://api.whatsapp.com/send?text={{sharingString}}" target="_blank">
-        <img src="../../../assets/icons/whatsapp_share.svg" width="50px" alt="Whatsapp">
-      </a>
+    <div *ngIf="recipeFilter" align="center" class="sharing-button--whatsapp">
+      <a href="https://api.whatsapp.com/send?text={{sharingString}}" target="_blank"></a>
     </div>
-    <div align="center" style="margin-top: 10px">
+    <div align="center" style="margin-top: 10px" class="sharing-button--market-search">
       <a routerLink="/markets">
         <img src="../../../assets/icons/markets-around.svg" alt="Markets">
       </a>

@@ -11,6 +11,7 @@ default ingredients flag
 add-recipe-to-shopping-list button
 open ingredient list button
 ingredient list
+add default ingredients opener
 **************************************/
 
 /*************************************
@@ -24,7 +25,6 @@ header
 #header {
   z-index: 2;
   display: flex;
-  position: sticky;
   top: 0;
   height: 10%;
   width: 100%;
@@ -238,7 +238,7 @@ default ingredients flag
 
   .mainFontFamily();
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   line-height: 1.25em;
   text-align: center;
 
@@ -259,13 +259,13 @@ default ingredients flag
 
   &:not(:hover) {
     color: #B5B5B5;
-    background: rgba(109, 109, 109, 0.08);
+    background: rgba(159, 159, 159, 0.08);
     border: 2px solid #CACACA;
   }
 
   &:hover:not(.selected) {
     color: rgba(0, 0, 0, 0.64);
-    background: rgba(130, 130, 130, 0.24);
+    background: rgba(152, 152, 152, 0.24);
     border: 2px solid #989898;
   }
 
@@ -401,5 +401,25 @@ ingredient list
       line-height: 124%;
       text-align: left;
     }
+  }
+}
+
+/*************************************
+add default ingredients opener
+**************************************/
+#add-default-ingredients-icon {
+  display: block;
+  width: 50px;
+  height: 50px;
+  background: url(../../../../assets/icons/add-24px-black.svg) no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+
+  &:not(:hover) {
+    opacity: 0.6;
+  }
+
+  &.active {
+    transform: rotateZ(45deg);
   }
 }
