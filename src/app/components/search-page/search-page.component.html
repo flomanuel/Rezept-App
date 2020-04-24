@@ -1,28 +1,27 @@
 <div class="mainPage">
-  <app-header-bar [ingredientIdList]="ingredientIds"
+  <app-header-bar [ingredientIdList]="userSelectedIngredientIds"
                   [fridgeFlag]="true"
                   [shoppingListButton]="true"
                   [defaultIngredientsButton]="true"
-                  (ingredientListChange)="firebaseService.searchRecipesByParams(this.ingredientIds)"
+                  (ingredientListChange)="firebaseService.searchRecipesByParams(fullListIngredientIds)"
                   (defaultIngredientsEvent)="onDefaultIngredientsChange($event)"
                   (fridgeStatusEvent)="onFridgeStatusChange($event)"
   ></app-header-bar>
   <div id="contentArea" class="grid-container noExtraColumns noRows">
-    <div class="tag-list" *ngIf="ingredientIds.length > 0">
-      <p *ngFor="let suggestion of ingredientIds" class="tag-list__element"
-         (click)="removeRecipeId(suggestion); firebaseService.searchRecipesByParams(this.ingredientIds)">
+    <div class="tag-list" *ngIf="userSelectedIngredientIds.length > 0">
+      <p *ngFor="let suggestion of userSelectedIngredientIds" class="tag-list__element"
+         (click)="removeRecipeId(suggestion); firebaseService.searchRecipesByParams(fullListIngredientIds)">
         {{translationService.translate(ingredients[suggestion])}}
       </p>
     </div>
-    <app-search-page-filter-tab *ngIf="ingredientIds.length > 0" [tabElements]="tabElements"
-                                (regionSelection)="this.firebaseService.regionIds = $event; firebaseService.searchRecipesByParams(this.ingredientIds)"
-                                (categorySelection)="this.firebaseService.categoryIds = $event; firebaseService.searchRecipesByParams(this.ingredientIds)">
+    <app-search-page-filter-tab *ngIf="userSelectedIngredientIds.length > 0 || fridgeFlagActive" [tabElements]="tabElements"
+                                (regionSelection)="this.firebaseService.regionIds = $event; firebaseService.searchRecipesByParams(fullListIngredientIds)"
+                                (categorySelection)="this.firebaseService.categoryIds = $event; firebaseService.searchRecipesByParams(fullListIngredientIds)">
 
     </app-search-page-filter-tab>
     <div class="recipe-list">
       <img class="recipe-list__background" alt="Hintergrundbild"
            src="../../../assets/icons/chef's-hat.svg"/>
-      {{ingredientIds}}
       <ng-container
         *ngIf="firebaseService.searchResult.length > 0 && !firebaseService.activeSearch; then recipes else loading"></ng-container>
       <ng-template #recipes>
@@ -30,12 +29,15 @@
                                  [recipe]="recipe">
         </app-recipe-list-element>
       </ng-template>
-      <ng-template *ngIf="ingredientIds.length > 0" #loading>
-        <app-loading-animation *ngIf="firebaseService.activeSearch; else noResults"
-                               [description]="'Ergebnisse werden geladen ...'"></app-loading-animation>
-        <ng-template #noResults>
-          <div class="recipe-list__noResult">Es konnten keine Rezepte gefunden werden.</div>
-        </ng-template>
+      <ng-template #loading>
+        <ng-container *ngIf="fullListIngredientIds.length > 0">
+          <app-loading-animation *ngIf="firebaseService.activeSearch; else noResults"
+                                 [description]="'Ergebnisse werden geladen ...'">
+          </app-loading-animation>
+          <ng-template #noResults>
+            <div class="recipe-list__noResult">Es konnten keine Rezepte gefunden werden.</div>
+          </ng-template>
+        </ng-container>
       </ng-template>
     </div>
   </div>
