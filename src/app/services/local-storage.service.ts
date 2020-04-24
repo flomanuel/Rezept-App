@@ -118,4 +118,25 @@ export class LocalStorageService {
     });
     this.setItem(localStorageKeys.ALL_INGREDIENTS_SHOPPING_LIST, temporaryList);
   }
+
+  addToDefaultIngredients(id: number) {
+    const defaultIngredients = this.getItem(localStorageKeys.DEFAULT_INGREDIENTS);
+    defaultIngredients.push(id);
+    this.setItem(localStorageKeys.DEFAULT_INGREDIENTS, defaultIngredients);
+  }
+
+  removeFromDefaultIngredients(id: number) {
+    if (this.getItem(localStorageKeys.DEFAULT_INGREDIENTS) !== null) {
+      const defaultIngredients = this.getItem(localStorageKeys.DEFAULT_INGREDIENTS);
+      const index = defaultIngredients.indexOf(id);
+      if (index >= 0) {
+        defaultIngredients.splice(index, 1);
+      }
+      this.setItem(localStorageKeys.DEFAULT_INGREDIENTS, defaultIngredients);
+    }
+  }
+
+  reset() {
+    localStorage.clear();
+  }
 }

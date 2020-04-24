@@ -16,4 +16,5 @@ export enum localStorageKeys {
   PRIVATE_SHOPPING_LIST = 'private-shopping-list',
   ALL_INGREDIENTS_SHOPPING_LIST = 'all-ingredients-shopping-list',
   FRIDGE_INGREDIENTS = 'fridge-ingredients',
+  DEFAULT_INGREDIENTS = 'default-ingredients'
 }
