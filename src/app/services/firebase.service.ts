@@ -78,8 +78,10 @@ export class FirebaseService {
     }
   }
 
-  /* todo: replace &&-filtering for regions with ||-filtering for regions.
-      Since in my opinion it makes more sense to search for german OR italian soups instead of german-italian soups. */
+  // todo: replace &&-filtering with ||-filtering (for default ingredients)
+  // todo: replace &&-filtering with ||-filtering (for fridge content)
+  /* todo: replace &&-filtering with ||-filtering (for regions.)
+        --> Since in my opinion it makes more sense to search for german OR italian soups instead of german-italian soups. */
   public filterSearchResultByIdList(filteredIds: number[], type: RecipeIdListTypes, recipes: Recipe[] = this.searchResult) {
     this.searchResult = recipes.reduce((result: Recipe[], currentRecipe: Recipe) => {
       let idList: number[];

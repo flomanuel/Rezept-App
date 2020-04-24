@@ -13,7 +13,7 @@ import { TranslationService } from '../../../services/translation.service';
 })
 export class HeaderBarComponent implements OnInit {
 
-  @Output() defaultIngredientsEvent = new EventEmitter<boolean>();
+  @Output() defaultIngredientsStatusEvent = new EventEmitter<boolean>();
   @Output() ingredientListChange = new EventEmitter<boolean>();
   @Output() fridgeStatusEvent = new EventEmitter<boolean>();
   @Output() defaultIngredientsUiOpenedEvent = new EventEmitter<boolean>();
@@ -73,7 +73,7 @@ export class HeaderBarComponent implements OnInit {
 
   toggleIngredientsStatus(): void {
     this.defaultIngredientsStatus = !this.defaultIngredientsStatus;
-    this.defaultIngredientsEvent.emit(this.defaultIngredientsStatus);
+    this.defaultIngredientsStatusEvent.emit(this.defaultIngredientsStatus);
   }
 
   toggleFridgeStatus(emitEvent: boolean = false): void {
