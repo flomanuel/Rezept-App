@@ -76,7 +76,7 @@ export class LocalStorageService {
     let privateShoppingList = this.getPrivateShoppingList();
     const temporaryList = [];
     privateShoppingList.forEach(ingredientInList => {
-      if (ingredientInList.label !== ingredient.label) {
+      if (ingredientInList.customTitle !== ingredient.customTitle) {
         temporaryList.push(ingredientInList);
       }
     });
@@ -92,10 +92,10 @@ export class LocalStorageService {
     const newIngredientsList = [];
     const oldIngredients = this.getAllIngredientsFilteredShoppingList();
     ingredientList.forEach(ingredient => {
-      let equalOldIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1);
+      let equalOldIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, '');
       let hasEqual = false;
       oldIngredients.forEach(ingredientInList => {
-        if (ingredientInList.label === ingredient.label) {
+        if (ingredientInList.customTitle === ingredient.customTitle) {
           hasEqual = true;
           equalOldIngredient = ingredientInList;
         }
@@ -112,7 +112,7 @@ export class LocalStorageService {
   toggleIngredientInAllIngredientList(ingredient: Ingredient) {
     const temporaryList = this.getAllIngredientsFilteredShoppingList();
     temporaryList.forEach(ingredientInList => {
-      if (ingredientInList.label === ingredient.label) {
+      if (ingredientInList.customTitle === ingredient.customTitle) {
         ingredientInList.done = !ingredient.done;
       }
     });

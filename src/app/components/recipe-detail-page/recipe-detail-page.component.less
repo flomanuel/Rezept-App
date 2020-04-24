@@ -1,6 +1,8 @@
 /*************************************
 imports
 basic setup
+keyframes for animations
+popup "ingredient added"
 headline
 information-components
 short description
@@ -28,6 +30,44 @@ basic setup
 }
 
 /*************************************
+keyframes for animations
+**************************************/
+@keyframes move-popup {
+  0% {
+    transform: translate(-50%, -101%);
+    top: 0;
+  }
+  15% {
+    transform: translate(-50%, 0);
+    top: 1%;
+  }
+  85% {
+    transform: translate(-50%, 0);
+    top: 1%;
+  }
+  100% {
+    transform: translate(-50%, -101%);
+    top: 0;
+  }
+}
+
+/*************************************
+popup "ingredient added"
+**************************************/
+.ingredient-added-popup {
+  z-index: 3;
+  position: fixed;
+  width: 50%;
+  left: 50%;
+  padding: 5px;
+  background-color: @mainColors_white;
+  border: 2px solid #f2f2f2;
+  border-radius: 5px;
+  animation: 1750ms ease-in-out move-popup;
+  pointer-events: none;
+}
+
+/*************************************
 headline
 **************************************/
 .headline {
@@ -47,6 +87,7 @@ headline
 
 
 .headline__cookingTime {
+  white-space: nowrap;
   .mainFontFamily();
   font-size: 12px;
   line-height: 124%;
@@ -145,9 +186,29 @@ information-components
     }
   }
 
-  tr:not(.inFridge) {
+  tr:after {
+    content: '';
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid @mainColors_lightGrey;
+    padding-top: 5px;
+  }
+
+  tr:not(.available) {
     color: red;
     font-weight: 700;
+  }
+
+  tr.available td.information-components__recipe-list--title {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  tr:not(.available) td.information-components__recipe-list--title {
+    cursor: default;
   }
 
   tr + tr > td {
@@ -156,12 +217,22 @@ information-components
 
   td {
     display: inline-table;
+    position: relative;
     .mainFontFamily();
     font-style: normal;
     font-weight: 400;
     font-size: 1rem;
     line-height: 124%;
-    width: 45%;
+
+    &:not(.information-components__recipe-list--title) {
+      float: right;
+      margin-right: 1.4rem;
+      cursor: default;
+    }
+
+    &.information-components__recipe-list--title {
+      width: 45%;
+    }
 
     &:first-child {
       text-align: left;
@@ -171,7 +242,7 @@ information-components
       text-align: right;
     }
 
-    &.additionalInfo {
+    &.additionalInfo:not(.information-components__recipe-list--title) {
       cursor: pointer;
 
       &:not(:hover):after {

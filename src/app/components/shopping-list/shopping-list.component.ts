@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Ingredient } from '../../entity/ingredient.class';
 import { DataService } from '../../services/data.service';
 import { VolumeUnit } from '../../types';
-import {LocalStorageService} from '../../services/local-storage.service';
-import {localStorageKeys} from '../../../config';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { localStorageKeys } from '../../../config';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class ShoppingListComponent implements OnInit {
   localStorageKey = localStorageKeys;
 
   constructor(private dataService: DataService, localStorageService: LocalStorageService) {
-    this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1);
+    this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, '');
     this.recipeFilter = true;
     this.localStorageService = localStorageService;
   }
@@ -41,9 +41,9 @@ export class ShoppingListComponent implements OnInit {
   }
 
   addNewPrivateIngredient() {
-    if (this.privateIngredient.label !== '') {
+    if (this.privateIngredient.customTitle !== '') {
       this.dataService.addItemToPrivateShoppingList(this.privateIngredient);
-      this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1);
+      this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, '');
       this.createSharingString();
     }
   }

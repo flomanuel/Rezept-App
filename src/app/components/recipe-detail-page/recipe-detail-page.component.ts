@@ -7,8 +7,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IngredientInfoService } from '../../services/ingredient-info.service';
 import { TranslationService } from '../../services/translation.service';
 import { DataService } from '../../services/data.service';
+import { Ingredient } from '../../entity/ingredient.class';
 import { FirebaseService } from '../../services/firebase.service';
 import { FridgeService } from '../../services/fridge.service';
+import { DefaultIngredientService } from '../../services/default-ingredient.service';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -19,6 +21,7 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
   private missingIngredients = 0;
   private recipe: Recipe;
+  private ingredientAddedPrivateShoppingList = false;
 
   constructor(private db: AngularFirestore,
               private typesMapper: TypesMappingService,
@@ -29,7 +32,8 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
               private firebaseService: FirebaseService,
               private router: Router,
               private routerParams: ActivatedRoute,
-              private fridgeService: FridgeService) {
+              private fridgeService: FridgeService,
+              private defaultIngredientService: DefaultIngredientService) {
   }
 
   async ngOnInit() {
@@ -39,6 +43,12 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
       this.firebaseService.getRecipeWithId(parseInt(params.id, 10)).then(collection => {
         collection.valueChanges().subscribe(recipe => {
           this.recipe = recipe[0];
+
+          this.recipe.ingredients.forEach((ingredient) => {
+            if (!this.isIngredientAvailable(ingredient)) {
+              this.missingIngredients++;
+            }
+          });
         });
       });
     });
@@ -46,6 +56,15 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     document.body.style.margin = '8px';
+  }
+
+  isIngredientAvailable(ingredient: Ingredient): boolean {
+    const availabilityStatus = this.fridgeService.isIngredientInFridge(
+      ingredient) || this.defaultIngredientService.isIngredientDefaultIngredient(ingredient,
+    );
+    // todo: implement check in shopping list to only display ingredients that are not available
+    ingredient.done = availabilityStatus;
+    return availabilityStatus;
   }
 
   toggleFavouriteRecipe() {
@@ -77,10 +96,23 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  showIngredientInfo(infoID: number) {
-    if (infoID > 0) {
+  showIngredientInfo(additionalInfo: boolean, infoID: number) {
+    if (additionalInfo && infoID) {
       this.router.navigate(['ingredient-information/' + infoID],
       );
+    }
+  }
+
+  addIngredientToPrivateShoppingList(ingredient: Ingredient) {
+    if (this.isIngredientAvailable(ingredient)) {
+      this.localStorageService.addIngredientToPrivateShoppingList(ingredient);
+      if (!this.ingredientAddedPrivateShoppingList) {
+        this.ingredientAddedPrivateShoppingList = true;
+
+        setTimeout(() => {
+          this.ingredientAddedPrivateShoppingList = false;
+        }, 1750);
+      }
     }
   }
 }

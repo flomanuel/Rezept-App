@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { FridgeService } from '../../services/fridge.service';
+import { DefaultIngredientService } from '../../services/default-ingredient.service';
 
 @Component({
   selector: 'app-settings',
@@ -12,7 +14,8 @@ export class SettingsComponent implements OnInit {
   setupData: object;
   showOverlay: boolean;
 
-  constructor(private localStorageService: LocalStorageService) {
+  constructor(private localStorageService: LocalStorageService, private fridgeService: FridgeService,
+              private defaultIngredientService: DefaultIngredientService) {
   }
 
   ngOnInit() {
@@ -62,6 +65,8 @@ export class SettingsComponent implements OnInit {
 
   reset() {
     this.localStorageService.reset();
+    this.fridgeService.fridgeIngredients = [];
+    this.defaultIngredientService.defaultIngredients = [];
   }
 
   openImprint() {
