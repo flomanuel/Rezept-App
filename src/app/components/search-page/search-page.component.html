@@ -4,7 +4,7 @@
                   [shoppingListButton]="true"
                   [defaultIngredientsButton]="true"
                   (ingredientListChange)="firebaseService.searchRecipesByParams(fullListIngredientIds)"
-                  (defaultIngredientsEvent)="onDefaultIngredientsChange($event)"
+                  (defaultIngredientsStatusEvent)="onDefaultIngredientsChange($event)"
                   (fridgeStatusEvent)="onFridgeStatusChange($event)"
   ></app-header-bar>
   <div id="contentArea" class="grid-container noExtraColumns noRows">
@@ -14,7 +14,7 @@
         {{translationService.translate(ingredients[suggestion])}}
       </p>
     </div>
-    <app-search-page-filter-tab *ngIf="userSelectedIngredientIds.length > 0 || fridgeFlagActive" [tabElements]="tabElements"
+    <app-search-page-filter-tab *ngIf="userSelectedIngredientIds.length > 0 || fridgeFlagActive || defaultIngredientsFlagActive" [tabElements]="tabElements"
                                 (regionSelection)="this.firebaseService.regionIds = $event; firebaseService.searchRecipesByParams(fullListIngredientIds)"
                                 (categorySelection)="this.firebaseService.categoryIds = $event; firebaseService.searchRecipesByParams(fullListIngredientIds)">
 

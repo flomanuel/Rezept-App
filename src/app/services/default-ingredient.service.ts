@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { localStorageKeys } from '../../config';
 import { Ingredient } from '../entity/ingredient.class';
 import { LocalStorageService } from './local-storage.service';
-import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +15,8 @@ export class DefaultIngredientService {
   }
 
   public addToDefaultIngredients(newIngredient) {
-        this.defaultIngredients.push(newIngredient);
-        this.localStorageService.setItem(localStorageKeys.DEFAULT_INGREDIENTS, this.defaultIngredients);
+    this.defaultIngredients.push(newIngredient);
+    this.localStorageService.setItem(localStorageKeys.DEFAULT_INGREDIENTS, this.defaultIngredients);
   }
 
   public removeIngredient(ingredient: Ingredient): void {
@@ -29,5 +28,13 @@ export class DefaultIngredientService {
 
   public isIngredientDefaultIngredient(ingredient: Ingredient) {
     return this.defaultIngredients.some(i => i.id === ingredient.id);
+  }
+
+  get defaultIngredientsById(): number[] {
+    const ids: number[] = [];
+    this.defaultIngredients.forEach(ingredient => {
+      ids.push(ingredient.id);
+    });
+    return ids;
   }
 }
