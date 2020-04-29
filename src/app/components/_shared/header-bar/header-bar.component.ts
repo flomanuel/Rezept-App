@@ -64,8 +64,8 @@ export class HeaderBarComponent implements OnInit {
     }
   }
 
-  addSuggestion(ingredient: number) {
-    this.ingredientIdList.push(ingredient);
+  addSuggestion(ingredientId: number) {
+    this.ingredientIdList.push(ingredientId);
     this.searchValue = '';
     this.toggleSuggestionsContainer();
     this.ingredientListChange.emit(true);
