@@ -19,7 +19,7 @@ import { DefaultIngredientService } from '../../services/default-ingredient.serv
 })
 export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
-  private missingIngredients = 0;
+  private amountMissingIngredients = 0;
   private recipe: Recipe;
   private ingredientAddedPrivateShoppingList = false;
 
@@ -46,7 +46,7 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
           this.recipe.ingredients.forEach((ingredient) => {
             if (!this.isIngredientAvailable(ingredient)) {
-              this.missingIngredients++;
+              this.amountMissingIngredients++;
             }
           });
         });
