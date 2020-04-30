@@ -30,7 +30,7 @@
 
     <a class="fridge-link fridge-button"
        *ngIf="!(suggestionContainerActive && ingredientIdList) &&  fridgeLink"
-       (click)="toggleFridgeStatus()">
+       (click)="toggleFridgeStatus()" routerLink="/fridge">
     </a>
 
     <a class="open-shoppingList"
