@@ -11,8 +11,9 @@ import { localStorageKeys } from '../../../config';
 export class InitialSetupComponent implements OnInit {
   private showGreet = true;
   private setBasics = false;
+  private showModal = false;
 
-  constructor(private readonly localStorageService: LocalStorageService, private readonly modalService: ModalService) {
+  constructor(private readonly localStorageService: LocalStorageService) {
   }
 
   ngOnInit() {
@@ -25,5 +26,11 @@ export class InitialSetupComponent implements OnInit {
     } else {
       this.localStorageService.setItem(localStorageKeys.INITIAL_SETUP, []);
     }
+  }
+
+  private onCloseBasicIngredientsSetup(): void {
+    this.showModal = true;
+    this.localStorageService.setItem(localStorageKeys.INITIAL_SETUP, []);
+    this.setBasics = false;
   }
 }

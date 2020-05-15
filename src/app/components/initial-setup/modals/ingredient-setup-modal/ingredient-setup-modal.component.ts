@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Ingredient } from '../../../../entity/ingredient.class';
 import { LocalStorageService } from '../../../../services/local-storage.service';
 import { localStorageKeys } from '../../../../../config';
@@ -10,6 +10,7 @@ import { localStorageKeys } from '../../../../../config';
 })
 export class IngredientSetupModalComponent implements OnInit {
   private ingredients: Ingredient[] = this.localStorageService.getItem(localStorageKeys.USER_BASIC_INGREDIENTS);
+  @Output() private closeEmitter: EventEmitter<any> = new EventEmitter<any>();
   newIngredient: any = '';
 
   constructor(private readonly localStorageService: LocalStorageService) { }
@@ -30,5 +31,6 @@ export class IngredientSetupModalComponent implements OnInit {
 
   save() {
     this.localStorageService.setItem(localStorageKeys.USER_BASIC_INGREDIENTS, this.ingredients);
+    this.closeEmitter.emit(true);
   }
 }
