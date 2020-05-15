@@ -18,18 +18,18 @@ export class IngredientSetupModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  removeIngredient(label: string) {
+  removeIngredient(label: string): void {
     this.ingredients = this.ingredients.filter(ingredient => ingredient.label !== label);
   }
 
-  addIngredient() {
+  addIngredient(): void {
     if (this.newIngredient.trim() !== '') {
       this.ingredients.unshift(new Ingredient(this.newIngredient, 0, '', 0));
       this.newIngredient = '';
     }
   }
 
-  save() {
+  save(): void {
     this.localStorageService.setItem(localStorageKeys.USER_BASIC_INGREDIENTS, this.ingredients);
     this.closeEmitter.emit(true);
   }
