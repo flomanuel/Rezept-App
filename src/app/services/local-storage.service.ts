@@ -47,25 +47,6 @@ export class LocalStorageService {
     }
   }
 
-  removeFromUserBasicIngredients(ingredientName: string): Ingredient[] {
-    const userBasicIngredients = this.getItem(localStorageKeys.USER_BASIC_INGREDIENTS);
-
-    if (userBasicIngredients == null) {
-      return;
-    }
-
-    const filtered = userBasicIngredients.filter((ingredient: Ingredient) => ingredient.label !== ingredientName);
-    this.setItem(localStorageKeys.USER_BASIC_INGREDIENTS, filtered);
-    return filtered;
-  }
-
-  addToUserBasicIngredients(ingredient: Ingredient): Ingredient[] {
-    const userBasicIngredients = this.getItem(localStorageKeys.USER_BASIC_INGREDIENTS);
-    userBasicIngredients.push(ingredient);
-    this.setItem(localStorageKeys.USER_BASIC_INGREDIENTS, userBasicIngredients);
-    return userBasicIngredients;
-  }
-
   isRecipeFavoured(id: number): boolean {
     const favouriteRecipes = this.getItem(localStorageKeys.FAVORITE_RECIPES);
     return favouriteRecipes.includes(id);

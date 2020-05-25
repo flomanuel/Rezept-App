@@ -51,19 +51,7 @@
       </span>
     </span>
   </button>
-  <button class="button_setting_list">
-    <span class="list_item_settings">
-      <i class="material-icons icon">
-        star
-      </i>
-      <span class="icon_text">
-    Favoriten
-      </span>
-    </span>
-  </button>
 </div>
-
-<app-default-ingredient *ngIf="showDefaultIngredientsSetting"></app-default-ingredient>
 
 <div *ngIf="showOverallSettings || showImprint">
   <div *ngFor="let setting of setupData.settings">

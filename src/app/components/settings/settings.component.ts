@@ -10,7 +10,6 @@ import { DefaultIngredientService } from '../../services/default-ingredient.serv
 })
 export class SettingsComponent implements OnInit {
   showOverallSettings: boolean;
-  showDefaultIngredientsSetting: boolean;
   showImprint: boolean;
   setupData: {
     [settings: string]:
@@ -28,7 +27,6 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.showOverallSettings = false;
-    this.showDefaultIngredientsSetting = false;
     this.showImprint = false;
   }
 
@@ -66,10 +64,6 @@ export class SettingsComponent implements OnInit {
       ],
     };
     this.showOverallSettings = true;
-  }
-
-  openDefaultIngredientsSettings(): void {
-    this.showDefaultIngredientsSetting = true;
   }
 
   showReset() {
@@ -123,7 +117,6 @@ export class SettingsComponent implements OnInit {
 
   goBack() {
     this.showOverallSettings = false;
-    this.showDefaultIngredientsSetting = false;
     this.showImprint = false;
   }
 
