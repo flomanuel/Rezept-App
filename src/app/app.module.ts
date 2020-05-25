@@ -37,6 +37,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { InitialSetupComponent } from './components/initial-setup/initial-setup.component';
 import { GreetingModalComponent } from './components/initial-setup/modals/greeting-modal/greeting-modal.component';
 import { IngredientSetupModalComponent } from './components/initial-setup/modals/ingredient-setup-modal/ingredient-setup-modal.component';
+import { DefaultIngredientComponent } from './components/default-ingredient/default-ingredient.component';
 
 const appRoutes: Routes = [
   {
@@ -129,6 +130,7 @@ const appRoutes: Routes = [
     InitialSetupComponent,
     GreetingModalComponent,
     IngredientSetupModalComponent,
+    DefaultIngredientComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

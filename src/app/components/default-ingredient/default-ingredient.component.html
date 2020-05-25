@@ -1,0 +1,21 @@
+<div>
+  <i id="add-default-ingredients-icon" [ngClass]="{ 'higher': this.showNewIngredientInput }" (click)="this.toggleInput()"></i>
+
+  <div>
+    <br/><br/>
+    <h3>Hier befinden sich Ihre Standard Zutaten, welche bei der Suche berücksichtigt werden</h3>
+    <p class="hint">Hinweis: Tippen Sie auf eine Zutat um diese zu entfernen</p>
+
+    <div id="newIngredientContainer" *ngIf="this.showNewIngredientInput" [@slideInOut]>
+      <div>
+        <label><input type="text" [(ngModel)]="this.newIngredient" (keyup.enter)="addNewIngredient()"></label>
+        <button (click)="this.addNewIngredient()">+</button>
+      </div>
+    </div>
+
+    <div class="ingredients">
+      <div class="ingredient" *ngFor="let ingredient of this.defaultIngredients" (click)="this.removeFromBasicIngredients(ingredient.label)">{{ ingredient.label }}</div>
+    </div>
+  </div>
+
+</div>

@@ -4,10 +4,6 @@
   <i (click)="goBack();"
      class="material-icons back">
   </i>
-  <i (click)="popIngredientsWindowUp()"
-     *ngIf="showDefaultIngredientsSetting"
-     id="add-default-ingredients-icon">
-  </i>
 </div>
 <div *ngIf="!showOverallSettings && !showImprint && !showDefaultIngredientsSetting">
   <button class="button_setting_list">
@@ -62,8 +58,9 @@
   </button>
 </div>
 
+<app-default-ingredient *ngIf="showDefaultIngredientsSetting"></app-default-ingredient>
 
-<div *ngIf="showOverallSettings || showImprint || showDefaultIngredientsSetting">
+<div *ngIf="showOverallSettings || showImprint">
   <div *ngFor="let setting of setupData.settings">
     <button class="button_setting_list">
       <span *ngIf="showImprint">

@@ -9,7 +9,14 @@ export class SettingsComponent implements OnInit {
   showOverallSettings: boolean;
   showDefaultIngredientsSetting: boolean;
   showImprint: boolean;
-  setupData: object;
+  setupData: {
+    [settings: string]:
+      Array<{
+        text: string,
+        function: () => any
+        icon?: string,
+      }>
+  };
   showOverlay: boolean;
 
   constructor() {
@@ -57,39 +64,7 @@ export class SettingsComponent implements OnInit {
     this.showOverallSettings = true;
   }
 
-  openDefaultIngredientsSettings() {
-    this.setupData = {
-      settings: [
-        {
-          text: 'Salz',
-          function: () => {
-            console.log('Salz');
-            return 0;
-          },
-        },
-        {
-          text: 'Pfeffer',
-          function: () => {
-            console.log('Pfeffer');
-            return 1;
-          },
-        },
-        {
-          text: 'Milch',
-          function: () => {
-            console.log('Milch');
-            return 1;
-          },
-        },
-        {
-          text: 'Gewürz XY',
-          function: () => {
-            console.log('Gewürz XY');
-            return 1;
-          },
-        },
-      ],
-    };
+  openDefaultIngredientsSettings(): void {
     this.showDefaultIngredientsSetting = true;
   }
 
@@ -138,9 +113,5 @@ export class SettingsComponent implements OnInit {
     this.showOverallSettings = false;
     this.showDefaultIngredientsSetting = false;
     this.showImprint = false;
-  }
-
-  popIngredientsWindowUp() {
-    console.log('addDefaultIngredients');
   }
 }
