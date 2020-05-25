@@ -1,11 +1,11 @@
-<app-header-bar *ngIf="!showImprint && !showDefaultIngredientsSetting && !showOverallSettings"></app-header-bar>
+<app-header-bar *ngIf="!showImprint && !showOverallSettings"></app-header-bar>
 <div class="back_button"><p
-  *ngIf="showImprint || showDefaultIngredientsSetting || showOverallSettings">
+  *ngIf="showImprint || showOverallSettings">
   <i (click)="goBack();"
      class="material-icons back">
   </i>
 </div>
-<div *ngIf="!showOverallSettings && !showImprint && !showDefaultIngredientsSetting">
+<div *ngIf="!showOverallSettings && !showImprint">
   <button class="button_setting_list">
     <span (click)="openSettings()"
           class="list_item_settings">
@@ -26,24 +26,19 @@
     </span>
   </button>
   <button class="button_setting_list">
-    <span (click)="openDefaultIngredientsSettings()"
-          class="list_item_settings">
-      <i class="material-icons icon">
-        local_dining
-      </i>
-      <span class="icon_text">
-    Standardzutaten
-  </span>
+    <span class="list_item_settings">
+      <i class="material-icons icon">local_dining</i>
+      <a routerLink="/default-ingredients" class="icon_text">Standardzutaten</a>
     </span>
   </button>
   <button class="button_setting_list">
-    <span (click)="reset()" class="list_item_settings">
+    <span (click)="showReset()" class="list_item_settings">
       <i class="material-icons icon">
         restore_page
       </i>
       <span class="icon_text ">
     Zurücksetzen
-  </span>
+      </span>
     </span>
   </button>
   <button class="button_setting_list">
@@ -53,7 +48,17 @@
       </i>
       <span class="icon_text">
     Impressum
-  </span>
+      </span>
+    </span>
+  </button>
+  <button class="button_setting_list">
+    <span class="list_item_settings">
+      <i class="material-icons icon">
+        star
+      </i>
+      <span class="icon_text">
+    Favoriten
+      </span>
     </span>
   </button>
 </div>
@@ -74,14 +79,11 @@
 </div>
 
 <div *ngIf="showOverlay" id="overlay">
-  <p style="color:white;">
-    Zurücksetzen
-  </p>
-  <div id="overlay_box">
+  <div class="overlay_box">
     <p>Wollen sie die App wirklich zurücksetzen?</p>
 
     <div>
-      <button (click)="showOverlay = false;" class="overlay_box_button"> Ja</button>
+      <button (click)="showOverlay = false; reset();" class="overlay_box_button"> Ja</button>
       <button (click)="showOverlay = false;" class="overlay_box_button"> Nein</button>
     </div>
   </div>

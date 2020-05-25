@@ -1,6 +1,37 @@
-<button type="button" data-toggle="modal" class="button"
-        (click)="ermittlePosition()">Zur eigenen Position
-</button>
+<app-header-bar [background]="false" [position]="'absolute'"></app-header-bar>
+<div class="map" id="map"></div>
+<div (click)="setCenter(geoLocation.longitude , geoLocation.latitude)" class="gpsButton"
+     data-toggle="modal">
+  <i class="material-icons">gps_fixed</i>
+</div>
+
+<input id="check" type="checkbox">
+<label for="check">
+  <i class="material-icons" id="open_menu">keyboard_arrow_up</i>
+  <i class="material-icons" id="close_menu">keyboard_arrow_down</i>
+</label>
+
+<div class="sidebar">
+  <div *ngIf="markets" class="markets" id="markets">
+    <table id="maerkte_table">
+      <tr (click)="setCenter(stringToFloat(market.lon), stringToFloat(market.lat))" *ngFor="let market of markets"
+          id="row">
+        <td id="market_index">{{market.index}}</td>
+        <!--Namen des Supermarkt ausschneiden-->
+        <td id="market_name">{{market.display_name.substring(0, market.display_name.indexOf(','))}}</td>
+        <td *ngIf="market.extratags.opening_hours?.indexOf(';') > 0; else keinSimekolon" id="market_opening">
+          {{market.extratags.opening_hours.substring(0, market.extratags.opening_hours.indexOf(';'))}} </td>
+        <ng-template #keinSimekolon>
+          <td id="market_opening2">{{market.extratags.opening_hours}}</td>
+        </ng-template>
+        <td id="market_distance">
+          Distanz: {{round(distance(stringToFloat(market.lat), stringToFloat(market.lon), geoLocation.latitude, geoLocation.longitude))}}
+          km
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
 
 
-<div id="map" class="map"></div>
+

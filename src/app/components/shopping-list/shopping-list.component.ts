@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Ingredient } from '../../entity/ingredient.class';
 import { DataService } from '../../services/data.service';
 import { VolumeUnit } from '../../types';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { localStorageKeys } from '../../../config';
+
 
 @Component({
   selector: 'app-shopping-list',
@@ -12,10 +15,13 @@ export class ShoppingListComponent implements OnInit {
 
   privateIngredient: Ingredient;
   recipeFilter: boolean;
+  localStorageService: LocalStorageService;
+  localStorageKey = localStorageKeys;
 
-  constructor(private dataService: DataService) {
-    this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1);
+  constructor(private dataService: DataService, localStorageService: LocalStorageService) {
+    this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, '');
     this.recipeFilter = true;
+    this.localStorageService = localStorageService;
   }
 
   get recipeFilteredShoppingLists() {
@@ -35,15 +41,15 @@ export class ShoppingListComponent implements OnInit {
   }
 
   addNewPrivateIngredient() {
-    if (this.privateIngredient.label !== '') {
+    if (this.privateIngredient.customTitle !== '') {
       this.dataService.addItemToPrivateShoppingList(this.privateIngredient);
-      this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1);
+      this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, '');
       this.createSharingString();
     }
   }
 
-  toggleIngredient(ingredient: Ingredient) {
-    ingredient.done = !ingredient.done;
+  toggleIngredient(localStorageKey: localStorageKeys, ingredient: Ingredient) {
+    this.dataService.toggleIngredient(localStorageKey, ingredient);
   }
 
   toggleFilter() {

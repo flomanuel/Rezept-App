@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { FridgeService } from '../../services/fridge.service';
+import { DefaultIngredientService } from '../../services/default-ingredient.service';
 
 @Component({
   selector: 'app-settings',
@@ -19,7 +22,8 @@ export class SettingsComponent implements OnInit {
   };
   showOverlay: boolean;
 
-  constructor() {
+  constructor(private localStorageService: LocalStorageService, private fridgeService: FridgeService,
+              private defaultIngredientService: DefaultIngredientService) {
   }
 
   ngOnInit() {
@@ -68,9 +72,14 @@ export class SettingsComponent implements OnInit {
     this.showDefaultIngredientsSetting = true;
   }
 
-  reset() {
-    console.log('reset');
+  showReset() {
     this.showOverlay = true;
+  }
+
+  reset() {
+    this.localStorageService.reset();
+    this.fridgeService.fridgeIngredients = [];
+    this.defaultIngredientService.defaultIngredients = [];
   }
 
   openImprint() {
@@ -88,6 +97,7 @@ export class SettingsComponent implements OnInit {
           text: 'Meta-Sattler-Straße. 33 28217 Bremen',
           icon: 'place',
           function: () => {
+            // Todo open in googleMaps?
             return 0;
           },
         },
@@ -95,6 +105,7 @@ export class SettingsComponent implements OnInit {
           text: 'https://www.szut.de',
           icon: 'web',
           function: () => {
+            window.location.href = 'https://www.szut.de';
             return 0;
           },
         },
@@ -102,6 +113,7 @@ export class SettingsComponent implements OnInit {
           text: '368@schulverwaltung.bremen.de',
           icon: 'email',
           function: () => {
+            // Todo open in email app?
             return 0;
           },
         },
@@ -113,5 +125,15 @@ export class SettingsComponent implements OnInit {
     this.showOverallSettings = false;
     this.showDefaultIngredientsSetting = false;
     this.showImprint = false;
+  }
+
+  removeItemFromArrayByValue(arr, value) {
+    return arr.filter((ele) => {
+      return ele !== value;
+    });
+  }
+
+  onInput() {
+    // Todo suggest an ingredient?
   }
 }

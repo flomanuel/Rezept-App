@@ -8,7 +8,7 @@ list element content
 /*************************************
 imports
 **************************************/
-@import "../../../../src/styles.less";
+@import "../../../../styles.less";
 
 /*************************************
 list element
@@ -18,6 +18,7 @@ list element
   flex-direction: row-reverse;
   padding: 25px 0;
   width: 100%;
+  text-decoration: none;
 }
 
 /*************************************
@@ -63,14 +64,14 @@ list element content
 
 
   &__title {
-    margin: 18px 0 4px 0;
     .mainFontFamily();
     font-style: normal;
-    font-weight: normal;
+    font-weight: 400;
     font-size: 20px;
     line-height: 124%;
+    margin: 18px 0 4px 0;
     color: #000000;
-    border-bottom: 1px solid #000000;;
+    border-bottom: 1px solid #000000;
   }
 
   &__secondLine {
@@ -81,9 +82,11 @@ list element content
       font-family: inherit;
       color: #FF0000;
       font-style: normal;
-      font-weight: bold;
+      font-weight: 700;
       font-size: 14px;
       line-height: 124%;
+      white-space: nowrap;
+      display: inline-block;
 
       &:not(:last-child) {
         padding-right: 3px;
@@ -98,9 +101,11 @@ list element content
       font-family: inherit;
       color: #000000;
       font-style: normal;
-      font-weight: normal;
+      font-weight: 400;
       font-size: 12px;
       line-height: 124%;
+      white-space: nowrap;
+      display: inline-block;
 
       &:before {
         position: absolute;
@@ -110,7 +115,7 @@ list element content
         width: 15px;
         height: 15px;
         content: '';
-        background: url("../../../assets/icons/timer.svg") no-repeat center;
+        background: url("../../../../assets/icons/timer.svg") no-repeat center;
         background-size: contain;
       }
     }

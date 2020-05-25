@@ -13,9 +13,10 @@ import { TranslationService } from '../../../services/translation.service';
 })
 export class HeaderBarComponent implements OnInit {
 
-  @Output() defaultIngredientsEvent = new EventEmitter<boolean>();
+  @Output() defaultIngredientsStatusEvent = new EventEmitter<boolean>();
   @Output() ingredientListChange = new EventEmitter<boolean>();
   @Output() fridgeStatusEvent = new EventEmitter<boolean>();
+  @Output() defaultIngredientsUiOpenedEvent = new EventEmitter<boolean>();
 
   @Input() ingredientIdList: number[];
   @Input() fridgeFlag: boolean;
@@ -23,19 +24,22 @@ export class HeaderBarComponent implements OnInit {
   @Input() shoppingListButton: boolean;
   @Input() defaultIngredientsButton: boolean;
   @Input() opacity = 1;
+  @Input() position = 'sticky';
   @Input() width = 'initial';
   @Input() background = true;
   @Input() allowElementsBehind = false;
   @Input() currentRecipe: Recipe;
   @Input() ingredientsListButton = false;
   @Input() ingredientsListButtonState = false;
+  @Input() defaultIngredientsUiOpener = false;
+  @Input() isDefaultIngredientsUiOpened = false;
 
   private suggestionContainerActive = false;
   private searchValue = '';
   private defaultIngredientsStatus = false;
   private fridgeContentStatus = false;
   private ingredients = ingredients;
-  recipeAddedToList = false;
+  private recipeAddedToList = false;
 
   constructor(private location: Location, private dataService: DataService, private typesMapper: TypesMappingService,
               private translationService: TranslationService) {
@@ -60,8 +64,8 @@ export class HeaderBarComponent implements OnInit {
     }
   }
 
-  addSuggestion(ingredient: number) {
-    this.ingredientIdList.push(ingredient);
+  addSuggestion(ingredientId: number) {
+    this.ingredientIdList.push(ingredientId);
     this.searchValue = '';
     this.toggleSuggestionsContainer();
     this.ingredientListChange.emit(true);
@@ -69,16 +73,23 @@ export class HeaderBarComponent implements OnInit {
 
   toggleIngredientsStatus(): void {
     this.defaultIngredientsStatus = !this.defaultIngredientsStatus;
-    this.defaultIngredientsEvent.emit(this.defaultIngredientsStatus);
+    this.defaultIngredientsStatusEvent.emit(this.defaultIngredientsStatus);
   }
 
-  toggleFridgeStatus(): void {
+  toggleFridgeStatus(emitEvent: boolean = false): void {
     this.fridgeContentStatus = !this.fridgeContentStatus;
-    this.fridgeStatusEvent.emit(this.fridgeContentStatus);
+    if (emitEvent) {
+      this.fridgeStatusEvent.emit(this.fridgeContentStatus);
+    }
+  }
+
+  toggleDefaultIngredientsUiStatus(): void {
+    this.isDefaultIngredientsUiOpened = !this.isDefaultIngredientsUiOpened;
+    this.defaultIngredientsUiOpenedEvent.emit(this.isDefaultIngredientsUiOpened);
   }
 
   addRecipeToShoppingList() {
-    if (this.currentRecipe) {
+    if (this.currentRecipe && !this.recipeAddedToList) {
       this.dataService.addRecipe(this.currentRecipe);
       this.recipeAddedToList = true;
     }

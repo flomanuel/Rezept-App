@@ -4,7 +4,7 @@
       {{recipe.title}}
     </p>
     <p class="listElement__content__secondLine">
-      <span class="missingIngredients">{{countMissingIngredients()}} fehlende Zutaten</span>
+      <span class="missingIngredients">{{amountMissingIngredients}} fehlende Zutaten</span>
       <span class="preparationTime">
        {{calculatePreparationTime(recipe.preparationTime)[0]}} h
        {{calculatePreparationTime(recipe.preparationTime)[1]}} min
