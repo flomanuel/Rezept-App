@@ -42,6 +42,7 @@ import { FridgeDetailPageComponent } from './components/fridge-detail-page/fridg
 import { DefaultIngredientsComponent } from './components/_settings/default-ingredients/default-ingredients.component';
 import { CreatedRecipeListComponent } from './components/created-recipe-list/created-recipe-list.component';
 import { ToolsInputPlusListComponent } from './components/recipe/tools-input-plus-list/tools-input-plus-list.component';
+import { UserRecipeDetailPageComponent } from './components/user-recipe-detail-page/user-recipe-detail-page.component';
 
 const appRoutes: Routes = [
   {
@@ -150,6 +151,7 @@ const appRoutes: Routes = [
     InitialSetupComponent,
     GreetingModalComponent,
     IngredientSetupModalComponent,
+    UserRecipeDetailPageComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

@@ -13,6 +13,8 @@ export class CreatedRecipeListComponent implements OnInit {
   private createdRecipes: Recipe[];
   private deleteModalMessage: string;
   private chosenRecipe: Recipe = null;
+  private shouldShowDetails: boolean = false;
+  private selectedRecipe: Recipe = null;
 
   constructor(private readonly userRecipeService: UserRecipeService, private readonly timeService: TimeService) {
   }
@@ -22,7 +24,12 @@ export class CreatedRecipeListComponent implements OnInit {
   }
 
   showDetails(recipe: Recipe): void {
-    console.log(JSON.stringify(recipe));
+    this.selectedRecipe = recipe;
+    this.shouldShowDetails = true;
+  }
+
+  closeDetails(): void {
+    this.shouldShowDetails = false;
   }
 
   showDeleteModalFor(chosenRecipe: Recipe): void {

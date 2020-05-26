@@ -1,0 +1,10 @@
+<div class="user-recipe-detail-page" [@slideInOut]>
+  <span (click)="emitClose()"><i id="close-btn" class="material-icons">close</i></span>
+  <div class="container">
+    <div>
+      {{ this.recipe|json }}
+    </div>
+  </div>
+</div>
+
+
