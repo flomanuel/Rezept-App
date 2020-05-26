@@ -1,0 +1,3 @@
+<app-greeting-modal *ngIf="showGreet" (choiceEmitter)="willSetBasicIngredients($event)"></app-greeting-modal>
+<app-ingredient-setup-modal (closeEmitter)="onCloseBasicIngredientsSetup()" *ngIf="setBasics"></app-ingredient-setup-modal>
+<app-popup *ngIf="showModal" [message]="'Ihre Zutaten wurden gespeichert'"></app-popup>

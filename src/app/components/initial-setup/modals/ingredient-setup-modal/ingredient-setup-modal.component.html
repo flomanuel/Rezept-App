@@ -1,0 +1,38 @@
+<div class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Fügen Sie hier Ihre Zutaten hinzu</h3>
+      <span>Klicken Sie auf eine hinzugefügte Zutat um diese zu entfernen</span>
+    </div>
+    <div class="modal-body">
+      <div class="list-item--id">
+        <span id="error" *ngIf="this.errorIngredientAlreadyDefault">Diese Zutat gehört bereits zu ihrem Standardsortiment<br/></span>
+        <input type="text" name="search-field" class="list-item--id__search-field" placeholder="Zutat..."
+               [(ngModel)]="ingredientSearchValue"
+               (ngModelChange)="ingredientSuggestionVisible = ingredientSearchValue.length >= 2"
+               (click)="ingredientSuggestionVisible = true; errorIngredientAlreadyDefault = false"
+               (keydown.escape)="ingredientSuggestionVisible = false">
+        <div *ngIf="ingredientSuggestionVisible && ingredientSearchValue.length > 0"
+             class="list-item--id__available-ingredients">
+          <span class="list-item--id__available-ingredients--closer" (click)="ingredientSuggestionVisible = false"></span>
+          <p class="list-item--id__available-ingredients--element"
+             *ngFor="let ingredientId of this.dataService.getTagsBySearchString(ingredientSearchValue)"
+             (click)="updateNewIngredient(ingredientId); ingredientSuggestionVisible = false; addToDefaultIngredients()">
+            {{translationService.translate(typesMappingService.getRecipeNameById(ingredientId))}}
+          </p>
+        </div>
+      </div>
+      <div *ngIf="defaultIngredientService.defaultIngredients.length > 0">
+        <h4>Ihre derzeitigen Standardzutaten</h4>
+        <div class="list-item--ingredient" *ngFor="let ingredient of defaultIngredientService.defaultIngredients">
+          <p (click)="defaultIngredientService.removeIngredient(ingredient)" ><!--
+    -->{{translationService.translate(typesMappingService.getRecipeNameById(ingredient.id))}}<!--
+    --></p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button (click)="save()">Speichern</button>
+    </div>
+  </div>
+</div>
