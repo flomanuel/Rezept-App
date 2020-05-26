@@ -11,7 +11,14 @@ import { DefaultIngredientService } from '../../services/default-ingredient.serv
 export class SettingsComponent implements OnInit {
   showOverallSettings: boolean;
   showImprint: boolean;
-  setupData: object;
+  setupData: {
+    [settings: string]:
+      Array<{
+        text: string,
+        function: () => any
+        icon?: string,
+      }>
+  };
   showOverlay: boolean;
 
   constructor(private localStorageService: LocalStorageService, private fridgeService: FridgeService,

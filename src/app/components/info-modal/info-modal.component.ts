@@ -11,6 +11,7 @@ export class InfoModalComponent implements OnInit, OnDestroy {
   @Input() id!: string;
   @Input() title!: string;
   @Input() message!: string;
+  @Input() opacity?: number;
 
   constructor(private readonly modalService: ModalService, private readonly el: ElementRef) {
     this.element = el.nativeElement;
@@ -32,6 +33,9 @@ export class InfoModalComponent implements OnInit, OnDestroy {
   }
 
   openModal(): void {
+    if (this.opacity) {
+      this.element.style.opacity = this.opacity;
+    }
     this.element.style.display = 'block';
   }
 

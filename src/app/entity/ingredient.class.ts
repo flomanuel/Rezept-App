@@ -4,4 +4,8 @@ export class Ingredient {
               public customTitle: string = '', public additionalInfo: boolean = false, public done: boolean = false,
               public saved: boolean = false) {
   }
+
+  static createBasic(label: string): Ingredient {
+    return new Ingredient(label, 0, '', 0);
+  }
 }

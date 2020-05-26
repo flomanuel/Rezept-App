@@ -35,6 +35,9 @@ import { FavoriteRecipeListComponent } from './components/favorite-recipe-list/f
 import { RecipeCardComponent } from './components/favorite-recipe-list/recipe-card/recipe-card.component';
 import { ActionModalComponent } from './components/_shared/action-modal/action-modal.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { InitialSetupComponent } from './components/initial-setup/initial-setup.component';
+import { GreetingModalComponent } from './components/initial-setup/modals/greeting-modal/greeting-modal.component';
+import { IngredientSetupModalComponent } from './components/initial-setup/modals/ingredient-setup-modal/ingredient-setup-modal.component';
 import { FridgeDetailPageComponent } from './components/fridge-detail-page/fridge-detail-page.component';
 import { DefaultIngredientsComponent } from './components/_settings/default-ingredients/default-ingredients.component';
 
@@ -136,6 +139,9 @@ const appRoutes: Routes = [
     ActionModalComponent,
     FridgeDetailPageComponent,
     DefaultIngredientsComponent,
+    InitialSetupComponent,
+    GreetingModalComponent,
+    IngredientSetupModalComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
