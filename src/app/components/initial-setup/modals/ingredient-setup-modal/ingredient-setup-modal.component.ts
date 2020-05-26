@@ -15,7 +15,6 @@ import { DefaultIngredientService } from '../../../../services/default-ingredien
 export class IngredientSetupModalComponent implements OnInit {
   private ingredients: Ingredient[] = this.localStorageService.getItem(localStorageKeys.DEFAULT_INGREDIENTS);
   @Output() private closeEmitter: EventEmitter<any> = new EventEmitter<any>();
-  private isDefaultIngredientsUiOpened = false;
   private newIngredient: Ingredient;
   private ingredientSearchValue = '';
   private ingredientSuggestionVisible = false;
