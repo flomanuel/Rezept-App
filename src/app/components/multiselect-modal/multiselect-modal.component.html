@@ -6,7 +6,7 @@
     <ul class="selection">
       <li class="selection-element" *ngFor="let option of options"
           (click)="removeOption(option) ? null: addOption(option);"
-      [class.selected]="selectedOptions.indexOf(option) >= 0">
+      [class.selected]="this.items ? this.items.indexOf(option) >= 0 : false">
         {{ option }}
       </li>
     </ul>

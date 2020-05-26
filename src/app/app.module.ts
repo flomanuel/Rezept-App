@@ -10,7 +10,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { InputPlusListComponent } from './components/input-plus-list/input-plus-list.component';
+import { InputPlusListComponent } from './components/recipe/input-plus-list/input-plus-list.component';
 import { SearchPageComponent } from './components/search-page/search-page.component';
 import { RecipeListElementComponent } from './components/_search-page/recipe-list-element/recipe-list-element.component';
 import { SearchPageFilterTabComponent } from './components/_search-page/search-page-filter-tab/search-page-filter-tab.component';
@@ -37,6 +37,8 @@ import { ActionModalComponent } from './components/_shared/action-modal/action-m
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FridgeDetailPageComponent } from './components/fridge-detail-page/fridge-detail-page.component';
 import { DefaultIngredientsComponent } from './components/_settings/default-ingredients/default-ingredients.component';
+import { CreatedRecipeListComponent } from './components/created-recipe-list/created-recipe-list.component';
+import { ToolsInputPlusListComponent } from './components/recipe/tools-input-plus-list/tools-input-plus-list.component';
 
 const appRoutes: Routes = [
   {
@@ -100,6 +102,10 @@ const appRoutes: Routes = [
     component: DefaultIngredientsComponent,
   },
   {
+    path: 'created-recipes',
+    component: CreatedRecipeListComponent,
+  },
+  {
     // this should always be the last entry since otherwise all requests get redirected to the homepage
     path: '**',
     component: HomePageComponent,
@@ -136,6 +142,8 @@ const appRoutes: Routes = [
     ActionModalComponent,
     FridgeDetailPageComponent,
     DefaultIngredientsComponent,
+    CreatedRecipeListComponent,
+    ToolsInputPlusListComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

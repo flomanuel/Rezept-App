@@ -7,11 +7,11 @@ import { ModalService } from '../../services/modal.service';
   styleUrls: ['./multiselect-modal.component.less'],
 })
 export class MultiselectModalComponent implements OnInit, OnDestroy {
-  @Input() id!: string;
-  @Input() options!: string[];
-  @Input() title!: string;
-  @Output() optionsSelected: EventEmitter<string[]> = new EventEmitter<string[]>();
-  private selectedOptions: string[] = [];
+  @Input() private id!: string;
+  @Input() private options!: string[];
+  @Input() private title!: string;
+  @Input() private items!: string[];
+  @Output() private optionsSelected: EventEmitter<string[]> = new EventEmitter<string[]>();
   private readonly element: any;
 
   constructor(private readonly modalService: ModalService, private readonly el: ElementRef) {
@@ -39,24 +39,24 @@ export class MultiselectModalComponent implements OnInit, OnDestroy {
 
   closeModal(): void {
     this.element.style.display = 'none';
-    this.optionsSelected.emit(this.selectedOptions);
+    this.optionsSelected.emit(this.items);
   }
 
   addOption(option: string): boolean {
-    if (this.selectedOptions && option) {
-      this.selectedOptions.push(option);
-      this.optionsSelected.emit(this.selectedOptions);
+    if (this.items && option) {
+      this.items.push(option);
+      this.optionsSelected.emit(this.items);
       return true;
     }
     return false;
   }
 
   removeOption(option: string): boolean {
-    if (this.selectedOptions && option) {
-      const index = this.selectedOptions.indexOf(option);
+    if (this.items && option) {
+      const index = this.items.indexOf(option);
       if (index >= 0) {
-        this.selectedOptions.splice(index, 1);
-        this.optionsSelected.emit(this.selectedOptions);
+        this.items.splice(index, 1);
+        this.optionsSelected.emit(this.items);
         return true;
       }
       return false;

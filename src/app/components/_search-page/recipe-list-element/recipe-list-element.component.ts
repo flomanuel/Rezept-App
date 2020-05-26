@@ -3,6 +3,8 @@ import { Recipe } from '../../../entity/recipe';
 import { Ingredient } from '../../../entity/ingredient.class';
 import { FridgeService } from '../../../services/fridge.service';
 import { DefaultIngredientService } from '../../../services/default-ingredient.service';
+import { TimeService } from '../../../services/time.service';
+import { PreparationTime } from '../../../types';
 
 @Component({
   selector: 'app-recipe-list-element',
@@ -14,7 +16,11 @@ export class RecipeListElementComponent implements OnInit {
 
   private fallbackImagePath = '../../../../assets/objects/fallbackImage.svg';
 
-  constructor(private fridgeService: FridgeService, private defaultIngredientService: DefaultIngredientService) {
+  constructor(
+    private fridgeService: FridgeService,
+    private defaultIngredientService: DefaultIngredientService,
+    private readonly timeService: TimeService,
+  ) {
   }
 
   ngOnInit() {
@@ -41,9 +47,7 @@ export class RecipeListElementComponent implements OnInit {
     return availabilityStatus;
   }
 
-  calculatePreparationTime(time: number): number[] {
-    const hours = Math.trunc(time / 60);
-    const minutes = time % 60;
-    return [hours, minutes];
+  calculatePreparationTime(time: number, format: string): PreparationTime | number {
+    return this.timeService.calculatePreparationTime(time, format);
   }
 }

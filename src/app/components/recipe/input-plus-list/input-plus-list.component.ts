@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { VolumeUnit } from '../../types';
-import { Ingredient } from '../../entity/ingredient.class';
+import { VolumeUnit } from '../../../types';
+import { Ingredient } from '../../../entity/ingredient.class';
 
 @Component({
   selector: 'app-input-plus-list',

@@ -1,0 +1,9 @@
+<div class="tools-input-plus-list" id="{{ this.name }}">
+  <ul class="inputs">
+    <li class="list-item" *ngFor="let item of this.listItems; let i = index; trackBy: trackByIndex">
+      <input class="input-field" type="text" id="{{ this.name }}-{{ i }}" [(ngModel)]="listItems[i]" (change)="emitItems()">
+      <input class="remove-input-btn" (click)="onRemove(i); emitItems()" type="button" value="X">
+    </li>
+    <li><input class="add-input-btn" type="button" (click)="onAdd()" value="+"></li>
+  </ul>
+</div>

@@ -1,13 +1,14 @@
 <app-header-bar></app-header-bar>
 <app-popup *ngIf="recipeSaved" [message]="'Rezept gespeichert!'"></app-popup>
 <form class="col-12" action="" id="recipeForm">
-  <h1 id="heading" class="col-12">Ein neues Rezept hinzufügen</h1>
+  <h1 id="heading" class="col-12">Ein neues Rezept erstellen</h1>
 
   <div class="col-12" id="titleAndPreparationTimeContainer">
     <div id="titleContainer" class="col-12">
       <label for="title" class="col-12">Titel</label>
-      <input class="col-12" placeholder="Titel des Rezepts..." type="text" name="title" id="title" [(ngModel)]="title"
+      <input maxlength="75" class="col-12" placeholder="Titel des Rezepts..." type="text" name="title" id="title" [(ngModel)]="title"
              #titleField='ngModel' required>
+      <span *ngIf="this.title">verbleibende Zeichen: {{ this.titleMaxLength - this.title.length }}</span>
       <div class="field-error" *ngIf="titleField.invalid && (titleField.dirty || titleField.touched)">
         <div *ngIf="titleField.errors.required">
           <p>Ihr Rezept muss über einen Titel verfügen!</p>
@@ -35,6 +36,7 @@
         <app-multiselect-modal (optionsSelected)="selectCategories($event)"
                                [id]="'categories'"
                                [title]="'Wählen Sie die Kategorie(n) für Ihr Rezept aus'"
+                               [items]="this.categories"
                                [options]="fileCategories"></app-multiselect-modal>
         <div class="modal-error" *ngIf="!categoriesWereSelected">
           <div>
@@ -55,6 +57,7 @@
         <app-multiselect-modal (optionsSelected)="selectRegions($event)"
                                [id]="'regions'"
                                [title]="'Wählen Sie die Region(en) für Ihr Rezept aus'"
+                               [items]="this.regions"
                                [options]="fileRegions"></app-multiselect-modal>
         <div class="modal-error" *ngIf="!regionsWereSelected">
           <div>
@@ -85,6 +88,11 @@
   <div id="ingredientsContainer" class="col-12">
     <label class="col-12">Zutaten</label>
     <app-input-plus-list [items]="ingredients" (itemsEmitter)="onIngredients($event)"></app-input-plus-list>
+  </div>
+
+  <div id="toolsContainer" class="col-12">
+    <label class="col-12">Utensilien</label>
+    <app-tools-input-plus-list name="tools" [items]="this.tools" (itemEmitter)="onTools($event)"></app-tools-input-plus-list>
   </div>
 
   <div id="instructionsContainer" class="col-12">
