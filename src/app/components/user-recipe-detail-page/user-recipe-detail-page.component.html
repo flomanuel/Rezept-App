@@ -1,8 +1,38 @@
 <div class="user-recipe-detail-page" [@slideInOut]>
+  <app-popup *ngIf="this.showPopup" message="Zutat zum Einkaufszettel hinzugefügt" [status]="this.popupType"></app-popup>
   <span (click)="emitClose()"><i id="close-btn" class="material-icons">close</i></span>
   <div class="container">
-    <div>
-      {{ this.recipe|json }}
+    <div class="header">
+      <h2>{{ this.recipe.title }}</h2>
+      <span class="allergens" *ngIf="this.recipe.allergens.length <= 0">Allergene sind für dieses Rezept nicht verfügbar.</span>
+      <span class="allergens" *ngIf="this.recipe.allergens.length > 0">Allergene: {{ this.recipe.allergens.join(', ') }}</span>
+      <p>Stichwörter: {{ this.translatedRegions.join(', ') }}, {{ this.translatedCategories.join(', ') }}</p>
+      <p>{{ this.recipe.description }}</p>
+    </div>
+
+    <div class="body">
+      <div>
+        <h4>Benötigte Utensilien</h4>
+        <ol>
+          <li *ngFor="let tool of this.recipe.tools">{{ tool }}</li>
+        </ol>
+      </div>
+
+      <div>
+        <h4>Zutaten</h4>
+        <table id="ingredient-table">
+          <tr class="table-row" *ngFor="let ingredient of this.recipe.ingredients">
+            <td class="ingredient-title">{{ ingredient.customTitle }}</td>
+            <td class="ingredient-amount">{{ ingredient.amount + ingredient.volumeUnit }}</td>
+            <td class="add-ingredient-btn"><button class="shopping-cart-btn material-icons" (click)="this.addToShoppingList(ingredient)">shopping_cart</button></td>
+          </tr>
+        </table>
+      </div>
+
+      <div>
+        <h4>Zubereitung</h4>
+        <p>{{ this.recipe.instructions }}</p>
+      </div>
     </div>
   </div>
 </div>

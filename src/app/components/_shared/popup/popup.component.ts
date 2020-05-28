@@ -8,7 +8,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
   animations: [
     trigger('popup', [
       transition(':enter', [
-        style({ transform: 'translateY(-100%)' }),
+        style({ transform: 'translateY(100%)' }),
         animate('200ms ease-in', style({ transform: 'translateY(0%)' })),
       ]),
       transition(':leave', [

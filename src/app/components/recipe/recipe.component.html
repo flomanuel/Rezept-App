@@ -95,6 +95,11 @@
     <app-tools-input-plus-list name="tools" [items]="this.tools" (itemEmitter)="onTools($event)"></app-tools-input-plus-list>
   </div>
 
+  <div id="allergensContainer" class="col-12">
+    <label class="col-12">Allergene (optional)</label>
+    <app-tools-input-plus-list name="allergens" [items]="this.allergens" (itemEmitter)="onAllergens($event)"></app-tools-input-plus-list>
+  </div>
+
   <div id="instructionsContainer" class="col-12">
     <label for="instructions">Anweisungen</label>
     <textarea [(ngModel)]="instructions" #instructionsField='ngModel' name="instructions" id="instructions" cols="40"

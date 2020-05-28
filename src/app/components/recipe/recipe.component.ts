@@ -16,18 +16,19 @@ export class RecipeComponent {
   private fileCategories: string[] = [];
   private fileRegions: string[] = [];
 
-  public ingredients: Ingredient[] = [];
-  public title = '';
-  public description = '';
-  public regions: string[] = [];
-  public categories: string[] = [];
-  public preparationTime: number;
-  public instructions: string;
-  public recipeSaved = false;
-  public error: any = false;
-  public categoriesWereSelected = true;
-  public regionsWereSelected = true;
-  public tools: string[] = [];
+  private ingredients: Ingredient[] = [];
+  private title = '';
+  private description = '';
+  private regions: string[] = [];
+  private categories: string[] = [];
+  private preparationTime: number;
+  private instructions: string;
+  private recipeSaved = false;
+  private categoriesWereSelected = true;
+  private regionsWereSelected = true;
+  private tools: string[] = [];
+  private allergens: string[] = [];
+
 
   public infoModalTitle: string;
   public infoModalMessage: string;
@@ -90,7 +91,7 @@ export class RecipeComponent {
     });
 
     const recipe = new Recipe(-1, this.title, this.preparationTime, categoryKeys, regionKeys,
-      this.ingredients, this.instructions, [], '', [], [], [], this.tools, this.description);
+      this.ingredients, this.instructions, [], '', [], this.allergens, [], this.tools, this.description);
 
     // @ts-ignore
     document.querySelector('#recipeForm').reset();
@@ -98,6 +99,7 @@ export class RecipeComponent {
     this.regions = [];
     this.ingredients = [];
     this.tools = [];
+    this.allergens = [];
 
     this.userRecipeService.saveRecipe(recipe);
     this.recipeSaved = true;
@@ -106,15 +108,19 @@ export class RecipeComponent {
     }, 3000);
   }
 
-  openModal(id: string) {
+  openModal(id: string): void {
     this.modalService.openModal(id);
   }
 
-  onIngredients(event: Ingredient[]) {
+  onIngredients(event: Ingredient[]): void {
     this.ingredients = event;
   }
 
-  onTools(event: string[]) {
+  onTools(event: string[]): void {
     this.tools = event;
+  }
+
+  onAllergens(allergens: string[]): void {
+    this.allergens = allergens;
   }
 }
