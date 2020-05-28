@@ -82,6 +82,7 @@
 }
 
 .modal-content {
+  position: relative;
   top: 0;
   background-color: #fefefe;
   margin: 5% auto 15% auto;
@@ -95,11 +96,13 @@
 .modal-footer {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  position: absolute;
+  justify-content: flex-end;
+  bottom: 1rem;
 
   button {
-    width: 40%;
     padding: .3rem;
+    width: 8rem;
     background-color: #2196F3;
     border: 1px solid rgba(0, 0, 0, .5);
     color: white;
