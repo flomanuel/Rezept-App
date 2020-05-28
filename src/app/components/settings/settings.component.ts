@@ -107,7 +107,7 @@ export class SettingsComponent implements OnInit {
           text: '368@schulverwaltung.bremen.de',
           icon: 'email',
           function: () => {
-            window.open('mailto:368@schulverwaltung.bremen.de');
+            window.open('mailto:368@schulverwaltung.bremen.de?subject=Gourmet%20Fridge');
             return;
           },
         },
