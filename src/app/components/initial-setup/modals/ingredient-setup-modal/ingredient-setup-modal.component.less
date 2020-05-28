@@ -20,6 +20,21 @@
 }
 
 .modal-body {
+  position: relative;
+
+  .list-item-container {
+    max-height: 18rem;
+    overflow: auto;
+  }
+
+  .list-item--id__available-ingredients {
+    z-index: 1000;
+    position: absolute;
+    height: auto;
+    width: 100%;
+    overflow: auto;
+  }
+
   .input-field {
     display: flex;
     flex-direction: row;

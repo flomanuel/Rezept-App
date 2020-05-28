@@ -22,7 +22,7 @@
           </p>
         </div>
       </div>
-      <div *ngIf="defaultIngredientService.defaultIngredients.length > 0">
+      <div class="list-item-container" *ngIf="defaultIngredientService.defaultIngredients.length > 0">
         <h4>Ihre derzeitigen Standardzutaten</h4>
         <div class="list-item--ingredient" *ngFor="let ingredient of defaultIngredientService.defaultIngredients">
           <p (click)="defaultIngredientService.removeIngredient(ingredient)" ><!--
