@@ -9,21 +9,22 @@ import { animate, style, transition, trigger } from '@angular/animations';
   animations: [
     trigger('slideInOut', [
       transition(':enter', [
-        style({transform: 'translateX(100%)'}),
-        animate('300ms ease-in', style({transform: 'translateX(0%)'}))
+        style({ transform: 'translateX(100%)' }),
+        animate('300ms ease-in', style({ transform: 'translateX(0%)' })),
       ]),
       transition(':leave', [
-        animate('300ms ease-in', style({transform: 'translateX(100%)'}))
-      ])
-    ])
-  ]
+        animate('300ms ease-in', style({ transform: 'translateX(100%)' })),
+      ]),
+    ]),
+  ],
 })
 export class UserRecipeDetailPageComponent implements OnInit {
   @Input() private recipe!: Recipe;
 
   @Output() private closeEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

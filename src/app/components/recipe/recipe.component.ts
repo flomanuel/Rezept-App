@@ -18,7 +18,7 @@ export class RecipeComponent {
 
   public ingredients: Ingredient[] = [];
   public title = '';
-  public description: string = '';
+  public description = '';
   public regions: string[] = [];
   public categories: string[] = [];
   public preparationTime: number;
