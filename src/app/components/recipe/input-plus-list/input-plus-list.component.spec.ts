@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputPlusListComponent } from './input-plus-list.component';
 
-describe('InputPlusListComponent', () => {
+describe('ToolsInputPlusListComponent', () => {
   let component: InputPlusListComponent;
   let fixture: ComponentFixture<InputPlusListComponent>;
 

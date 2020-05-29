@@ -87,17 +87,17 @@
 
   <div id="ingredientsContainer" class="col-12">
     <label class="col-12">Zutaten</label>
-    <app-input-plus-list [items]="ingredients" (itemsEmitter)="onIngredients($event)"></app-input-plus-list>
+    <app-ingredient-input-plus-list [items]="ingredients" (itemsEmitter)="onIngredients($event)"></app-ingredient-input-plus-list>
   </div>
 
   <div id="toolsContainer" class="col-12">
     <label class="col-12">Utensilien</label>
-    <app-tools-input-plus-list name="tools" [items]="this.tools" (itemEmitter)="onTools($event)"></app-tools-input-plus-list>
+    <app-input-plus-list name="tools" [items]="this.tools" (itemEmitter)="onTools($event)"></app-input-plus-list>
   </div>
 
   <div id="allergensContainer" class="col-12">
     <label class="col-12">Allergene (optional)</label>
-    <app-tools-input-plus-list name="allergens" [items]="this.allergens" (itemEmitter)="onAllergens($event)"></app-tools-input-plus-list>
+    <app-input-plus-list name="allergens" [items]="this.allergens" (itemEmitter)="onAllergens($event)"></app-input-plus-list>
   </div>
 
   <div id="instructionsContainer" class="col-12">

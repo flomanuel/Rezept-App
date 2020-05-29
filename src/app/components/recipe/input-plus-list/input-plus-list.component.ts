@@ -1,27 +1,38 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { VolumeUnit } from '../../../types';
-import { Ingredient } from '../../../entity/ingredient.class';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-input-plus-list',
   templateUrl: './input-plus-list.component.html',
-  styleUrls: ['./input-plus-list.component.less'],
+  styleUrls: ['./input-plus-list.component.less']
 })
-export class InputPlusListComponent {
-  private readonly fileVolumeUnits: string[] = Object.values(VolumeUnit);
-  @Input() items!: Ingredient[];
-  @Output() itemsEmitter: EventEmitter<Ingredient[]> = new EventEmitter<Ingredient[]>();
+export class InputPlusListComponent implements OnInit {
+  @Input() private items!: string[];
+  @Input() private name!: string;
 
-  constructor() {
+  @Output() private readonly itemEmitter: EventEmitter<string[]> = new EventEmitter<string[]>();
+
+  constructor() { }
+
+  ngOnInit() {
   }
 
-  newInput(): void {
-    this.itemsEmitter.emit(this.items);
-    this.items.push(new Ingredient('', 0, '', 0, ''));
+  get listItems(): string[] {
+    return Array.isArray(this.items) ? this.items : [];
   }
 
-  removeInput(index: number): void {
+  onAdd(): void {
+    this.items.push('');
+  }
+
+  onRemove(index: number) {
     this.items.splice(index, 1);
-    this.itemsEmitter.emit(this.items);
+  }
+
+  emitItems(): void {
+    this.itemEmitter.emit(this.items);
+  }
+
+  trackByIndex(index: number, obj: any): any {
+    return index;
   }
 }

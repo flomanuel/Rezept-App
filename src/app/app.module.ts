@@ -10,7 +10,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { InputPlusListComponent } from './components/recipe/input-plus-list/input-plus-list.component';
+import { IngredientInputPlusListComponent } from './components/recipe/ingredient-input-plus-list/ingredient-input-plus-list.component';
 import { SearchPageComponent } from './components/search-page/search-page.component';
 import { RecipeListElementComponent } from './components/_search-page/recipe-list-element/recipe-list-element.component';
 import { SearchPageFilterTabComponent } from './components/_search-page/search-page-filter-tab/search-page-filter-tab.component';
@@ -41,7 +41,7 @@ import { IngredientSetupModalComponent } from './components/initial-setup/modals
 import { FridgeDetailPageComponent } from './components/fridge-detail-page/fridge-detail-page.component';
 import { DefaultIngredientsComponent } from './components/_settings/default-ingredients/default-ingredients.component';
 import { CreatedRecipeListComponent } from './components/created-recipe-list/created-recipe-list.component';
-import { ToolsInputPlusListComponent } from './components/recipe/tools-input-plus-list/tools-input-plus-list.component';
+import { InputPlusListComponent } from './components/recipe/input-plus-list/input-plus-list.component';
 import { UserRecipeDetailPageComponent } from './components/user-recipe-detail-page/user-recipe-detail-page.component';
 
 const appRoutes: Routes = [
@@ -122,7 +122,7 @@ const appRoutes: Routes = [
     RecipeComponent,
     AppComponent,
     HomePageComponent,
-    InputPlusListComponent,
+    IngredientInputPlusListComponent,
     HomePageComponent,
     SearchPageComponent,
     RecipeListElementComponent,
@@ -147,7 +147,7 @@ const appRoutes: Routes = [
     FridgeDetailPageComponent,
     DefaultIngredientsComponent,
     CreatedRecipeListComponent,
-    ToolsInputPlusListComponent,
+    InputPlusListComponent,
     InitialSetupComponent,
     GreetingModalComponent,
     IngredientSetupModalComponent,
