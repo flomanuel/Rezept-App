@@ -32,7 +32,7 @@ export class InputPlusListComponent implements OnInit {
     this.itemEmitter.emit(this.items);
   }
 
-  trackByIndex(index: number, obj: any): any {
+  trackByIndex(index: number, obj: any): number {
     return index;
   }
 }
