@@ -8,12 +8,6 @@ import { VolumeUnit } from '../types';
   providedIn: 'root',
 })
 export class LocalStorageService {
-  addToRecipes(recipe: Recipe): void {
-    const recipes = this.getItem(localStorageKeys.CREATED_RECIPES);
-    recipes.push(recipe);
-    this.setItem(localStorageKeys.CREATED_RECIPES, recipes);
-  }
-
   getItem(key: string): any[] {
     return JSON.parse(localStorage.getItem(key)) || [];
   }

@@ -2,14 +2,8 @@
   <div class="modal-content">
     <p>{{ message }}</p>
     <div class="modal-footer">
-      <div class="btn-group">
-        <div id="noContainer">
-          <button class="btn" id="no" (click)="emit(false)">Nein</button>
-        </div>
-        <div id="yesContainer">
-          <button class="btn" id="yes" (click)="emit(true)">Ja</button>
-        </div>
-      </div>
+      <button class="btn" id="no" (click)="emit(false)">Nein</button>
+      <button class="btn" id="yes" (click)="emit(true)">Ja</button>
     </div>
   </div>
 </div>

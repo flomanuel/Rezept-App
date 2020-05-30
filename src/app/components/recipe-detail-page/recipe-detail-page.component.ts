@@ -11,6 +11,8 @@ import { Ingredient } from '../../entity/ingredient.class';
 import { FirebaseService } from '../../services/firebase.service';
 import { FridgeService } from '../../services/fridge.service';
 import { DefaultIngredientService } from '../../services/default-ingredient.service';
+import { TimeService } from '../../services/time.service';
+import { PreparationTime } from '../../types';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -33,7 +35,8 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
               private router: Router,
               private routerParams: ActivatedRoute,
               private fridgeService: FridgeService,
-              private defaultIngredientService: DefaultIngredientService) {
+              private defaultIngredientService: DefaultIngredientService,
+              private readonly timeService: TimeService) {
   }
 
   async ngOnInit() {
@@ -76,15 +79,8 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  calculatePreparationTime(format: string) {
-    const time = this.recipe.preparationTime;
-    if (format === 'h') {
-      return Math.trunc(time / 60);
-    }
-
-    if (format === 'm') {
-      return time % 60;
-    }
+  calculatePreparationTime(format: string): PreparationTime|number {
+    return this.timeService.calculatePreparationTime(this.recipe.preparationTime, format);
   }
 
   openCookingSteps() {

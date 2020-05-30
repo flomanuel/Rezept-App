@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Recipe } from '../../../entity/recipe';
 import { categories, regions } from '../../../types';
 import { TranslationService } from '../../../services/translation.service';
+import { TimeService } from '../../../services/time.service';
 
 @Component({
   selector: 'app-recipe-card',
@@ -12,7 +13,7 @@ export class RecipeCardComponent implements OnInit {
   @Input() recipe!: Recipe;
   @Output() recipeIdToDelete: EventEmitter<Recipe> = new EventEmitter<Recipe>();
 
-  constructor(private readonly translationService: TranslationService) {
+  constructor(private readonly translationService: TranslationService, private readonly timeService: TimeService) {
   }
 
   ngOnInit() {

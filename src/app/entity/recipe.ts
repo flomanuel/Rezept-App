@@ -17,6 +17,7 @@ export class Recipe {
               public allergens?: string[],
               public steps?: RecipeStep[],
               public tools?: string[],
+              public description?: string,
   ) {
   }
 }

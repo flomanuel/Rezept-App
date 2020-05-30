@@ -107,8 +107,8 @@ export class SettingsComponent implements OnInit {
           text: '368@schulverwaltung.bremen.de',
           icon: 'email',
           function: () => {
-            // Todo open in email app?
-            return 0;
+            window.open('mailto:368@schulverwaltung.bremen.de?subject=Gourmet%20Fridge');
+            return;
           },
         },
       ],

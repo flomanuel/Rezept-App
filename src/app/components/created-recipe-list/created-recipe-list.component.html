@@ -1,0 +1,24 @@
+<app-header-bar></app-header-bar>
+<app-action-modal *ngIf="this.showModal" color="#1d88dd" (eventEmitter)="onUserDeleteChoice($event)" message="{{ this.deleteModalMessage }}"></app-action-modal>
+
+<app-user-recipe-detail-page *ngIf="shouldShowDetails" [recipe]="this.selectedRecipe" (closeEmitter)="closeDetails()"></app-user-recipe-detail-page>
+<div id="container">
+  <h2 *ngIf="this.createdRecipes.length > 0">Hier befinden sich die von Ihnen erstellten Rezepte</h2>
+  <h2 *ngIf="this.createdRecipes.length == 0">Sie haben noch keine Rezepte erstellt</h2>
+  <div class="recipe-card" *ngFor="let recipe of this.createdRecipes">
+    <div class="delete-btn-container">
+      <button (click)="showDeleteModalFor(recipe)"><i class="material-icons">delete</i></button>
+    </div>
+    <h4 class="recipe-card-heading">{{ recipe.title }}</h4>
+    <div class="recipe-card-body">
+      <p>{{ recipe.description }}</p>
+      <span><i class="material-icons icon">timer</i>
+        {{ this.timeService.calculatePreparationTime(recipe.preparationTime, 'h') }}h
+        {{ this.timeService.calculatePreparationTime(recipe.preparationTime, 'm') }}min
+    </span>
+    </div>
+    <div class="recipe-card-footer">
+      <button (click)="showDetails(recipe)">Rezept ansehen</button>
+    </div>
+  </div>
+</div>

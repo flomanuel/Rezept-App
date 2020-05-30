@@ -20,7 +20,11 @@
       Region(en): {{ getMappedAndTranslatedRegionsFromRecipe(recipe.region).join(', ') }}</p>
     <p class="recipe-categories">
       Kategorie(n): {{ getMappedAndTranslatedCategoriesFromRecipe(recipe.category).join(', ') }}</p>
-    <p>Vorbereitungszeit {{ recipe.preparationTime }}min</p>
+    <p class="preparationTime">
+      <i class="material-icons icon">timer</i>
+      {{ this.timeService.calculatePreparationTime(recipe.preparationTime, 'h') }}h
+      {{ this.timeService.calculatePreparationTime(recipe.preparationTime, 'm') }}min
+    </p>
   </div>
   <div class="card-footer">
     <button id="toRecipeBtn" routerLink="/recipe-detail-page/{{ recipe.id }}">Zum Rezept</button>

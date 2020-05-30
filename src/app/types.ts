@@ -105,3 +105,8 @@ export const ingredients = {
 };
 
 export type RecipeIdListTypes = 'ingredients' | 'regions' | 'categories';
+
+export interface PreparationTime {
+  hours: number;
+  minutes: number;
+}

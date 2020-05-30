@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { TranslationService } from '../../services/translation.service';
 import { Ingredient } from '../../entity/ingredient.class';
 import { categories, regions } from '../../types';
-import { LocalStorageService } from '../../services/local-storage.service';
 import { Recipe } from '../../entity/recipe';
 import { ModalService } from '../../services/modal.service';
+import { UserRecipeService } from '../../services/user-recipe.service';
 
 @Component({
   selector: 'app-recipe',
@@ -12,27 +12,29 @@ import { ModalService } from '../../services/modal.service';
   styleUrls: ['./recipe.component.less'],
 })
 export class RecipeComponent {
-
+  private readonly titleMaxLength = 75;
   private fileCategories: string[] = [];
   private fileRegions: string[] = [];
 
-  public ingredients: Ingredient[] = [];
-  public title = '';
-  public description: string;
-  public regions: string[] = [];
-  public categories: string[] = [];
-  public preparationTime: number;
-  public instructions: string;
-  public recipeSaved = false;
-  public error: any = false;
-  public categoriesWereSelected = true;
-  public regionsWereSelected = true;
+  private ingredients: Ingredient[] = [];
+  private title = '';
+  private description = '';
+  private regions: string[] = [];
+  private categories: string[] = [];
+  private preparationTime: number;
+  private instructions: string;
+  private recipeSaved = false;
+  private categoriesWereSelected = true;
+  private regionsWereSelected = true;
+  private tools: string[] = [];
+  private allergens: string[] = [];
+
 
   public infoModalTitle: string;
   public infoModalMessage: string;
 
   constructor(private readonly translationService: TranslationService,
-              private readonly localStorageService: LocalStorageService,
+              private readonly userRecipeService: UserRecipeService,
               private readonly modalService: ModalService) {
     this.fileCategories = Object.values(categories).map(category => this.getTranslatedWord(category));
     this.fileRegions = Object.values(regions).map(region => this.getTranslatedWord(region));
@@ -48,6 +50,8 @@ export class RecipeComponent {
 
   validRecipe(): boolean {
     return this.title &&
+      this.title.length <= this.titleMaxLength &&
+      this.tools.length > 0 &&
       this.ingredients.length > 0 &&
       this.regions.length > 0 &&
       this.description &&
@@ -75,8 +79,6 @@ export class RecipeComponent {
       return;
     }
 
-    const id = Math.floor(Math.random() * 9000);
-
     // Because we only save keys
     const categoryKeys = this.categories.map(cat => {
       cat = this.translationService.getGermanMapping().category[cat];
@@ -88,27 +90,37 @@ export class RecipeComponent {
       return parseInt(Object.keys(regions).find(key => regions[key] === reg), 10);
     });
 
-    const recipe = new Recipe(id, this.title, this.preparationTime, categoryKeys, regionKeys,
-      this.ingredients, this.instructions, [], '');
+    const recipe = new Recipe(-1, this.title, this.preparationTime, categoryKeys, regionKeys,
+      this.ingredients, this.instructions, [], '', [], this.allergens, [], this.tools, this.description);
 
     // @ts-ignore
     document.querySelector('#recipeForm').reset();
     this.categories = [];
     this.regions = [];
     this.ingredients = [];
+    this.tools = [];
+    this.allergens = [];
 
-    this.localStorageService.addToRecipes(recipe);
+    this.userRecipeService.saveRecipe(recipe);
     this.recipeSaved = true;
     setInterval(() => {
       this.recipeSaved = false;
     }, 3000);
   }
 
-  openModal(id: string) {
+  openModal(id: string): void {
     this.modalService.openModal(id);
   }
 
-  onIngredients(event: Ingredient[]) {
+  onIngredients(event: Ingredient[]): void {
     this.ingredients = event;
+  }
+
+  onTools(event: string[]): void {
+    this.tools = event;
+  }
+
+  onAllergens(allergens: string[]): void {
+    this.allergens = allergens;
   }
 }

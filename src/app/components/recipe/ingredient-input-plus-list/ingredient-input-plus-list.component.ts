@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { VolumeUnit } from '../../types';
-import { Ingredient } from '../../entity/ingredient.class';
+import { VolumeUnit } from '../../../types';
+import { Ingredient } from '../../../entity/ingredient.class';
 
 @Component({
-  selector: 'app-input-plus-list',
-  templateUrl: './input-plus-list.component.html',
-  styleUrls: ['./input-plus-list.component.less'],
+  selector: 'app-ingredient-input-plus-list',
+  templateUrl: './ingredient-input-plus-list.component.html',
+  styleUrls: ['./ingredient-input-plus-list.component.less'],
 })
-export class InputPlusListComponent {
+export class IngredientInputPlusListComponent {
   private readonly fileVolumeUnits: string[] = Object.values(VolumeUnit);
   @Input() items!: Ingredient[];
   @Output() itemsEmitter: EventEmitter<Ingredient[]> = new EventEmitter<Ingredient[]>();
