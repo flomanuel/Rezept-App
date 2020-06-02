@@ -1,3 +1,5 @@
+import { VolumeUnit } from '../types';
+
 export class Ingredient {
 
   constructor(public label: string, public amount: number, public volumeUnit: string, public id: number,
@@ -5,7 +7,7 @@ export class Ingredient {
               public saved: boolean = false) {
   }
 
-  static createBasic(label: string): Ingredient {
-    return new Ingredient(label, 0, '', 0);
+  static createBasic(customTitle: string): Ingredient {
+    return new Ingredient('', 0, VolumeUnit.GRAMM, 0, customTitle);
   }
 }

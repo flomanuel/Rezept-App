@@ -44,36 +44,19 @@ export class ShoppingListService {
   }
 
   getAllIngredientsFromRecipes(): Ingredient[] {
-    const selectedRecipes = this.selectedRecipes;
     const availableIngredients: Ingredient[] = this.localStorageService.getItem(localStorageKeys.FRIDGE_INGREDIENTS);
     let allIngredients: Ingredient[] = [];
 
-    selectedRecipes.forEach(recipe => {
+    this.selectedRecipes.forEach(recipe => {
       recipe.ingredients.forEach(ingredient => {
         if (allIngredients.includes(ingredient)) {
           allIngredients = this.sumIngredientsAmountAndDeleteFromListIfFridgeIsSufficient(allIngredients, ingredient, availableIngredients);
         } else {
-          if (availableIngredients.includes(ingredient)) {
-            this.pushIngredientInListIfNeeded(availableIngredients, ingredient, allIngredients);
-          } else {
-            allIngredients.push(ingredient);
-          }
+          allIngredients.push(ingredient);
         }
       });
     });
     return allIngredients;
-  }
-
-  private pushIngredientInListIfNeeded(availableIngredients: Ingredient[], ingredient: Ingredient, allIngredients: Ingredient[]): void {
-    availableIngredients.forEach(availableIngredient => {
-      if (availableIngredient.customTitle === ingredient.customTitle) {
-        let amount = availableIngredient.amount;
-        amount -= ingredient.amount;
-        if (amount > 0) {
-          allIngredients.push(ingredient);
-        }
-      }
-    });
   }
 
   private sumIngredientsAmountAndDeleteFromListIfFridgeIsSufficient(
@@ -125,7 +108,7 @@ export class ShoppingListService {
     const newIngredientsList = [];
     const oldIngredients = this.allIngredientsFilteredShoppingList;
     ingredientList.forEach(ingredient => {
-      let equalOldIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, '');
+      let equalOldIngredient = Ingredient.createBasic('');
       let hasEqual = false;
       oldIngredients.forEach(ingredientInList => {
         if (ingredientInList.customTitle === ingredient.customTitle) {
