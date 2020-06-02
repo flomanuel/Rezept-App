@@ -10,4 +10,12 @@ export class Ingredient {
   static createBasic(customTitle: string): Ingredient {
     return new Ingredient('', 0, VolumeUnit.GRAMM, -1, customTitle);
   }
+
+  amountSmallerThan(ingredient: Ingredient): boolean {
+    if (this.volumeUnit !== ingredient.volumeUnit) {
+      throw new Error(`Cannot compare volume unit ${this.volumeUnit} to ${ingredient.volumeUnit}`);
+    }
+
+    return this.amount < ingredient.amount;
+  }
 }
