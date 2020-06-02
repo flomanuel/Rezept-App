@@ -17,17 +17,15 @@ export class ShoppingListComponent implements OnInit {
 
   private privateIngredient: Ingredient;
   private recipeFilter: boolean;
-  private localStorageService: LocalStorageService;
   private localStorageKey = localStorageKeys;
   private sharingString = '';
 
-  constructor(private dataService: DataService,
-              localStorageService: LocalStorageService,
+  constructor(private readonly dataService: DataService,
+              private readonly localStorageService: LocalStorageService,
               private readonly shoppingListService: ShoppingListService
   ) {
     this.privateIngredient = Ingredient.createBasic('');
     this.recipeFilter = true;
-    this.localStorageService = localStorageService;
   }
 
   get recipeFilteredShoppingLists(): IngredientList[] {
