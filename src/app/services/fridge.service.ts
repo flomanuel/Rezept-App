@@ -41,10 +41,14 @@ export class FridgeService {
     return ids;
   }
 
+  isAmountI1SmallerI2(ingredient1: Ingredient, ingredient2: Ingredient): boolean {
+    return ingredient1.volumeUnit === ingredient2.volumeUnit && ingredient1.amount <= ingredient2.amount;
+  }
+
   isIngredientInFridge(ingredientToCheck: Ingredient): boolean {
     let ingredientAvailable = false;
-    this.fridgeIngredients.forEach(ingredient => {
-      if (!ingredientAvailable && ingredient.id === ingredientToCheck.id && ingredientToCheck.amountSmallerThan(ingredient)) {
+    this.fridgeIngredients.forEach(i => {
+      if (!ingredientAvailable && i.id === ingredientToCheck.id && this.isAmountI1SmallerI2(ingredientToCheck, i)) {
         ingredientAvailable = true;
       }
     });
