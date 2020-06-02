@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Ingredient } from '../../entity/ingredient.class';
-import { DataService } from '../../services/data.service';
-import { VolumeUnit } from '../../types';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { localStorageKeys } from '../../../config';
 import { ShoppingListService } from '../../services/shopping-list.service';
@@ -20,9 +18,8 @@ export class ShoppingListComponent implements OnInit {
   private localStorageKey = localStorageKeys;
   private sharingString = '';
 
-  constructor(private readonly dataService: DataService,
-              private readonly localStorageService: LocalStorageService,
-              private readonly shoppingListService: ShoppingListService
+  constructor(private readonly localStorageService: LocalStorageService,
+              private readonly shoppingListService: ShoppingListService,
   ) {
     this.privateIngredient = Ingredient.createBasic('');
     this.recipeFilter = true;
