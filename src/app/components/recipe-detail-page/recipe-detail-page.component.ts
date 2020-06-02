@@ -13,6 +13,7 @@ import { FridgeService } from '../../services/fridge.service';
 import { DefaultIngredientService } from '../../services/default-ingredient.service';
 import { TimeService } from '../../services/time.service';
 import { PreparationTime } from '../../types';
+import { ShoppingListService } from '../../services/shopping-list.service';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -36,7 +37,9 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
               private routerParams: ActivatedRoute,
               private fridgeService: FridgeService,
               private defaultIngredientService: DefaultIngredientService,
-              private readonly timeService: TimeService) {
+              private readonly timeService: TimeService,
+              private readonly shoppingListService: ShoppingListService,
+  ) {
   }
 
   async ngOnInit() {
@@ -73,13 +76,13 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
   toggleFavouriteRecipe() {
     const id = this.recipe.id;
     if (this.localStorageService.isRecipeFavoured(id)) {
-      this.localStorageService.removeFromFavouriteRecipes(id);
+      this.localStorageService.removeFromFavoriteRecipes(id);
     } else {
-      this.localStorageService.addToFavouriteRecipes(id);
+      this.localStorageService.addToFavoriteRecipes(id);
     }
   }
 
-  calculatePreparationTime(format: string): PreparationTime|number {
+  calculatePreparationTime(format: string): PreparationTime | number {
     return this.timeService.calculatePreparationTime(this.recipe.preparationTime, format);
   }
 
@@ -101,7 +104,7 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
 
   addIngredientToPrivateShoppingList(ingredient: Ingredient) {
     if (this.isIngredientAvailable(ingredient)) {
-      this.localStorageService.addIngredientToPrivateShoppingList(ingredient);
+      this.shoppingListService.addIngredientToPrivateShoppingList(ingredient);
       if (!this.ingredientAddedPrivateShoppingList) {
         this.ingredientAddedPrivateShoppingList = true;
 

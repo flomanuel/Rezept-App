@@ -4,6 +4,8 @@ import { DataService } from '../../services/data.service';
 import { VolumeUnit } from '../../types';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { localStorageKeys } from '../../../config';
+import { ShoppingListService } from '../../services/shopping-list.service';
+import { IngredientList } from '../../entity/IngredientList';
 
 
 @Component({
@@ -13,43 +15,43 @@ import { localStorageKeys } from '../../../config';
 })
 export class ShoppingListComponent implements OnInit {
 
-  privateIngredient: Ingredient;
-  recipeFilter: boolean;
-  localStorageService: LocalStorageService;
-  localStorageKey = localStorageKeys;
+  private privateIngredient: Ingredient;
+  private recipeFilter: boolean;
+  private localStorageService: LocalStorageService;
+  private localStorageKey = localStorageKeys;
+  private sharingString = '';
 
-  constructor(private dataService: DataService, localStorageService: LocalStorageService) {
+  constructor(private dataService: DataService,
+              localStorageService: LocalStorageService,
+              private readonly shoppingListService: ShoppingListService
+  ) {
     this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, '');
     this.recipeFilter = true;
     this.localStorageService = localStorageService;
   }
 
-  get recipeFilteredShoppingLists() {
-    return this.dataService.getRecipeFilteredShoppingLists();
-  }
-
-  get sharingString() {
-    return this.dataService.getSharingString();
+  get recipeFilteredShoppingLists(): IngredientList[] {
+    return this.shoppingListService.recipeFilteredShoppingLists;
   }
 
   get allIngredientsFilteredShoppingList() {
-    return this.dataService.getAllIngredientsFilteredShoppingList();
+    return this.shoppingListService.getAllIngredientsFilteredShoppingList();
   }
 
-  get privateShoppingList() {
-    return this.dataService.getPrivateShoppingList();
+  get privateShoppingList(): Ingredient[] {
+    return this.shoppingListService.privateShoppingList;
   }
 
   addNewPrivateIngredient() {
     if (this.privateIngredient.customTitle !== '') {
-      this.dataService.addItemToPrivateShoppingList(this.privateIngredient);
+      this.shoppingListService.addIngredientToPrivateShoppingList(this.privateIngredient);
       this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, '');
-      this.createSharingString();
+      this.sharingString = this.createSharingString();
     }
   }
 
-  toggleIngredient(localStorageKey: localStorageKeys, ingredient: Ingredient) {
-    this.dataService.toggleIngredient(localStorageKey, ingredient);
+  toggleIngredient(localStorageKey: string, ingredient: Ingredient): void {
+    this.shoppingListService.toggleIngredient(localStorageKey, ingredient);
   }
 
   toggleFilter() {
@@ -57,14 +59,40 @@ export class ShoppingListComponent implements OnInit {
   }
 
   deleteItem(ingredient: Ingredient) {
-    this.dataService.deleteIngredientFromPrivateShoppingList(ingredient);
-    this.createSharingString();
+    this.shoppingListService.deleteIngredientFromPrivateShoppingList(ingredient);
+    this.sharingString = this.createSharingString();
   }
 
   ngOnInit() {
   }
 
-  createSharingString() {
-    this.dataService.createSharingStringFromIngredients();
+  private createSharingString(): string {
+    let sharingString = '';
+    const privateShoppingList = this.privateShoppingList;
+
+    sharingString += 'Einkaufszettel: \n';
+    this.shoppingListService.getAllIngredientsFilteredShoppingList().forEach(ingredient => {
+      sharingString += `${ingredient.customTitle} ${ingredient.amount} ${ingredient.volumeUnit}`;
+
+      if (this.shoppingListService
+        .getAllIngredientsFilteredShoppingList()
+        .indexOf(ingredient) !== this.shoppingListService.getAllIngredientsFilteredShoppingList().length - 1) {
+
+        sharingString += ', \n';
+      }
+    });
+    if (privateShoppingList.length > 0) {
+      sharingString += ' \n--- \nZusätzliche Produkte: \n';
+      privateShoppingList.forEach(ingredient => {
+        sharingString += ingredient.customTitle;
+        if (privateShoppingList.indexOf(ingredient) !== privateShoppingList.length - 1) {
+          sharingString += ', \n';
+        }
+      });
+    }
+    sharingString += '\n\nEinkaufszettel erstellt mit Gourmet Fridge';
+
+    console.log(sharingString);
+    return encodeURIComponent(sharingString);
   }
 }
