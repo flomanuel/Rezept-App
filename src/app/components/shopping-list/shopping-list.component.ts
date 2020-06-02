@@ -35,7 +35,7 @@ export class ShoppingListComponent implements OnInit {
   }
 
   get allIngredientsFilteredShoppingList() {
-    return this.shoppingListService.getAllIngredientsFilteredShoppingList();
+    return this.shoppingListService.allIngredientsFilteredShoppingList;
   }
 
   get privateShoppingList(): Ingredient[] {
@@ -71,12 +71,12 @@ export class ShoppingListComponent implements OnInit {
     const privateShoppingList = this.privateShoppingList;
 
     sharingString += 'Einkaufszettel: \n';
-    this.shoppingListService.getAllIngredientsFilteredShoppingList().forEach(ingredient => {
+    this.shoppingListService.allIngredientsFilteredShoppingList.forEach(ingredient => {
       sharingString += `${ingredient.customTitle} ${ingredient.amount} ${ingredient.volumeUnit}`;
 
       if (this.shoppingListService
-        .getAllIngredientsFilteredShoppingList()
-        .indexOf(ingredient) !== this.shoppingListService.getAllIngredientsFilteredShoppingList().length - 1) {
+        .allIngredientsFilteredShoppingList
+        .indexOf(ingredient) !== this.shoppingListService.allIngredientsFilteredShoppingList.length - 1) {
 
         sharingString += ', \n';
       }

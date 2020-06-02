@@ -23,7 +23,7 @@ export class DataService {
     this.shoppingListService.updateShoppingLists();
   }
 
-  getTagsBySearchString(searchValue: string) {
+  getTagsBySearchString(searchValue: string): any[] {
     if (searchValue && searchValue !== '') {
       return this.tagList.filter(
         id => this.translationService.translate(ingredients[id]).toLowerCase().includes(searchValue.toLowerCase()));
@@ -31,8 +31,8 @@ export class DataService {
     return [];
   }
 
-  addRecipe(recipe: Recipe) {
-    this.localStorageService.addRecipeToSelectedRecipes(recipe);
+  addRecipe(recipe: Recipe): void {
+    this.shoppingListService.addRecipeToSelectedRecipes(recipe);
     this.shoppingListService.updateShoppingLists();
   }
 }

@@ -39,12 +39,12 @@ export class ShoppingListService {
   }
 
   updateShoppingLists(): void {
-    this.recipeShoppingLists = this.localStorageService.getSelectedRecipes().map(recipe => this.getIngredientsListForRecipe(recipe));
+    this.recipeShoppingLists = this.selectedRecipes.map(recipe => this.getIngredientsListForRecipe(recipe));
     this.setAllIngredientsFilteredShoppingList(this.getAllIngredientsFromRecipes());
   }
 
-  getAllIngredientsFromRecipes() {
-    const selectedRecipes = this.localStorageService.getSelectedRecipes();
+  getAllIngredientsFromRecipes(): Ingredient[] {
+    const selectedRecipes = this.selectedRecipes;
     const availableIngredients: Ingredient[] = this.localStorageService.getItem(localStorageKeys.FRIDGE_INGREDIENTS);
     let allIngredients: Ingredient[] = [];
 
@@ -64,7 +64,7 @@ export class ShoppingListService {
     return allIngredients;
   }
 
-  private pushIngredientInListIfNeeded(availableIngredients: Ingredient[], ingredient: Ingredient, allIngredients: Ingredient[]) {
+  private pushIngredientInListIfNeeded(availableIngredients: Ingredient[], ingredient: Ingredient, allIngredients: Ingredient[]): void {
     availableIngredients.forEach(availableIngredient => {
       if (availableIngredient.customTitle === ingredient.customTitle) {
         let amount = availableIngredient.amount;
@@ -79,7 +79,7 @@ export class ShoppingListService {
   private sumIngredientsAmountAndDeleteFromListIfFridgeIsSufficient(
     allIngredients: Ingredient[],
     ingredient: Ingredient,
-    availableIngredients: Ingredient[]) {
+    availableIngredients: Ingredient[]): Ingredient[] {
     allIngredients.forEach(ingredientInList => {
       if (ingredientInList.customTitle === ingredient.customTitle) {
         ingredientInList.amount += ingredient.amount;
@@ -121,9 +121,9 @@ export class ShoppingListService {
     this.localStorageService.setItem(localStorageKeys.PRIVATE_SHOPPING_LIST, privateShoppingList);
   }
 
-  setAllIngredientsFilteredShoppingList(ingredientList: Ingredient[]) {
+  setAllIngredientsFilteredShoppingList(ingredientList: Ingredient[]): void {
     const newIngredientsList = [];
-    const oldIngredients = this.getAllIngredientsFilteredShoppingList();
+    const oldIngredients = this.allIngredientsFilteredShoppingList;
     ingredientList.forEach(ingredient => {
       let equalOldIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, '');
       let hasEqual = false;
@@ -142,8 +142,18 @@ export class ShoppingListService {
     this.localStorageService.setItem(localStorageKeys.ALL_INGREDIENTS_SHOPPING_LIST, newIngredientsList);
   }
 
-  getAllIngredientsFilteredShoppingList(): any[] {
+  addRecipeToSelectedRecipes(recipe: Recipe): void {
+    const selectedRecipes = this.selectedRecipes;
+    selectedRecipes.push(recipe);
+    this.localStorageService.setItem(localStorageKeys.SELECTED_RECIPES, selectedRecipes);
+  }
+
+  get allIngredientsFilteredShoppingList(): any[] {
     return this.localStorageService.getItem(localStorageKeys.ALL_INGREDIENTS_SHOPPING_LIST);
+  }
+
+  get selectedRecipes(): Recipe[] {
+    return this.localStorageService.getItem(localStorageKeys.SELECTED_RECIPES);
   }
 
   get recipeFilteredShoppingLists(): IngredientList[] {
