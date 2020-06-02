@@ -22,28 +22,6 @@ export class LocalStorageService {
     return localStorage.getItem(key) !== null;
   }
 
-  addToFavoriteRecipes(id: number): void {
-    const favouriteRecipes = this.getItem(localStorageKeys.FAVORITE_RECIPES);
-    favouriteRecipes.push(id);
-    this.setItem(localStorageKeys.FAVORITE_RECIPES, favouriteRecipes);
-  }
-
-  removeFromFavoriteRecipes(id: number) {
-    if (this.getItem(localStorageKeys.FAVORITE_RECIPES) !== null) {
-      const favoriteRecipes = this.getItem(localStorageKeys.FAVORITE_RECIPES);
-      const index = favoriteRecipes.indexOf(id);
-      if (index >= 0) {
-        favoriteRecipes.splice(index, 1);
-      }
-      this.setItem(localStorageKeys.FAVORITE_RECIPES, favoriteRecipes);
-    }
-  }
-
-  isRecipeFavoured(id: number): boolean {
-    const favouriteRecipes = this.getItem(localStorageKeys.FAVORITE_RECIPES);
-    return favouriteRecipes.includes(id);
-  }
-
   getSelectedRecipes(): Recipe[] {
     return this.getItem(localStorageKeys.SELECTED_RECIPES);
   }

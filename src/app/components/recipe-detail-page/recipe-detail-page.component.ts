@@ -14,6 +14,7 @@ import { DefaultIngredientService } from '../../services/default-ingredient.serv
 import { TimeService } from '../../services/time.service';
 import { PreparationTime } from '../../types';
 import { ShoppingListService } from '../../services/shopping-list.service';
+import { FavoredRecipeService } from '../../services/favored-recipe.service';
 
 @Component({
   selector: 'app-recipedetailpage',
@@ -26,19 +27,20 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
   private recipe: Recipe;
   private ingredientAddedPrivateShoppingList = false;
 
-  constructor(private db: AngularFirestore,
-              private typesMapper: TypesMappingService,
-              private localStorageService: LocalStorageService,
-              private ingredientInfoService: IngredientInfoService,
-              private translationService: TranslationService,
-              private dataService: DataService,
-              private firebaseService: FirebaseService,
-              private router: Router,
-              private routerParams: ActivatedRoute,
-              private fridgeService: FridgeService,
-              private defaultIngredientService: DefaultIngredientService,
+  constructor(private readonly db: AngularFirestore,
+              private readonly typesMapper: TypesMappingService,
+              private readonly localStorageService: LocalStorageService,
+              private readonly ingredientInfoService: IngredientInfoService,
+              private readonly translationService: TranslationService,
+              private readonly dataService: DataService,
+              private readonly firebaseService: FirebaseService,
+              private readonly router: Router,
+              private readonly routerParams: ActivatedRoute,
+              private readonly fridgeService: FridgeService,
+              private readonly defaultIngredientService: DefaultIngredientService,
               private readonly timeService: TimeService,
               private readonly shoppingListService: ShoppingListService,
+              private readonly favoredRecipeService: FavoredRecipeService,
   ) {
   }
 
@@ -73,12 +75,12 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
     return availabilityStatus;
   }
 
-  toggleFavouriteRecipe() {
+  toggleFavouriteRecipe(): void {
     const id = this.recipe.id;
-    if (this.localStorageService.isRecipeFavoured(id)) {
-      this.localStorageService.removeFromFavoriteRecipes(id);
+    if (this.favoredRecipeService.isRecipeFavoured(id)) {
+      this.favoredRecipeService.removeFromFavoriteRecipes(id);
     } else {
-      this.localStorageService.addToFavoriteRecipes(id);
+      this.favoredRecipeService.addToFavoriteRecipes(id);
     }
   }
 
@@ -86,7 +88,7 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
     return this.timeService.calculatePreparationTime(this.recipe.preparationTime, format);
   }
 
-  openCookingSteps() {
+  openCookingSteps(): void {
     this.router.navigate(['cooking-steps'], {
         queryParams: {
           recipe: JSON.stringify(this.recipe),
@@ -95,14 +97,14 @@ export class RecipeDetailPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  showIngredientInfo(additionalInfo: boolean, infoID: number) {
+  showIngredientInfo(additionalInfo: boolean, infoID: number): void {
     if (additionalInfo && infoID) {
       this.router.navigate(['ingredient-information/' + infoID],
       );
     }
   }
 
-  addIngredientToPrivateShoppingList(ingredient: Ingredient) {
+  addIngredientToPrivateShoppingList(ingredient: Ingredient): void {
     if (this.isIngredientAvailable(ingredient)) {
       this.shoppingListService.addIngredientToPrivateShoppingList(ingredient);
       if (!this.ingredientAddedPrivateShoppingList) {
