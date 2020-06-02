@@ -8,6 +8,6 @@ export class Ingredient {
   }
 
   static createBasic(customTitle: string): Ingredient {
-    return new Ingredient('', 0, VolumeUnit.GRAMM, 0, customTitle);
+    return new Ingredient('', 0, VolumeUnit.GRAMM, -1, customTitle);
   }
 }
