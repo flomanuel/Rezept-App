@@ -87,7 +87,7 @@ export class TranslationService {
     };
   }
 
-  getGermanMapping() {
+  getGermanMapping(): TranslationMapping {
     const mapping = this.getMapping();
     return {
       category: this.flipKeysAndValuesFromObject(mapping.category),
