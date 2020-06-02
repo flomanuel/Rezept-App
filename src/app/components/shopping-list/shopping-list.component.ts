@@ -92,7 +92,6 @@ export class ShoppingListComponent implements OnInit {
     }
     sharingString += '\n\nEinkaufszettel erstellt mit Gourmet Fridge';
 
-    console.log(sharingString);
     return encodeURIComponent(sharingString);
   }
 }
