@@ -25,7 +25,7 @@ export class IngredientSetupModalComponent implements OnInit {
               private defaultIngredientService: DefaultIngredientService) { }
 
   ngOnInit() {
-    this.newIngredient = new Ingredient('', 0, '', -1);
+    this.newIngredient = Ingredient.createBasic('');
   }
 
   removeIngredient(label: string): void {
@@ -42,7 +42,7 @@ export class IngredientSetupModalComponent implements OnInit {
       if (!this.defaultIngredientService.isIngredientDefaultIngredient(this.newIngredient)) {
         this.defaultIngredientService.addToDefaultIngredients(this.newIngredient);
         this.ingredientSearchValue = '';
-        this.newIngredient = new Ingredient('', 0, '', -1);
+        this.newIngredient = Ingredient.createBasic('');
       } else {
         this.errorIngredientAlreadyDefault = true;
       }

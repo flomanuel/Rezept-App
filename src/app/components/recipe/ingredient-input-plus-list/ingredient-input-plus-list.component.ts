@@ -17,7 +17,7 @@ export class IngredientInputPlusListComponent {
 
   newInput(): void {
     this.itemsEmitter.emit(this.items);
-    this.items.push(new Ingredient('', 0, '', 0, ''));
+    this.items.push(Ingredient.createBasic(''));
   }
 
   removeInput(index: number): void {

@@ -22,7 +22,7 @@ export class DefaultIngredientsComponent implements OnInit {
   constructor(private localStorageService: LocalStorageService, private translationService: TranslationService,
               private typesMappingService: TypesMappingService, private dataService: DataService,
               private defaultIngredientService: DefaultIngredientService) {
-    this.newIngredient = new Ingredient('', 0, '', -1);
+    this.newIngredient = Ingredient.createBasic('');
   }
 
   ngOnInit() {
@@ -38,7 +38,7 @@ export class DefaultIngredientsComponent implements OnInit {
       if (!this.defaultIngredientService.isIngredientDefaultIngredient(this.newIngredient)) {
         this.defaultIngredientService.addToDefaultIngredients(this.newIngredient);
         this.ingredientSearchValue = '';
-        this.newIngredient = new Ingredient('', 0, '', -1);
+        this.newIngredient = Ingredient.createBasic('');
       } else {
         this.errorIngredientAlreadyDefault = true;
       }

@@ -25,7 +25,7 @@ export class ShoppingListComponent implements OnInit {
               localStorageService: LocalStorageService,
               private readonly shoppingListService: ShoppingListService
   ) {
-    this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, '');
+    this.privateIngredient = Ingredient.createBasic('');
     this.recipeFilter = true;
     this.localStorageService = localStorageService;
   }
@@ -45,7 +45,7 @@ export class ShoppingListComponent implements OnInit {
   addNewPrivateIngredient() {
     if (this.privateIngredient.customTitle !== '') {
       this.shoppingListService.addIngredientToPrivateShoppingList(this.privateIngredient);
-      this.privateIngredient = new Ingredient('', 0, VolumeUnit.GRAMM, 1, '');
+      this.privateIngredient = Ingredient.createBasic('');
       this.sharingString = this.createSharingString();
     }
   }
