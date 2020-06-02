@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Recipe } from '../entity/recipe';
 import { ingredients } from '../types';
 import { TranslationService } from './translation.service';
-import { LocalStorageService } from './local-storage.service';
 import { ShoppingListService } from './shopping-list.service';
 
 @Injectable({
@@ -12,7 +11,6 @@ export class DataService {
   public tagList: number[] = [];
 
   constructor(private readonly translationService: TranslationService,
-              private readonly localStorageService: LocalStorageService,
               private readonly shoppingListService: ShoppingListService,
   ) {
     for (const index in ingredients) {
