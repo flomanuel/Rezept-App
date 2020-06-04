@@ -110,3 +110,15 @@ export interface PreparationTime {
   hours: number;
   minutes: number;
 }
+
+export interface TranslationMapping {
+  category: {
+    [key: string]: string
+  };
+  region: {
+    [key: string]: string
+  };
+  ingredient: {
+    [key: string]: string
+  };
+}

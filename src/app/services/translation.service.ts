@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TranslationMapping } from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class TranslationService {
     return null;
   }
 
-  private getMapping(): { category: { [key: string]: string }, region: { [key: string]: string }, ingredient: { [key: string]: string } } {
+  private getMapping(): TranslationMapping {
     return {
       category: {
         soup: 'Suppe',
@@ -86,7 +87,7 @@ export class TranslationService {
     };
   }
 
-  getGermanMapping() {
+  getGermanMapping(): TranslationMapping {
     const mapping = this.getMapping();
     return {
       category: this.flipKeysAndValuesFromObject(mapping.category),

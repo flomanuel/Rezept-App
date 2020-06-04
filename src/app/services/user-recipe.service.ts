@@ -14,7 +14,7 @@ export class UserRecipeService {
     return this.localStorageService.getItem(localStorageKeys.CREATED_RECIPES);
   }
 
-  saveRecipe(recipe: Recipe) {
+  saveRecipe(recipe: Recipe): void {
     const recipes = this.localStorageService.getItem(localStorageKeys.CREATED_RECIPES);
     recipes.push(recipe);
     this.localStorageService.setItem(localStorageKeys.CREATED_RECIPES, recipes);

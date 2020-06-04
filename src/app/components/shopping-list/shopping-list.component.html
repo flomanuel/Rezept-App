@@ -29,9 +29,9 @@
 
   <div *ngIf="recipeFilter" class="ingredient-list-wrapper">
     <table>
-      <tr class="clear-row" *ngIf="allIngredientsFilteredShoppingList.length === 0">Keine Rezepte ausgewählt.</tr>
-      <tr [class.item-checked]="ingredient.done" *ngFor="let ingredient of allIngredientsFilteredShoppingList"
-          (click)="toggleIngredient(localStorageKey.SELECTED_RECIPES, ingredient)">
+      <tr class="clear-row" *ngIf="this.allIngredientsFilteredShoppingList.length === 0">Keine Rezepte ausgewählt.</tr>
+      <tr [class.item-checked]="ingredient.done" *ngFor="let ingredient of this.allIngredientsFilteredShoppingList"
+          (click)="this.toggleIngredient(localStorageKey.SELECTED_RECIPES, ingredient)">
         <td>{{ingredient.customTitle}}</td>
         <td class="td-second">{{ingredient.amount}} {{ingredient.volumeUnit}}</td>
       </tr>

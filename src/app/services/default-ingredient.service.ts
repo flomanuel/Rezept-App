@@ -31,10 +31,6 @@ export class DefaultIngredientService {
   }
 
   get defaultIngredientsById(): number[] {
-    const ids: number[] = [];
-    this.defaultIngredients.forEach(ingredient => {
-      ids.push(ingredient.id);
-    });
-    return ids;
+    return this.defaultIngredients.map(ingredient => ingredient.id);
   }
 }

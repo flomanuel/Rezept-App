@@ -4,7 +4,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { TranslationService } from '../../services/translation.service';
 import { categories, PopupType, regions } from '../../types';
 import { Ingredient } from '../../entity/ingredient.class';
-import { LocalStorageService } from '../../services/local-storage.service';
+import { ShoppingListService } from '../../services/shopping-list.service';
 
 @Component({
   selector: 'app-user-recipe-detail-page',
@@ -31,7 +31,7 @@ export class UserRecipeDetailPageComponent implements OnInit {
 
   constructor(
     private readonly translationService: TranslationService,
-    private readonly localStorageService: LocalStorageService,
+    private readonly shoppingListService: ShoppingListService,
   ) {
   }
 
@@ -53,7 +53,7 @@ export class UserRecipeDetailPageComponent implements OnInit {
   }
 
   addToShoppingList(ingredient: Ingredient): void {
-    this.localStorageService.addIngredientToPrivateShoppingList(ingredient);
+    this.shoppingListService.addIngredientToPrivateShoppingList(ingredient);
     this.showPopup = true;
     setInterval(() => {
       this.showPopup = false;
