@@ -53,12 +53,19 @@
   </div>
 
   <div class="sharing-button">
-    <div *ngIf="recipeFilter" align="center" class="sharing-button--whatsapp">
-      <a href="https://api.whatsapp.com/send?text={{sharingString}}" target="_blank"></a>
+    <div *ngIf="recipeFilter" align="center">
+      <a href="https://api.whatsapp.com/send?text={{sharingString}}" target="_blank" class="sharing-button--whatsapp">
+        <img src="../../../assets/icons/whatsapp_share.svg" alt="whatsapp" class="sharing-button--whatsapp">
+      </a>
     </div>
     <div align="center" style="margin-top: 10px" class="sharing-button--market-search">
       <a routerLink="/markets">
         <img src="../../../assets/icons/markets-around.svg" alt="Markets">
+      </a>
+    </div>
+    <div align="center">
+      <a href="https://lieferando.de" target="_blank">
+        <img src="../../../assets/objects/lieferando_button_klein.png" alt="lieferando" class="sharing-button--lieferando">
       </a>
     </div>
   </div>

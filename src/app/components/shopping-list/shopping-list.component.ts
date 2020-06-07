@@ -59,6 +59,7 @@ export class ShoppingListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sharingString = this.createSharingString();
   }
 
   private createSharingString(): string {

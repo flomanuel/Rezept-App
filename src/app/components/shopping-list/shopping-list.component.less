@@ -102,14 +102,6 @@ button[type=submit] {
       margin: 10px 20px;
     }
 
-    &.sharing-button--whatsapp {
-      width: 50px;
-      height: 50px;
-      background-image: url("../../../assets/icons/whatsapp_share.svg");
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-
     @media screen and (max-width: @width_max-sm) {
       &:first-of-type {
         margin: 10px 10px 10px 40px;
@@ -118,6 +110,16 @@ button[type=submit] {
       &:last-of-type {
         margin: 10px 40px 10px 10px;
       }
+    }
+  }
+
+  img{
+    &.sharing-button--whatsapp {
+      width: 60px;
+    }
+    &.sharing-button--lieferando {
+      margin-top: 5px;
+      height: 55px
     }
   }
 }
