@@ -1,3 +1,7 @@
+# ⛔️ DEPRECATED
+
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 # RezeptApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.2.
